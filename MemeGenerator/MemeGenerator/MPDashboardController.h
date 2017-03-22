@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MPBaseViewController.h"
 
-@interface ViewController : UIViewController
+@interface MPDashboardController : MPBaseViewController
 
 
 @end

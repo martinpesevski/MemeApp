@@ -6,13 +6,13 @@
 //  Copyright © 2017 Martin Peshevski. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "MPDashboardController.h"
 
-@interface ViewController ()
+@interface MPDashboardController ()
 
 @end
 
-@implementation ViewController
+@implementation MPDashboardController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
