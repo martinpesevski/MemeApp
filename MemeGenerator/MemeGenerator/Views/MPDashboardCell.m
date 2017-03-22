@@ -33,6 +33,7 @@
 - (void)setupViews
 {
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+    self.backgroundColor = [UIColor clearColor];
     
     self.cellImageView = [[UIImageView alloc] init];
     

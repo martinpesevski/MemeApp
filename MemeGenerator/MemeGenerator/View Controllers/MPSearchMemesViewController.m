@@ -11,12 +11,15 @@
 #import "MPMemeCell.h"
 #import "Constants.h"
 #import "MPMemeMakerViewController.h"
+#import "MPColorManager.h"
 
 @interface MPSearchMemesViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) UICollectionView *memesCollectionView;
 
 @property (nonatomic, strong) NSArray *memesArray;
+
+@property (nonatomic, strong) UISearchBar *searchBar;
 
 @end
 
@@ -31,6 +34,8 @@
 
 - (void)setupViews
 {
+    self.title = @"Select a meme";
+    
     NSMutableArray *memesMutable = [[NSMutableArray alloc] init];
     for (int i=1; i<11; i++) {
         [memesMutable addObject:[UIImage imageNamed:[NSString stringWithFormat:@"meme%d", i]]];
@@ -42,15 +47,24 @@
     self.memesCollectionView.delegate = self;
     self.memesCollectionView.dataSource = self;
     [self.memesCollectionView registerClass:[MPMemeCell class] forCellWithReuseIdentifier:@"memeCellIdentifier"];
-    self.memesCollectionView.backgroundColor = [UIColor whiteColor];
+    self.memesCollectionView.backgroundColor = [UIColor clearColor];
 
+    self.searchBar = [[UISearchBar alloc] init];
+    self.searchBar.barTintColor = [MPColorManager colorFromHexString:@"#838BFF"];
+    
+    [self.view addSubview:self.searchBar];
     [self.view addSubview:self.memesCollectionView];
 }
 
 - (void)setConstraints
 {
+    [self.searchBar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self.view);
+        make.height.equalTo(@40);
+    }];
     [self.memesCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
+        make.left.right.bottom.equalTo(self.view);
+        make.top.equalTo(self.searchBar.mas_bottom);
     }];
 }
 

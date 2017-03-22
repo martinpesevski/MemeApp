@@ -10,6 +10,7 @@
 //#import "MPLoginViewController.h"
 #import "MPMainViewController.h"
 #import "AppDelegate.h"
+#import "MPColorManager.h"
 
 @interface MPBaseViewController ()
 
@@ -25,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [MPColorManager colorFromHexString:@"#838BFF"];
     
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
         self.edgesForExtendedLayout = UIRectEdgeNone;

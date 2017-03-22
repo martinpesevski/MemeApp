@@ -28,6 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"How would you like to create your meme?";
+    
     self.cellNamesArray = @[@"From a new photo", @"From an image or pic", @"From a known meme"];
     self.cellImagesArray = @[[UIImage imageNamed:@"ic_camera"],
                              [UIImage imageNamed:@"ic_folder"],
@@ -43,9 +45,9 @@
     self.dashboardTableView.delegate = self;
     self.dashboardTableView.dataSource = self;
     [self.dashboardTableView registerClass:[MPDashboardCell class] forCellReuseIdentifier:@"dashboarIdentifier"];
-    self.dashboardTableView.backgroundColor = [UIColor redColor];
     self.dashboardTableView.separatorColor = [UIColor clearColor];
     self.dashboardTableView.scrollEnabled = NO;
+    self.dashboardTableView.backgroundColor = [UIColor clearColor];
 
     [self.view addSubview:self.dashboardTableView];
 }
