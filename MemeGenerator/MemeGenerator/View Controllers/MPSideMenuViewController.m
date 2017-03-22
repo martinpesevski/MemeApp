@@ -65,11 +65,8 @@
     UIViewController *matesController = [[UIViewController alloc] init];
     MPBaseNavigationViewController *matesNavController = [[MPBaseNavigationViewController alloc] initWithRootViewController:matesController];
     
-    UIViewController *settingsController = [[UIViewController alloc] init];
-    MPBaseNavigationViewController *settingsNavController = [[MPBaseNavigationViewController alloc] initWithRootViewController:settingsController];
-    
-    self.viewControllerAray = @[hotelsNavController, leagueNavController, matesNavController, settingsNavController];
-    self.controllerNamesArray = @[@"Hotels", @"Apartments", @"Hostels", @"My profile", @"Sign out"];
+    self.viewControllerAray = @[hotelsNavController, leagueNavController, matesNavController];
+    self.controllerNamesArray = @[@"Your Memes", @"Newest", @"Popular"];
 }
 
 - (void)setupViews
@@ -101,9 +98,6 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 3) {
-        return 76;
-    }
     return 60;
 }
 
@@ -119,8 +113,6 @@
         mainController.rootViewController = self.viewControllerAray[indexPath.row];
         
         [self hideLeftViewAnimated:nil];
-    } else if (indexPath.row == self.controllerNamesArray.count - 1) {
-        [self signOut];
     }
 }
 
@@ -135,18 +127,6 @@
     [cell setupWithTitle:indexPath.row];
     
     return cell;
-}
-
-- (void)signOut
-{
-    [MPAlertManager showAlertMessage:@"Logout" withOKblock:^{
-//        [[MPAuthenticationManager sharedManager] signOut];
-//        AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//        [[GIDSignIn sharedInstance] signOut];
-        //    [[[Twitter sharedInstance] sessionStore] logOutUserID:@"1860133076"];
-        
-//        [appDelegate setSignIn];
-    }];
 }
 
 @end

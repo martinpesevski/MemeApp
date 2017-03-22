@@ -19,19 +19,19 @@
 
 - (void)setup
 {
-    MPSideMenuViewController *leftMenuController = [[MPSideMenuViewController alloc] init];
-    self.leftViewWidth = 250.0;
-    self.leftViewBackgroundColor = [UIColor colorWithRed:0.5 green:0.6 blue:0.5 alpha:0.9];
-    self.rootViewCoverColorForLeftView = [UIColor colorWithRed:0.0 green:1.0 blue:0.0 alpha:0.05];
-    self.leftViewPresentationStyle = LGSideMenuPresentationStyleSlideAbove;
-    self.leftViewController = leftMenuController;
+    MPSideMenuViewController *rightMenuController = [[MPSideMenuViewController alloc] init];
+    self.rightViewWidth = 200.0;
+    self.rightViewBackgroundColor = [UIColor colorWithRed:0.5 green:0.6 blue:0.5 alpha:0.9];
+    self.rootViewCoverColorForRightView = [UIColor colorWithRed:0.0 green:1.0 blue:0.0 alpha:0.05];
+    self.rightViewPresentationStyle = LGSideMenuPresentationStyleSlideAbove;
+    self.rightViewController = rightMenuController;
 }
 
-- (void)leftViewWillLayoutSubviewsWithSize:(CGSize)size {
-    [super leftViewWillLayoutSubviewsWithSize:size];
+- (void)rightViewWillLayoutSubviewsWithSize:(CGSize)size {
+    [super rightViewWillLayoutSubviewsWithSize:size];
     
-    if (!self.isLeftViewStatusBarHidden) {
-        self.leftView.frame = CGRectMake(0.0, 20.0, size.width, size.height-20.0);
+    if (!self.isRightViewStatusBarHidden) {
+        self.rightView.frame = CGRectMake(0.0, 20.0, size.width, size.height-20.0);
     }
 }
 
@@ -44,7 +44,7 @@
 {
     [super viewDidAppear:animated];
     
-    [self showLeftViewAnimated:YES completionHandler:nil];
+    [self showRightViewAnimated:YES completionHandler:nil];
 }
 
 - (void)setupViews
