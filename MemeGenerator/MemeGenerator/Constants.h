@@ -34,6 +34,7 @@
 
 #define kLeftRightPadding 10
 #define kTableViewPadding 20
+#define kMemePadding 30
 #define kButtonHeight 30
 #define kLoginButtonHeight 40
 #define kTradeButtonHeight 50

@@ -9,10 +9,12 @@
 #import "MPDashboardController.h"
 #import "MPDashboardCell.h"
 #import "Masonry.h"
+#import "MPMemeMakerViewController.h"
+#import "MPSearchMemesViewController.h"
 
 #define kDashboardCellHeight 150
 
-@interface MPDashboardController () <UITableViewDelegate, UITableViewDataSource>
+@interface MPDashboardController () <UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) NSArray *cellNamesArray;
 @property (nonatomic, strong) NSArray *cellImagesArray;
@@ -79,6 +81,40 @@
     [cell setupWithText:self.cellNamesArray[indexPath.row] image:self.cellImagesArray[indexPath.row]];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.row) {
+        case 1:
+        {
+            UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+            imagePickerController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            imagePickerController.delegate = self;
+            [self presentViewController:imagePickerController animated:YES completion:nil];
+        }
+            break;
+        case 2:
+        {
+            MPSearchMemesViewController *searchMemesController = [[MPSearchMemesViewController alloc] init];
+            [self.navigationController pushViewController:searchMemesController animated:YES];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+#pragma mark - imagePicker methods
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+{
+    UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+    
+    [picker dismissViewControllerAnimated:YES completion:^{
+        MPMemeMakerViewController *memeMakerController = [[MPMemeMakerViewController alloc] initWithImage:image];
+        [self.navigationController pushViewController:memeMakerController animated:YES];
+    }];
 }
 
 @end
