@@ -43,8 +43,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
-    [self showRightViewAnimated:YES completionHandler:nil];
 }
 
 - (void)setupViews

@@ -10,6 +10,7 @@
 #import "Masonry.h"
 #import "MPMemeCell.h"
 #import "Constants.h"
+#import "MPMemeMakerViewController.h"
 
 @interface MPSearchMemesViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -78,6 +79,16 @@
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     return UIEdgeInsetsMake(kMemePadding, kMemePadding, kMemePadding, kMemePadding);
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return kMemePadding;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    MPMemeMakerViewController *memeMakerController = [[MPMemeMakerViewController alloc] initWithImage:self.memesArray[indexPath.row]];
+    [self.navigationController pushViewController:memeMakerController animated:YES];
 }
 
 @end
