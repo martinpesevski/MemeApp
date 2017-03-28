@@ -10,6 +10,7 @@
 #import "Masonry.h"
 #import "Constants.h"
 #import "MPColorManager.h"
+#import "MPShareMemeViewController.h"
 
 #define kMemeImageHeightWidth 300
 
@@ -158,7 +159,7 @@
 {
     UIFont *font = [UIFont fontWithName:@"impact" size:20];
     NSDictionary *attributes = @{NSFontAttributeName: font};
-    float labelWidth = (self.memeImageView.frame.size.width - 2 * kLeftRightPadding);
+    float labelWidth = (self.memeImage.size.width - 2 * kLeftRightPadding);
     CGRect topLabelRect = [self.topLabel.text boundingRectWithSize:CGSizeMake(labelWidth, CGFLOAT_MAX)
                                                            options:NSStringDrawingUsesLineFragmentOrigin
                                                         attributes:attributes
@@ -169,9 +170,9 @@
                                                         attributes:attributes
                                                            context:nil];
     
-    UIGraphicsBeginImageContext(self.memeImageView.frame.size);
-    [self.memeImage drawInRect:CGRectMake(0,0,self.memeImageView.frame.size.width,self.memeImageView.frame.size.height)];
-    float pointx = self.memeImageView.frame.size.width/2 - topLabelRect.size.width/2;
+    UIGraphicsBeginImageContext(self.memeImage.size);
+    [self.memeImage drawInRect:CGRectMake(0,0,self.memeImage.size.width,self.memeImage.size.height)];
+    float pointx = self.memeImage.size.width/2 - topLabelRect.size.width/2;
     CGRect rect = CGRectMake(pointx, kLeftRightPadding, topLabelRect.size.width, topLabelRect.size.height);
     [[UIColor whiteColor] set];
     
@@ -184,9 +185,9 @@
                                          NSParagraphStyleAttributeName: paragraphStyle,
                                          NSForegroundColorAttributeName: [MPColorManager getLabelColorWhite]}];
 
-    pointx = self.memeImageView.frame.size.width/2 - bottomLabelRect.size.width/2;
+    pointx = self.memeImage.size.width/2 - bottomLabelRect.size.width/2;
     rect = CGRectMake(pointx,
-                      self.memeImageView.frame.size.height - (bottomLabelRect.size.height +kLeftRightPadding),
+                      self.memeImage.size.height - (bottomLabelRect.size.height +kLeftRightPadding),
                       bottomLabelRect.size.width,
                       bottomLabelRect.size.height);
 
@@ -197,6 +198,9 @@
     UIGraphicsEndImageContext();
     
     UIImageWriteToSavedPhotosAlbum(newImage, nil, nil, nil);
+    
+    MPShareMemeViewController *shareMemeController = [[MPShareMemeViewController alloc] initWithImage:newImage];
+    [self.navigationController pushViewController:shareMemeController animated:YES];
 }
 
 @end
