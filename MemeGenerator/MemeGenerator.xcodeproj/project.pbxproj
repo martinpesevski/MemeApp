@@ -13,6 +13,7 @@
 		C722EE291E891041007F2B39 /* impact.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C722EE281E891041007F2B39 /* impact.ttf */; };
 		C73EAFB91E8A789800F3E6FC /* MPShareMemeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C73EAFB81E8A789800F3E6FC /* MPShareMemeViewController.m */; };
 		C73EB5F91E8A82D500F3E6FC /* memes in Resources */ = {isa = PBXBuildFile; fileRef = C73EB5F81E8A82D500F3E6FC /* memes */; };
+		C73EB5FD1E8A875D00F3E6FC /* MPMeme.m in Sources */ = {isa = PBXBuildFile; fileRef = C73EB5FC1E8A875D00F3E6FC /* MPMeme.m */; };
 		C797F32D1E82F37400D58EA2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C797F32C1E82F37400D58EA2 /* main.m */; };
 		C797F3301E82F37400D58EA2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C797F32F1E82F37400D58EA2 /* AppDelegate.m */; };
 		C797F3331E82F37400D58EA2 /* MPDashboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = C797F3321E82F37400D58EA2 /* MPDashboardController.m */; };
@@ -55,6 +56,8 @@
 		C73EAFB71E8A789800F3E6FC /* MPShareMemeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPShareMemeViewController.h; sourceTree = "<group>"; };
 		C73EAFB81E8A789800F3E6FC /* MPShareMemeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPShareMemeViewController.m; sourceTree = "<group>"; };
 		C73EB5F81E8A82D500F3E6FC /* memes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = memes; sourceTree = "<group>"; };
+		C73EB5FB1E8A875D00F3E6FC /* MPMeme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMeme.h; sourceTree = "<group>"; };
+		C73EB5FC1E8A875D00F3E6FC /* MPMeme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMeme.m; sourceTree = "<group>"; };
 		C797F3281E82F37400D58EA2 /* MemeGenerator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemeGenerator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C797F32C1E82F37400D58EA2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C797F32E1E82F37400D58EA2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -135,6 +138,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		C73EB5FA1E8A874800F3E6FC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C73EB5FB1E8A875D00F3E6FC /* MPMeme.h */,
+				C73EB5FC1E8A875D00F3E6FC /* MPMeme.m */,
+			);
+			name = Models;
+			path = "View Controllers/Models";
+			sourceTree = "<group>";
+		};
 		C797F31F1E82F37400D58EA2 = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +175,7 @@
 				C7BDB16F1E82F816000AA588 /* Views */,
 				C7BDB1621E82F752000AA588 /* LGSideMenu */,
 				C7BDB13C1E82F59F000AA588 /* Managers */,
+				C73EB5FA1E8A874800F3E6FC /* Models */,
 				C7BDB14C1E82F5FA000AA588 /* View Controllers */,
 				C797F3341E82F37400D58EA2 /* Main.storyboard */,
 				C797F3371E82F37400D58EA2 /* Assets.xcassets */,
@@ -408,6 +422,7 @@
 				C7BDB16D1E82F762000AA588 /* LGSideMenuView.m in Sources */,
 				C7BDB1851E82FC92000AA588 /* MPDashboardCell.m in Sources */,
 				C7BDB1811E82F816000AA588 /* MPTextField.m in Sources */,
+				C73EB5FD1E8A875D00F3E6FC /* MPMeme.m in Sources */,
 				C7BDB17F1E82F816000AA588 /* MPSidewaysButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
