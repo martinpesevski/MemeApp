@@ -10,6 +10,7 @@
 		C71635E31E83048A0070F88A /* MPMemeMakerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C71635E21E83048A0070F88A /* MPMemeMakerViewController.m */; };
 		C71635E61E8309070070F88A /* MPSearchMemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C71635E51E8309070070F88A /* MPSearchMemesViewController.m */; };
 		C71635E91E830A390070F88A /* MPMemeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C71635E81E830A390070F88A /* MPMemeCell.m */; };
+		C722EE291E891041007F2B39 /* impact.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C722EE281E891041007F2B39 /* impact.ttf */; };
 		C797F32D1E82F37400D58EA2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C797F32C1E82F37400D58EA2 /* main.m */; };
 		C797F3301E82F37400D58EA2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C797F32F1E82F37400D58EA2 /* AppDelegate.m */; };
 		C797F3331E82F37400D58EA2 /* MPDashboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = C797F3321E82F37400D58EA2 /* MPDashboardController.m */; };
@@ -48,6 +49,7 @@
 		C71635E51E8309070070F88A /* MPSearchMemesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPSearchMemesViewController.m; sourceTree = "<group>"; };
 		C71635E71E830A390070F88A /* MPMemeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMemeCell.h; sourceTree = "<group>"; };
 		C71635E81E830A390070F88A /* MPMemeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMemeCell.m; sourceTree = "<group>"; };
+		C722EE281E891041007F2B39 /* impact.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = impact.ttf; sourceTree = "<group>"; };
 		C797F3281E82F37400D58EA2 /* MemeGenerator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemeGenerator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C797F32C1E82F37400D58EA2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C797F32E1E82F37400D58EA2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 		C797F32B1E82F37400D58EA2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C722EE281E891041007F2B39 /* impact.ttf */,
 				C7BDB1821E82F86F000AA588 /* Constants.h */,
 				C797F32C1E82F37400D58EA2 /* main.m */,
 			);
@@ -309,6 +312,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C722EE291E891041007F2B39 /* impact.ttf in Resources */,
 				C797F33B1E82F37400D58EA2 /* LaunchScreen.storyboard in Resources */,
 				C797F3381E82F37400D58EA2 /* Assets.xcassets in Resources */,
 				C797F3361E82F37400D58EA2 /* Main.storyboard in Resources */,
