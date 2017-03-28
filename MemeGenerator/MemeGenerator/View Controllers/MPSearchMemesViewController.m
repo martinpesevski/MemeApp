@@ -36,9 +36,17 @@
 {
     self.title = @"Select a meme";
     
+    NSString *dirPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"memes"];
+    NSError * error;
+    NSArray *memeImageNamesAray = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:dirPath error:&error];
+    
     NSMutableArray *memesMutable = [[NSMutableArray alloc] init];
-    for (int i=1; i<11; i++) {
-        [memesMutable addObject:[UIImage imageNamed:[NSString stringWithFormat:@"meme%d", i]]];
+    for (NSString *imageName in memeImageNamesAray) {
+//        NSString *imageNamePathExtension = [NSString stringWithFormat:@".%@", [imageName pathExtension]];
+//        NSString *imageNameWithoutExtension = [imageName stringByReplacingOccurrencesOfString:imageNamePathExtension withString:@""];
+        NSString *imagePath = [[NSBundle mainBundle] pathForResource:imageName ofType:nil inDirectory:@"memes"];
+        UIImage *memeImage = [UIImage imageWithContentsOfFile:imagePath];
+        [memesMutable addObject:memeImage];
     }
     self.memesArray = memesMutable;
     
