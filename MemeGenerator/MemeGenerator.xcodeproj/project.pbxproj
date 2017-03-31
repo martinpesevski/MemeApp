@@ -306,7 +306,7 @@
 				TargetAttributes = {
 					C797F3271E82F37400D58EA2 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 66X67CA6X6;
+						DevelopmentTeam = GJ2XP2D7YG;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -544,11 +544,14 @@
 			baseConfigurationReference = 82730B34EA3A5358315B3003 /* Pods-MemeGenerator.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 66X67CA6X6;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = GJ2XP2D7YG;
 				INFOPLIST_FILE = MemeGenerator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.MP.MemeGenerator;
+				PRODUCT_BUNDLE_IDENTIFIER = com.spacecat.makeameme;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -557,11 +560,14 @@
 			baseConfigurationReference = 792C6331CB5457F10B074701 /* Pods-MemeGenerator.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 66X67CA6X6;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = GJ2XP2D7YG;
 				INFOPLIST_FILE = MemeGenerator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.MP.MemeGenerator;
+				PRODUCT_BUNDLE_IDENTIFIER = com.spacecat.makeameme;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};

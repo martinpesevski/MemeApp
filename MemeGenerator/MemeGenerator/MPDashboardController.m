@@ -88,6 +88,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     switch (indexPath.row) {
+        case 0:
+        {
+            UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
+            imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+            imagePickerController.delegate = self;
+            [self presentViewController:imagePickerController animated:YES completion:nil];
+        }
         case 1:
         {
             UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
