@@ -39,6 +39,7 @@
 		C7BDB1801E82F816000AA588 /* MPStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7BDB1791E82F816000AA588 /* MPStarRatingView.m */; };
 		C7BDB1811E82F816000AA588 /* MPTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C7BDB17B1E82F816000AA588 /* MPTextField.m */; };
 		C7BDB1851E82FC92000AA588 /* MPDashboardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7BDB1841E82FC92000AA588 /* MPDashboardCell.m */; };
+		C7E966BE1E8ED4F20015CDD8 /* cambria-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7E966BD1E8ED4F20015CDD8 /* cambria-bold.ttf */; };
 		E2F3C4BD536D7A24207242CD /* libPods-MemeGenerator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC515D8F10CCCBB9015AC16 /* libPods-MemeGenerator.a */; };
 /* End PBXBuildFile section */
 
@@ -107,6 +108,7 @@
 		C7BDB1821E82F86F000AA588 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		C7BDB1831E82FC92000AA588 /* MPDashboardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPDashboardCell.h; sourceTree = "<group>"; };
 		C7BDB1841E82FC92000AA588 /* MPDashboardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPDashboardCell.m; sourceTree = "<group>"; };
+		C7E966BD1E8ED4F20015CDD8 /* cambria-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "cambria-bold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +191,7 @@
 		C797F32B1E82F37400D58EA2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C7E966BD1E8ED4F20015CDD8 /* cambria-bold.ttf */,
 				C722EE281E891041007F2B39 /* impact.ttf */,
 				C7BDB1821E82F86F000AA588 /* Constants.h */,
 				C797F32C1E82F37400D58EA2 /* main.m */,
@@ -337,6 +340,7 @@
 				C73EB5F91E8A82D500F3E6FC /* memes in Resources */,
 				C722EE291E891041007F2B39 /* impact.ttf in Resources */,
 				C797F33B1E82F37400D58EA2 /* LaunchScreen.storyboard in Resources */,
+				C7E966BE1E8ED4F20015CDD8 /* cambria-bold.ttf in Resources */,
 				C797F3381E82F37400D58EA2 /* Assets.xcassets in Resources */,
 				C797F3361E82F37400D58EA2 /* Main.storyboard in Resources */,
 			);
