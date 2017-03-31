@@ -14,20 +14,25 @@
 #import "MPAlertManager.h"
 
 #define kMemeImageHeightWidth 300
-#define kFontSize 20
 
 typedef void (^customBlock)();
+
+typedef enum MPTextLocation {
+    MPTextLocationTop,
+    MPTextLocationBottom
+} MPTextLocation;
 
 @interface MPMemeMakerViewController () <UITextFieldDelegate>
 
 @property (nonatomic, strong) UIImage *memeImage;
+@property (nonatomic, strong) UIImage *modifiedImage;
+
 @property (nonatomic, strong) UIImageView *memeImageView;
 @property (nonatomic, strong) UIButton *selectFontButton;
 
-@property (nonatomic, strong) NSString *selectedFontName;
+@property (nonatomic) int fontSize;
 
-@property (nonatomic, strong) UILabel *topLabel;
-@property (nonatomic, strong) UILabel *bottomLabel;
+@property (nonatomic, strong) NSString *selectedFontName;
 
 @property (nonatomic, strong) UITextField *topTextField;
 @property (nonatomic, strong) UITextField *bottomTextField;
@@ -45,6 +50,7 @@ typedef void (^customBlock)();
     self = [super init];
     if (self) {
         self.memeImage = image;
+        self.fontSize = [self getFontSizeForImageSize:image.size];
     }
     return self;
 }
@@ -64,29 +70,12 @@ typedef void (^customBlock)();
     self.selectedFontName = self.fontNamesArray[0];
     
     self.memeImageView = [[UIImageView alloc] initWithImage:self.memeImage];
-    self.memeImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.memeImageView.contentMode = UIViewContentModeScaleAspectFit;
     self.memeImageView.clipsToBounds = YES;
     self.memeImageView.layer.borderWidth = 1;
     self.memeImageView.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.memeImageView.backgroundColor = [UIColor blackColor];
     
-    self.topLabel = [[UILabel alloc] init];
-    self.topLabel.text = @"TOP TEXT";
-    self.topLabel.textColor = [UIColor whiteColor];
-    self.topLabel.textAlignment = NSTextAlignmentCenter;
-    self.topLabel.numberOfLines = 0;
-    self.topLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    self.topLabel.adjustsFontSizeToFitWidth = YES;
-    self.topLabel.font = [UIFont fontWithName:@"impact" size:kFontSize];
-    
-    self.bottomLabel = [[UILabel alloc] init];
-    self.bottomLabel.text = @"BOTTOM TEXT";
-    self.bottomLabel.textColor = [UIColor whiteColor];
-    self.bottomLabel.textAlignment = NSTextAlignmentCenter;
-    self.bottomLabel.numberOfLines = 0;
-    self.bottomLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    self.bottomLabel.adjustsFontSizeToFitWidth = YES;
-    self.bottomLabel.font = [UIFont fontWithName:@"impact" size:kFontSize];
-
     self.topTextField = [[UITextField alloc] init];
     self.topTextField.delegate = self;
     self.topTextField.backgroundColor = [UIColor whiteColor];
@@ -112,8 +101,6 @@ typedef void (^customBlock)();
     self.createButton.backgroundColor = [MPColorManager getNavigationBarColor];
 
     [self.view addSubview:self.memeImageView];
-    [self.view addSubview:self.topLabel];
-    [self.view addSubview:self.bottomLabel];
     [self.view addSubview:self.topTextField];
     [self.view addSubview:self.bottomTextField];
     [self.view addSubview:self.selectFontButton];
@@ -126,18 +113,6 @@ typedef void (^customBlock)();
         make.top.equalTo(self.view).offset(kLeftRightPadding);
         make.width.height.equalTo(@(kMemeImageHeightWidth));
         make.centerX.equalTo(self.view);
-    }];
-    [self.topLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.memeImageView).offset(kLeftRightPadding);
-        make.right.equalTo(self.memeImageView).offset(-kLeftRightPadding);
-        make.top.equalTo(self.memeImageView).offset(kLeftRightPadding);
-        make.height.lessThanOrEqualTo(@(kMemeImageHeightWidth/2 - 20));
-    }];
-    [self.bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.memeImageView).offset(kLeftRightPadding);
-        make.right.equalTo(self.memeImageView).offset(-kLeftRightPadding);
-        make.bottom.equalTo(self.memeImageView).offset(-kLeftRightPadding);
-        make.height.lessThanOrEqualTo(@(kMemeImageHeightWidth/2 - 20));
     }];
     [self.topTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(kLeftRightPadding);
@@ -171,66 +146,20 @@ typedef void (^customBlock)();
 {
     NSString *newString = [textField.text stringByReplacingCharactersInRange:range withString:string];
     if ([textField isEqual:self.topTextField]) {
-        [self drawText:[newString uppercaseString] onLabel:self.topLabel withFontName:self.selectedFontName];
+        [self updateImageWithTopText:newString bottomText:self.bottomTextField.text];
     } else {
-        [self drawText:[newString uppercaseString] onLabel:self.bottomLabel withFontName:self.selectedFontName];
+        [self updateImageWithTopText:self.topTextField.text bottomText:newString];
     }
     return YES;
-}
-
-- (void)drawText:(NSString *)text onLabel:(UILabel *)label withFontName:(NSString *)fontName
-{
-    label.text = text;
-    label.font = [UIFont fontWithName:fontName size:kFontSize];
 }
 
 #pragma mark - button actions
 
 - (void)onCreate
 {
-    UIFont *font = [UIFont fontWithName:self.selectedFontName size:20];
-    NSDictionary *attributes = @{NSFontAttributeName: font};
-    float labelWidth = (self.memeImage.size.width - 2 * kLeftRightPadding);
-    CGRect topLabelRect = [self.topLabel.text boundingRectWithSize:CGSizeMake(labelWidth, CGFLOAT_MAX)
-                                                           options:NSStringDrawingUsesLineFragmentOrigin
-                                                        attributes:attributes
-                                                           context:nil];
+    UIImageWriteToSavedPhotosAlbum(self.modifiedImage, nil, nil, nil);
     
-    CGRect bottomLabelRect = [self.bottomLabel.text boundingRectWithSize:CGSizeMake(labelWidth, CGFLOAT_MAX)
-                                                           options:NSStringDrawingUsesLineFragmentOrigin
-                                                        attributes:attributes
-                                                           context:nil];
-    
-    UIGraphicsBeginImageContext(self.memeImage.size);
-    [self.memeImage drawInRect:CGRectMake(0,0,self.memeImage.size.width,self.memeImage.size.height)];
-    float pointx = self.memeImage.size.width/2 - topLabelRect.size.width/2;
-    CGRect rect = CGRectMake(pointx, kLeftRightPadding, topLabelRect.size.width, topLabelRect.size.height);
-    [[UIColor whiteColor] set];
-    
-    NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
-    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-    paragraphStyle.alignment = NSTextAlignmentCenter;
-
-    [self.topLabel.text drawInRect:CGRectIntegral(rect)
-                        withAttributes:@{NSFontAttributeName:font,
-                                         NSParagraphStyleAttributeName: paragraphStyle,
-                                         NSForegroundColorAttributeName: [MPColorManager getLabelColorWhite]}];
-
-    pointx = self.memeImage.size.width/2 - bottomLabelRect.size.width/2;
-    rect = CGRectMake(pointx,
-                      self.memeImage.size.height - (bottomLabelRect.size.height +kLeftRightPadding),
-                      bottomLabelRect.size.width,
-                      bottomLabelRect.size.height);
-
-    [self.bottomLabel.text drawInRect:CGRectIntegral(rect) withAttributes:@{NSFontAttributeName:font,
-                                                                                NSParagraphStyleAttributeName: paragraphStyle,
-                                                                                NSForegroundColorAttributeName: [MPColorManager getLabelColorWhite]}];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    UIImageWriteToSavedPhotosAlbum(newImage, nil, nil, nil);
-    
-    MPShareMemeViewController *shareMemeController = [[MPShareMemeViewController alloc] initWithImage:newImage];
+    MPShareMemeViewController *shareMemeController = [[MPShareMemeViewController alloc] initWithImage:self.modifiedImage];
     [self.navigationController pushViewController:shareMemeController animated:YES];
 }
 
@@ -241,13 +170,69 @@ typedef void (^customBlock)();
         __weak MPMemeMakerViewController *weakSelf = self;
         customBlock block = ^void() {
             weakSelf.selectedFontName = fontName;
-            [self drawText:self.topTextField.text onLabel:self.topLabel withFontName:fontName];
-            [self drawText:self.bottomTextField.text onLabel:self.bottomLabel withFontName:fontName];
+            [weakSelf updateImageWithTopText:weakSelf.topTextField.text bottomText:weakSelf.bottomTextField.text];
         };
         [blocksArray addObject:block];
     }
     
     [MPAlertManager showActionSheetWithTitles:self.fontNamesArray blocks:blocksArray sourceView:self.view title:@"select a font"];
 }
+
+#pragma mark - helper methods
+
+- (int)getFontSizeForImageSize:(CGSize)size
+{
+    return ((size.height * 2)/5)/5;
+}
+
+- (void)updateImageWithTopText:(NSString *)topText bottomText:(NSString *)bottomText
+{
+    UIFont *font = [UIFont fontWithName:self.selectedFontName size:self.fontSize];
+
+    UIGraphicsBeginImageContext(self.memeImage.size);
+    
+    [self.memeImage drawInRect:CGRectMake(0,0,self.memeImage.size.width,self.memeImage.size.height)];
+
+    [self drawText:topText location:MPTextLocationTop withFont:font outlined:NO];
+    [self drawText:bottomText location:MPTextLocationBottom withFont:font outlined:NO];
+    
+    self.modifiedImage = UIGraphicsGetImageFromCurrentImageContext();
+    self.memeImageView.image = self.modifiedImage;
+    UIGraphicsEndImageContext();
+}
+
+- (void)drawText:(NSString *)text location:(MPTextLocation)location withFont:(UIFont *)font outlined:(BOOL)isOutlined
+{
+    NSDictionary *attributes = @{NSFontAttributeName: font};
+    float labelWidth = (self.memeImage.size.width - 2 * kLeftRightPadding);
+    float labelHeight = (self.memeImage.size.height * 2)/5;
+    CGRect labelRect = [text boundingRectWithSize:CGSizeMake(labelWidth, labelHeight)
+                                          options:NSStringDrawingUsesLineFragmentOrigin
+                                       attributes:attributes
+                                          context:nil];
+    
+    float pointx = self.memeImage.size.width/2 - labelRect.size.width/2;
+    
+    CGRect rect;
+    if (location == MPTextLocationTop) {
+        rect = CGRectMake(pointx, kLeftRightPadding, labelRect.size.width, labelRect.size.height);
+    } else {
+        rect = CGRectMake(pointx,
+                          self.memeImage.size.height - (labelRect.size.height +kLeftRightPadding),
+                          labelRect.size.width,
+                          labelRect.size.height);
+    }
+    
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    paragraphStyle.alignment = NSTextAlignmentCenter;
+    
+    [text drawInRect:CGRectIntegral(rect)
+                    withAttributes:@{NSFontAttributeName:font,
+                                     NSParagraphStyleAttributeName: paragraphStyle,
+                                     NSForegroundColorAttributeName: [MPColorManager getLabelColorWhite]}];
+}
+
 
 @end
