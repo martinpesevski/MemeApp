@@ -29,6 +29,8 @@ typedef enum MPTextLocation {
 
 @property (nonatomic, strong) UIImageView *memeImageView;
 @property (nonatomic, strong) UIButton *selectFontButton;
+@property (nonatomic, strong) UISwitch *outlineSwitch;
+@property (nonatomic, strong) UILabel *textOutlineLabel;
 
 @property (nonatomic) int fontSize;
 
@@ -94,6 +96,15 @@ typedef enum MPTextLocation {
     [self.selectFontButton setTitleColor:[MPColorManager getLabelColorWhite] forState:UIControlStateNormal];
     self.selectFontButton.backgroundColor = [MPColorManager getNavigationBarColor];
     
+    self.textOutlineLabel = [[UILabel alloc] init];
+    self.textOutlineLabel.text = @"Text outline";
+    self.textOutlineLabel.textColor = [MPColorManager getLabelColorBlack];
+    
+    self.outlineSwitch = [[UISwitch alloc] init];
+    [self.outlineSwitch addTarget:self action:@selector(onSwitch) forControlEvents:UIControlEventValueChanged];
+    self.outlineSwitch.tintColor = [MPColorManager getNavigationBarColor];
+    self.outlineSwitch.onTintColor = [MPColorManager getNavigationBarColor];
+    
     self.createButton = [[UIButton alloc] init];
     [self.createButton setTitle:@"Create" forState:UIControlStateNormal];
     [self.createButton addTarget:self action:@selector(onCreate) forControlEvents:UIControlEventTouchUpInside];
@@ -104,6 +115,8 @@ typedef enum MPTextLocation {
     [self.view addSubview:self.topTextField];
     [self.view addSubview:self.bottomTextField];
     [self.view addSubview:self.selectFontButton];
+    [self.view addSubview:self.textOutlineLabel];
+    [self.view addSubview:self.outlineSwitch];
     [self.view addSubview:self.createButton];
 }
 
@@ -131,6 +144,14 @@ typedef enum MPTextLocation {
         make.height.equalTo(@(kLoginButtonHeight));
         make.width.equalTo(@(kScreenWidth / 3));
         make.centerX.equalTo(self.view);
+    }];
+    [self.textOutlineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.selectFontButton);
+        make.centerY.equalTo(self.outlineSwitch);
+    }];
+    [self.outlineSwitch mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.selectFontButton.mas_bottom).offset(20);
+        make.left.equalTo(self.textOutlineLabel.mas_right).offset(10);
     }];
     [self.createButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
@@ -178,6 +199,13 @@ typedef enum MPTextLocation {
     [MPAlertManager showActionSheetWithTitles:self.fontNamesArray blocks:blocksArray sourceView:self.view title:@"select a font"];
 }
 
+#pragma mark - switch methods
+
+- (void)onSwitch
+{
+    [self updateImageWithTopText:self.topTextField.text bottomText:self.bottomTextField.text];
+}
+
 #pragma mark - helper methods
 
 - (int)getFontSizeForImageSize:(CGSize)size
@@ -193,8 +221,8 @@ typedef enum MPTextLocation {
     
     [self.memeImage drawInRect:CGRectMake(0,0,self.memeImage.size.width,self.memeImage.size.height)];
 
-    [self drawText:topText location:MPTextLocationTop withFont:font outlined:NO];
-    [self drawText:bottomText location:MPTextLocationBottom withFont:font outlined:NO];
+    [self drawText:topText location:MPTextLocationTop withFont:font outlined:self.outlineSwitch.isOn];
+    [self drawText:bottomText location:MPTextLocationBottom withFont:font outlined:self.outlineSwitch.isOn];
     
     self.modifiedImage = UIGraphicsGetImageFromCurrentImageContext();
     self.memeImageView.image = self.modifiedImage;
@@ -223,15 +251,22 @@ typedef enum MPTextLocation {
                           labelRect.size.height);
     }
     
-    
     NSMutableParagraphStyle *paragraphStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
     paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
     paragraphStyle.alignment = NSTextAlignmentCenter;
     
+    NSMutableDictionary *textAttributes = [[NSMutableDictionary alloc] init];
+    [textAttributes setObject:font forKey:NSFontAttributeName];
+    [textAttributes setObject:paragraphStyle forKey:NSParagraphStyleAttributeName];
+    [textAttributes setObject:[MPColorManager getLabelColorWhite] forKey:NSForegroundColorAttributeName];
+    
+    if (isOutlined) {
+        [textAttributes setObject:[UIColor blackColor] forKey:NSStrokeColorAttributeName];
+        [textAttributes setObject:@-3.0f forKey:NSStrokeWidthAttributeName];
+    }
+    
     [text drawInRect:CGRectIntegral(rect)
-                    withAttributes:@{NSFontAttributeName:font,
-                                     NSParagraphStyleAttributeName: paragraphStyle,
-                                     NSForegroundColorAttributeName: [MPColorManager getLabelColorWhite]}];
+                    withAttributes:textAttributes];
 }
 
 
