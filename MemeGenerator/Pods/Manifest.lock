@@ -1,15 +1,18 @@
 PODS:
+  - IQKeyboardManager (4.0.8)
   - JVFloatLabeledTextField (1.1.1)
   - Masonry (1.0.2)
 
 DEPENDENCIES:
+  - IQKeyboardManager
   - JVFloatLabeledTextField
   - Masonry
 
 SPEC CHECKSUMS:
+  IQKeyboardManager: 1a8189fa153bf09044355ee0ad36826f6767e7f7
   JVFloatLabeledTextField: 0e5524b097f102036214dd8279edc8ecf08b5e18
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
 
-PODFILE CHECKSUM: a974e11fbb0934948cbc3a0c1e097e552148fe8b
+PODFILE CHECKSUM: d0b78d3eea213113afd83e80669739ff16a4cd99
 
 COCOAPODS: 1.2.0

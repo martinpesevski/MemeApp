@@ -9,5 +9,6 @@ target 'MemeGenerator' do
 
 pod 'Masonry'
 pod 'JVFloatLabeledTextField'
+pod 'IQKeyboardManager'
 
 end

@@ -24,14 +24,24 @@ typedef enum MPTextLocation {
 
 @interface MPMemeMakerViewController () <UITextFieldDelegate>
 
+@property (nonatomic, strong) UIScrollView *mainScrollView;
+
 @property (nonatomic, strong) UIImage *memeImage;
 @property (nonatomic, strong) UIImage *modifiedImage;
 
 @property (nonatomic, strong) UIImageView *memeImageView;
 @property (nonatomic, strong) UIButton *selectFontButton;
 @property (nonatomic, strong) UISwitch *outlineSwitch;
+@property (nonatomic, strong) UISwitch *shadowSwitch;
+@property (nonatomic, strong) UISwitch *allCapsSwitch;
 @property (nonatomic, strong) UILabel *textOutlineLabel;
+@property (nonatomic, strong) UILabel *textShadowLabel;
+@property (nonatomic, strong) UILabel *allCapsLabel;
+@property (nonatomic, strong) UILabel *fontSizeLabel;
 
+@property (nonatomic, strong) UISlider *fontSizeSlider;
+
+@property (nonatomic) int preferredFontSize;
 @property (nonatomic) int fontSize;
 
 @property (nonatomic, strong) NSString *selectedFontName;
@@ -52,7 +62,8 @@ typedef enum MPTextLocation {
     self = [super init];
     if (self) {
         self.memeImage = image;
-        self.fontSize = [self getFontSizeForImageSize:image.size];
+        self.preferredFontSize = [self getFontSizeForImageSize:image.size];
+        self.fontSize = self.preferredFontSize;
     }
     return self;
 }
@@ -71,6 +82,8 @@ typedef enum MPTextLocation {
     self.fontNamesArray = @[@"impact", @"Arial-BoldMT", @"cambria-bold"];
     self.selectedFontName = self.fontNamesArray[0];
     
+    self.mainScrollView = [[UIScrollView alloc] init];
+    
     self.memeImageView = [[UIImageView alloc] initWithImage:self.memeImage];
     self.memeImageView.contentMode = UIViewContentModeScaleAspectFit;
     self.memeImageView.clipsToBounds = YES;
@@ -83,12 +96,14 @@ typedef enum MPTextLocation {
     self.topTextField.backgroundColor = [UIColor whiteColor];
     self.topTextField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.topTextField.placeholder = @"Enter top text here";
+    self.topTextField.returnKeyType = UIReturnKeyNext;
 
     self.bottomTextField = [[UITextField alloc] init];
     self.bottomTextField.delegate = self;
     self.bottomTextField.backgroundColor = [UIColor whiteColor];
     self.bottomTextField.autocorrectionType = UITextAutocorrectionTypeNo;
     self.bottomTextField.placeholder = @"Enter bottom text here";
+    self.bottomTextField.returnKeyType = UIReturnKeyDone;
     
     self.selectFontButton = [[UIButton alloc] init];
     [self.selectFontButton setTitle:@"Change font" forState:UIControlStateNormal];
@@ -105,31 +120,74 @@ typedef enum MPTextLocation {
     self.outlineSwitch.tintColor = [MPColorManager getNavigationBarColor];
     self.outlineSwitch.onTintColor = [MPColorManager getNavigationBarColor];
     
+    self.textShadowLabel = [[UILabel alloc] init];
+    self.textShadowLabel.text = @"Text shadow";
+    self.textShadowLabel.textColor = [MPColorManager getLabelColorBlack];
+    
+    self.allCapsSwitch = [[UISwitch alloc] init];
+    [self.allCapsSwitch setOn:YES];
+    [self.allCapsSwitch addTarget:self action:@selector(onSwitch) forControlEvents:UIControlEventValueChanged];
+    self.allCapsSwitch.tintColor = [MPColorManager getNavigationBarColor];
+    self.allCapsSwitch.onTintColor = [MPColorManager getNavigationBarColor];
+    
+    self.allCapsLabel = [[UILabel alloc] init];
+    self.allCapsLabel.text = @"Capitalize letters";
+    self.allCapsLabel.textColor = [MPColorManager getLabelColorBlack];
+    
+    self.shadowSwitch = [[UISwitch alloc] init];
+    [self.shadowSwitch addTarget:self action:@selector(onSwitch) forControlEvents:UIControlEventValueChanged];
+    self.shadowSwitch.tintColor = [MPColorManager getNavigationBarColor];
+    self.shadowSwitch.onTintColor = [MPColorManager getNavigationBarColor];
+    
+    self.fontSizeLabel = [[UILabel alloc] init];
+    self.fontSizeLabel.text = @"Font size";
+    self.fontSizeLabel.textColor = [MPColorManager getLabelColorBlack];
+    
+    self.fontSizeSlider = [[UISlider alloc] init];
+    self.fontSizeSlider.minimumValue = 10;
+    self.fontSizeSlider.maximumValue = 30;
+    self.fontSizeSlider.value = 20;
+    self.fontSizeSlider.tintColor = [MPColorManager getNavigationBarColor];
+    [self.fontSizeSlider addTarget:self action:@selector(onSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    
     self.createButton = [[UIButton alloc] init];
     [self.createButton setTitle:@"Create" forState:UIControlStateNormal];
     [self.createButton addTarget:self action:@selector(onCreate) forControlEvents:UIControlEventTouchUpInside];
     [self.createButton setTitleColor:[MPColorManager getLabelColorWhite] forState:UIControlStateNormal];
     self.createButton.backgroundColor = [MPColorManager getNavigationBarColor];
 
-    [self.view addSubview:self.memeImageView];
-    [self.view addSubview:self.topTextField];
-    [self.view addSubview:self.bottomTextField];
-    [self.view addSubview:self.selectFontButton];
-    [self.view addSubview:self.textOutlineLabel];
-    [self.view addSubview:self.outlineSwitch];
+    [self.mainScrollView addSubview:self.memeImageView];
+    [self.mainScrollView addSubview:self.topTextField];
+    [self.mainScrollView addSubview:self.bottomTextField];
+    [self.mainScrollView addSubview:self.selectFontButton];
+    [self.mainScrollView addSubview:self.textOutlineLabel];
+    [self.mainScrollView addSubview:self.outlineSwitch];
+    [self.mainScrollView addSubview:self.textShadowLabel];
+    [self.mainScrollView addSubview:self.shadowSwitch];
+    [self.mainScrollView addSubview:self.allCapsLabel];
+    [self.mainScrollView addSubview:self.allCapsSwitch];
+    [self.mainScrollView addSubview:self.fontSizeLabel];
+    [self.mainScrollView addSubview:self.fontSizeSlider];
+    [self.view addSubview:self.mainScrollView];
     [self.view addSubview:self.createButton];
 }
 
 - (void)setConstraints
 {
+    [self.mainScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.createButton.mas_top).offset(-20);
+    }];
     [self.memeImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view).offset(kLeftRightPadding);
+        make.top.equalTo(self.mainScrollView).offset(kLeftRightPadding);
         make.width.height.equalTo(@(kMemeImageHeightWidth));
         make.centerX.equalTo(self.view);
     }];
     [self.topTextField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(kLeftRightPadding);
         make.right.equalTo(self.view).offset(-kLeftRightPadding);
+        make.left.equalTo(self.mainScrollView).offset(kLeftRightPadding);
+        make.right.equalTo(self.mainScrollView).offset(-kLeftRightPadding);
         make.top.equalTo(self.memeImageView.mas_bottom).offset(kLeftRightPadding);
         make.height.equalTo(@(kMemeTextfieldHeight));
     }];
@@ -153,6 +211,32 @@ typedef enum MPTextLocation {
         make.top.equalTo(self.selectFontButton.mas_bottom).offset(20);
         make.left.equalTo(self.textOutlineLabel.mas_right).offset(10);
     }];
+    [self.textShadowLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.selectFontButton);
+        make.centerY.equalTo(self.shadowSwitch);
+    }];
+    [self.shadowSwitch mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.outlineSwitch.mas_bottom).offset(20);
+        make.left.equalTo(self.textShadowLabel.mas_right).offset(10);
+    }];
+    [self.allCapsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.selectFontButton);
+        make.centerY.equalTo(self.allCapsSwitch);
+    }];
+    [self.allCapsSwitch mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.shadowSwitch.mas_bottom).offset(20);
+        make.left.equalTo(self.allCapsLabel.mas_right).offset(10);
+    }];
+    [self.fontSizeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.selectFontButton);
+        make.centerY.equalTo(self.fontSizeSlider);
+    }];
+    [self.fontSizeSlider mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.fontSizeLabel.mas_right).offset(10);
+        make.width.equalTo(@100);
+        make.top.equalTo(self.allCapsSwitch.mas_bottom).offset(20);
+        make.bottom.equalTo(self.mainScrollView);
+    }];
     [self.createButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         make.height.equalTo(@(kLoginButtonHeight));
@@ -171,6 +255,18 @@ typedef enum MPTextLocation {
     } else {
         [self updateImageWithTopText:self.topTextField.text bottomText:newString];
     }
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if (textField == self.topTextField) {
+        [self.topTextField resignFirstResponder];
+        [self.bottomTextField becomeFirstResponder];
+    } else {
+        [self.bottomTextField resignFirstResponder];
+    }
+    
     return YES;
 }
 
@@ -206,6 +302,16 @@ typedef enum MPTextLocation {
     [self updateImageWithTopText:self.topTextField.text bottomText:self.bottomTextField.text];
 }
 
+#pragma mark - slider methods
+
+- (void)onSliderValueChanged:(UISlider *)slider
+{
+    [slider setValue:(int)slider.value animated:NO];
+    
+    self.fontSize = self.preferredFontSize * (slider.value/20);
+    [self updateImageWithTopText:self.topTextField.text bottomText:self.bottomTextField.text];
+}
+
 #pragma mark - helper methods
 
 - (int)getFontSizeForImageSize:(CGSize)size
@@ -221,17 +327,24 @@ typedef enum MPTextLocation {
     
     [self.memeImage drawInRect:CGRectMake(0,0,self.memeImage.size.width,self.memeImage.size.height)];
 
-    [self drawText:topText location:MPTextLocationTop withFont:font outlined:self.outlineSwitch.isOn];
-    [self drawText:bottomText location:MPTextLocationBottom withFont:font outlined:self.outlineSwitch.isOn];
+    NSString *topTextWithCapitalization = self.allCapsSwitch.isOn?[topText uppercaseString]:topText;
+    NSString *bottomTextWithCapitalization = self.allCapsSwitch.isOn?[bottomText uppercaseString]:bottomText;
+
+    [self drawText:topTextWithCapitalization location:MPTextLocationTop withFont:font];
+    [self drawText:bottomTextWithCapitalization location:MPTextLocationBottom withFont:font];
     
     self.modifiedImage = UIGraphicsGetImageFromCurrentImageContext();
     self.memeImageView.image = self.modifiedImage;
     UIGraphicsEndImageContext();
 }
 
-- (void)drawText:(NSString *)text location:(MPTextLocation)location withFont:(UIFont *)font outlined:(BOOL)isOutlined
+- (void)drawText:(NSString *)text location:(MPTextLocation)location withFont:(UIFont *)font
 {
-    NSDictionary *attributes = @{NSFontAttributeName: font};
+    UIFont *modifiedFont = font;
+    if (self.outlineSwitch.isOn) {
+        modifiedFont = [UIFont fontWithName:font.fontName size:font.pointSize +3];
+    }
+    NSDictionary *attributes = @{NSFontAttributeName: modifiedFont};
     float labelWidth = (self.memeImage.size.width - 2 * kLeftRightPadding);
     float labelHeight = (self.memeImage.size.height * 2)/5;
     CGRect labelRect = [text boundingRectWithSize:CGSizeMake(labelWidth, labelHeight)
@@ -260,9 +373,14 @@ typedef enum MPTextLocation {
     [textAttributes setObject:paragraphStyle forKey:NSParagraphStyleAttributeName];
     [textAttributes setObject:[MPColorManager getLabelColorWhite] forKey:NSForegroundColorAttributeName];
     
-    if (isOutlined) {
+    if (self.outlineSwitch.isOn) {
         [textAttributes setObject:[UIColor blackColor] forKey:NSStrokeColorAttributeName];
         [textAttributes setObject:@-3.0f forKey:NSStrokeWidthAttributeName];
+        [textAttributes setObject:modifiedFont forKey:NSFontAttributeName];
+    }
+    if (self.shadowSwitch.isOn) {
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        CGContextSetShadow(context, CGSizeMake(10.0f, 10.0f), 10.0f);
     }
     
     [text drawInRect:CGRectIntegral(rect)

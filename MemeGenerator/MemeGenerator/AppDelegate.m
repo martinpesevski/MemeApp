@@ -11,6 +11,7 @@
 #import "MPBaseNavigationViewController.h"
 #import "MPMainViewController.h"
 #import "MPDashboardController.h"
+#import <IQKeyboardManager/IQKeyboardManager.h>
 
 @interface AppDelegate ()
 
@@ -26,7 +27,8 @@
     [self setMainController];
     
     [self setNavigationBarAppearance];
-    
+    [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
+
     return YES;
 }
 
