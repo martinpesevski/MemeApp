@@ -12,7 +12,8 @@
 #import "MPSideMenuCell.h"
 #import "MPAlertManager.h"
 #import "MPColorManager.h"
-#import "MPDashboardController.h"
+#import "MPMyMemesViewController.h"
+#import "MPSearchMemesViewController.h"
 #import "UIViewController+LGSideMenuController.h"
 #import "MPMainViewController.h"
 #import "AppDelegate.h"
@@ -56,16 +57,16 @@
 
 - (void)setupViewControllersArray
 {
-    MPDashboardController *hotelsController = [[MPDashboardController alloc] init];
-    MPBaseNavigationViewController *hotelsNavController = [[MPBaseNavigationViewController alloc] initWithRootViewController:hotelsController];
+    MPMyMemesViewController *myMemesController = [[MPMyMemesViewController alloc] init];
+    MPBaseNavigationViewController *myMemesNavController = [[MPBaseNavigationViewController alloc] initWithRootViewController:myMemesController];
     
-    UIViewController *leagueController = [[UIViewController alloc] init];
-    MPBaseNavigationViewController *leagueNavController = [[MPBaseNavigationViewController alloc] initWithRootViewController:leagueController];
+    MPSearchMemesViewController *searchController = [[MPSearchMemesViewController alloc] init];
+    MPBaseNavigationViewController *searchNavController = [[MPBaseNavigationViewController alloc] initWithRootViewController:searchController];
     
     UIViewController *matesController = [[UIViewController alloc] init];
     MPBaseNavigationViewController *matesNavController = [[MPBaseNavigationViewController alloc] initWithRootViewController:matesController];
     
-    self.viewControllerAray = @[hotelsNavController, leagueNavController, matesNavController];
+    self.viewControllerAray = @[myMemesNavController, searchNavController, matesNavController];
     self.controllerNamesArray = @[@"Your Memes", @"Newest", @"Popular"];
 }
 

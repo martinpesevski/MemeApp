@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MPBaseViewController.h"
 
-@interface MPBaseMemeCollectionViewController : MPBaseViewController
+@interface MPBaseMemeCollectionViewController : MPBaseViewController <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) UICollectionView *memesCollectionView;
 

@@ -11,7 +11,7 @@
 #import "Masonry.h"
 #import "Constants.h"
 
-@interface MPBaseMemeCollectionViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface MPBaseMemeCollectionViewController ()
 
 @end
 

@@ -14,6 +14,7 @@
 		C73EAFB91E8A789800F3E6FC /* MPShareMemeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C73EAFB81E8A789800F3E6FC /* MPShareMemeViewController.m */; };
 		C73EB5F91E8A82D500F3E6FC /* memes in Resources */ = {isa = PBXBuildFile; fileRef = C73EB5F81E8A82D500F3E6FC /* memes */; };
 		C73EB5FD1E8A875D00F3E6FC /* MPMeme.m in Sources */ = {isa = PBXBuildFile; fileRef = C73EB5FC1E8A875D00F3E6FC /* MPMeme.m */; };
+		C77E13E71E93C365007E33EC /* MPMyMemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C77E13E61E93C365007E33EC /* MPMyMemesViewController.m */; };
 		C797F32D1E82F37400D58EA2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C797F32C1E82F37400D58EA2 /* main.m */; };
 		C797F3301E82F37400D58EA2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C797F32F1E82F37400D58EA2 /* AppDelegate.m */; };
 		C797F3331E82F37400D58EA2 /* MPDashboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = C797F3321E82F37400D58EA2 /* MPDashboardController.m */; };
@@ -60,6 +61,8 @@
 		C73EB5F81E8A82D500F3E6FC /* memes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = memes; sourceTree = "<group>"; };
 		C73EB5FB1E8A875D00F3E6FC /* MPMeme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMeme.h; sourceTree = "<group>"; };
 		C73EB5FC1E8A875D00F3E6FC /* MPMeme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMeme.m; sourceTree = "<group>"; };
+		C77E13E51E93C365007E33EC /* MPMyMemesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMyMemesViewController.h; sourceTree = "<group>"; };
+		C77E13E61E93C365007E33EC /* MPMyMemesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMyMemesViewController.m; sourceTree = "<group>"; };
 		C797F3281E82F37400D58EA2 /* MemeGenerator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemeGenerator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C797F32C1E82F37400D58EA2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C797F32E1E82F37400D58EA2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -238,6 +241,8 @@
 				C7C8CA6C1E93C08900F13C29 /* MPBaseMemeCollectionViewController.m */,
 				C71635E11E83048A0070F88A /* MPMemeMakerViewController.h */,
 				C71635E21E83048A0070F88A /* MPMemeMakerViewController.m */,
+				C77E13E51E93C365007E33EC /* MPMyMemesViewController.h */,
+				C77E13E61E93C365007E33EC /* MPMyMemesViewController.m */,
 				C73EAFB71E8A789800F3E6FC /* MPShareMemeViewController.h */,
 				C73EAFB81E8A789800F3E6FC /* MPShareMemeViewController.m */,
 			);
@@ -415,6 +420,7 @@
 				C7C8CA6D1E93C08900F13C29 /* MPBaseMemeCollectionViewController.m in Sources */,
 				C7BDB1491E82F59F000AA588 /* MPColorManager.m in Sources */,
 				C797F3301E82F37400D58EA2 /* AppDelegate.m in Sources */,
+				C77E13E71E93C365007E33EC /* MPMyMemesViewController.m in Sources */,
 				C7BDB16B1E82F762000AA588 /* LGSideMenuController.m in Sources */,
 				C71635E61E8309070070F88A /* MPSearchMemesViewController.m in Sources */,
 				C797F32D1E82F37400D58EA2 /* main.m in Sources */,
