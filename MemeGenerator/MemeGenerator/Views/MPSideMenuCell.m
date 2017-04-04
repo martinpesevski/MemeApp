@@ -38,6 +38,7 @@
 - (void)setupViews
 {
     self.backgroundColor = [UIColor clearColor];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     self.userLabel = [[UILabel alloc] init];
     self.userLabel.text = @"user";
@@ -104,20 +105,14 @@
     UIImage *returnImage = nil;
     
     switch (type) {
-        case MPSideMenuCellTypeTrade:
+        case MPSideMenuCellTypeYourMemes:
             returnImage = [UIImage imageNamed:@"trade-icon"];
             break;
-        case MPSideMenuCellTypeLeagues:
+        case MPSideMenuCellTypeNewest:
             returnImage = [UIImage imageNamed:@"leagues-icon"];
             break;
-        case MPSideMenuCellTypeMates:
+        case MPSideMenuCellTypePopular:
             returnImage = [UIImage imageNamed:@"mates-icon"];
-            break;
-        case MPSideMenuCellTypeSettings:
-            returnImage = [UIImage imageNamed:@"settings-icon"];
-            break;
-        case MPSideMenuCellTypeSignOut:
-            returnImage = [UIImage imageNamed:@"sign-out-icon"];
             break;
         default:
             return nil;
@@ -135,24 +130,19 @@
 - (NSString *)getStringForType:(MPSideMenuCellType)type
 {
     switch (type) {
-        case MPSideMenuCellTypeTrade:
-            return @"Hotels";
+        case MPSideMenuCellTypeYourMemes:
+            return @"Your memes";
             break;
-        case MPSideMenuCellTypeLeagues:
-            return @"Apartments";
+        case MPSideMenuCellTypeNewest:
+            return @"Newest";
             break;
-        case MPSideMenuCellTypeMates:
-            return @"Hostels";
-            break;
-        case MPSideMenuCellTypeSettings:
-            return @"My Profile";
-            break;
-        case MPSideMenuCellTypeSignOut:
-            return @"Sign out";
+        case MPSideMenuCellTypePopular:
+            return @"Popular";
             break;
         default:
             break;
     }
+    
     return @"";
 }
 

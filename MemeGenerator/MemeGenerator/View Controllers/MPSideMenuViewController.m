@@ -74,7 +74,6 @@
     self.tableView = [[UITableView alloc] init];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.scrollEnabled = NO;
     self.tableView.backgroundColor = [MPColorManager getBackgroundColor];
@@ -112,7 +111,7 @@
         MPMainViewController *mainController = (MPMainViewController *)((AppDelegate *)[UIApplication sharedApplication].delegate).viewController;
         mainController.rootViewController = self.viewControllerAray[indexPath.row];
         
-        [self hideLeftViewAnimated:nil];
+        [self hideRightViewAnimated:nil];
     }
 }
 

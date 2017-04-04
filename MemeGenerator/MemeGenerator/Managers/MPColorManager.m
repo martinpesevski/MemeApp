@@ -27,7 +27,7 @@
 
 + (UIColor *)getBackgroundColor
 {
-    return [MPColorManager colorFromHexString:@"#FFF7D3"];
+    return [MPColorManager colorFromHexString:@"#838BFF"];
 }
 
 + (UIColor *)getBackgroundLineColor

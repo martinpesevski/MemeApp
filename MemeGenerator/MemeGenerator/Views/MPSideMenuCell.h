@@ -9,11 +9,9 @@
 #import <UIKit/UIKit.h>
 
 typedef enum:NSInteger {
-    MPSideMenuCellTypeTrade = 0,
-    MPSideMenuCellTypeLeagues = 1,
-    MPSideMenuCellTypeMates = 2,
-    MPSideMenuCellTypeSettings = 3,
-    MPSideMenuCellTypeSignOut = 4
+    MPSideMenuCellTypeYourMemes = 0,
+    MPSideMenuCellTypeNewest = 1,
+    MPSideMenuCellTypePopular = 2,
 } MPSideMenuCellType;
 
 @interface MPSideMenuCell : UITableViewCell

@@ -274,7 +274,8 @@ typedef enum MPTextLocation {
 
 - (void)onCreate
 {
-    UIImageWriteToSavedPhotosAlbum(self.modifiedImage, nil, nil, nil);
+//    UIImageWriteToSavedPhotosAlbum(self.modifiedImage, nil, nil, nil);
+    [self saveImage];
     
     MPShareMemeViewController *shareMemeController = [[MPShareMemeViewController alloc] initWithImage:self.modifiedImage];
     [self.navigationController pushViewController:shareMemeController animated:YES];
@@ -387,5 +388,24 @@ typedef enum MPTextLocation {
                     withAttributes:textAttributes];
 }
 
+- (void)saveImage
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = paths.firstObject;
+    NSData *imageData = UIImagePNGRepresentation(self.modifiedImage);
+    
+    NSString *imagePath = [NSString stringWithFormat:@"%@/%@",documentsDirectory,@"memeGenerator"];
+    
+    BOOL isDir;
+    NSFileManager *fileManager= [NSFileManager defaultManager];
+    if(![fileManager fileExistsAtPath:imagePath isDirectory:&isDir])
+        if(![fileManager createDirectoryAtPath:imagePath withIntermediateDirectories:YES attributes:nil error:NULL])
+            NSLog(@"Error: folder creation failed %@", documentsDirectory);
+    
+    NSString *imageName = [NSString stringWithFormat:@"meme%@", [NSDate date]];
+    
+    [[NSFileManager defaultManager] createFileAtPath:[NSString stringWithFormat:@"%@/%@", imagePath, imageName] contents:nil attributes:nil];
+    [imageData writeToFile:[NSString stringWithFormat:@"%@/%@", imagePath, imageName] atomically:YES];
+}
 
 @end

@@ -8,6 +8,7 @@
 
 #import "MPMainViewController.h"
 #import "MPSideMenuViewController.h"
+#import "MPColorManager.h"
 
 @interface MPMainViewController ()
 
@@ -21,8 +22,8 @@
 {
     MPSideMenuViewController *rightMenuController = [[MPSideMenuViewController alloc] init];
     self.rightViewWidth = 200.0;
-    self.rightViewBackgroundColor = [UIColor colorWithRed:0.5 green:0.6 blue:0.5 alpha:0.9];
-    self.rootViewCoverColorForRightView = [UIColor colorWithRed:0.0 green:1.0 blue:0.0 alpha:0.05];
+    self.rightViewBackgroundColor = [[MPColorManager getBackgroundColor] colorWithAlphaComponent:0.9];
+    self.rootViewCoverColorForRightView = [[MPColorManager getBackgroundColor] colorWithAlphaComponent:0.5];
     self.rightViewPresentationStyle = LGSideMenuPresentationStyleSlideAbove;
     self.rightViewController = rightMenuController;
 }
