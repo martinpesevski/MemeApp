@@ -39,6 +39,7 @@
 		C7BDB1801E82F816000AA588 /* MPStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7BDB1791E82F816000AA588 /* MPStarRatingView.m */; };
 		C7BDB1811E82F816000AA588 /* MPTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C7BDB17B1E82F816000AA588 /* MPTextField.m */; };
 		C7BDB1851E82FC92000AA588 /* MPDashboardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7BDB1841E82FC92000AA588 /* MPDashboardCell.m */; };
+		C7C8CA6D1E93C08900F13C29 /* MPBaseMemeCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C8CA6C1E93C08900F13C29 /* MPBaseMemeCollectionViewController.m */; };
 		C7E966BE1E8ED4F20015CDD8 /* cambria-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7E966BD1E8ED4F20015CDD8 /* cambria-bold.ttf */; };
 		E2F3C4BD536D7A24207242CD /* libPods-MemeGenerator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC515D8F10CCCBB9015AC16 /* libPods-MemeGenerator.a */; };
 /* End PBXBuildFile section */
@@ -108,6 +109,8 @@
 		C7BDB1821E82F86F000AA588 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		C7BDB1831E82FC92000AA588 /* MPDashboardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPDashboardCell.h; sourceTree = "<group>"; };
 		C7BDB1841E82FC92000AA588 /* MPDashboardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPDashboardCell.m; sourceTree = "<group>"; };
+		C7C8CA6B1E93C08900F13C29 /* MPBaseMemeCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPBaseMemeCollectionViewController.h; sourceTree = "<group>"; };
+		C7C8CA6C1E93C08900F13C29 /* MPBaseMemeCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPBaseMemeCollectionViewController.m; sourceTree = "<group>"; };
 		C7E966BD1E8ED4F20015CDD8 /* cambria-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "cambria-bold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -231,6 +234,8 @@
 				C797F3321E82F37400D58EA2 /* MPDashboardController.m */,
 				C71635E41E8309070070F88A /* MPSearchMemesViewController.h */,
 				C71635E51E8309070070F88A /* MPSearchMemesViewController.m */,
+				C7C8CA6B1E93C08900F13C29 /* MPBaseMemeCollectionViewController.h */,
+				C7C8CA6C1E93C08900F13C29 /* MPBaseMemeCollectionViewController.m */,
 				C71635E11E83048A0070F88A /* MPMemeMakerViewController.h */,
 				C71635E21E83048A0070F88A /* MPMemeMakerViewController.m */,
 				C73EAFB71E8A789800F3E6FC /* MPShareMemeViewController.h */,
@@ -407,6 +412,7 @@
 				C7BDB14B1E82F59F000AA588 /* MPFontManager.m in Sources */,
 				C797F3331E82F37400D58EA2 /* MPDashboardController.m in Sources */,
 				C7BDB1481E82F59F000AA588 /* MPAuthenticationManager.m in Sources */,
+				C7C8CA6D1E93C08900F13C29 /* MPBaseMemeCollectionViewController.m in Sources */,
 				C7BDB1491E82F59F000AA588 /* MPColorManager.m in Sources */,
 				C797F3301E82F37400D58EA2 /* AppDelegate.m in Sources */,
 				C7BDB16B1E82F762000AA588 /* LGSideMenuController.m in Sources */,

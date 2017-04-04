@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MPBaseViewController.h"
+#import "MPBaseMemeCollectionViewController.h"
 
-@interface MPSearchMemesViewController : MPBaseViewController
+@interface MPSearchMemesViewController : MPBaseMemeCollectionViewController
 
 @end
