@@ -197,8 +197,17 @@ typedef enum MPTextLocation {
         make.top.equalTo(self.topTextField.mas_bottom).offset(kLeftRightPadding);
         make.height.equalTo(@(kMemeTextfieldHeight));
     }];
-    [self.selectFontButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.fontSizeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.selectFontButton);
+        make.centerY.equalTo(self.fontSizeSlider);
+    }];
+    [self.fontSizeSlider mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.fontSizeLabel.mas_right).offset(10);
+        make.width.equalTo(@100);
         make.top.equalTo(self.bottomTextField.mas_bottom).offset(20);
+    }];
+    [self.selectFontButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.fontSizeSlider.mas_bottom).offset(20);
         make.height.equalTo(@(kLoginButtonHeight));
         make.width.equalTo(@(kScreenWidth / 3));
         make.centerX.equalTo(self.view);
@@ -226,15 +235,6 @@ typedef enum MPTextLocation {
     [self.allCapsSwitch mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.shadowSwitch.mas_bottom).offset(20);
         make.left.equalTo(self.allCapsLabel.mas_right).offset(10);
-    }];
-    [self.fontSizeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.selectFontButton);
-        make.centerY.equalTo(self.fontSizeSlider);
-    }];
-    [self.fontSizeSlider mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.fontSizeLabel.mas_right).offset(10);
-        make.width.equalTo(@100);
-        make.top.equalTo(self.allCapsSwitch.mas_bottom).offset(20);
         make.bottom.equalTo(self.mainScrollView);
     }];
     [self.createButton mas_makeConstraints:^(MASConstraintMaker *make) {
