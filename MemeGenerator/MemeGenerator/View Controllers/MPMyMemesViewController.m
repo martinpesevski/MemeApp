@@ -9,6 +9,7 @@
 #import "MPMyMemesViewController.h"
 #import "MPMeme.h"
 #import "MPMemeCell.h"
+#import "MPShareMemeViewController.h"
 
 @interface MPMyMemesViewController ()
 
@@ -72,6 +73,14 @@
     [memeCell setupWithImage:meme.image];
     
     return memeCell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    MPMeme *meme = self.memesArray[indexPath.row];
+    
+    MPShareMemeViewController *shareMemeController = [[MPShareMemeViewController alloc] initWithImage:meme.image];
+    [self.navigationController pushViewController:shareMemeController animated:YES];
 }
 
 @end

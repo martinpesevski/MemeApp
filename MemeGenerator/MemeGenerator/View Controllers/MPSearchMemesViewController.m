@@ -63,7 +63,8 @@
         make.top.left.right.equalTo(self.view);
         make.height.equalTo(@40);
     }];
-    [self.memesCollectionView mas_updateConstraints:^(MASConstraintMaker *make) {
+    [self.memesCollectionView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view);
         make.top.equalTo(self.searchBar.mas_bottom);
     }];
 }

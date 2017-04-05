@@ -63,7 +63,6 @@ typedef enum MPTextLocation {
     if (self) {
         self.memeImage = image;
         self.preferredFontSize = [self getFontSizeForImageSize:image.size];
-        self.fontSize = self.preferredFontSize;
     }
     return self;
 }
@@ -145,10 +144,12 @@ typedef enum MPTextLocation {
     
     self.fontSizeSlider = [[UISlider alloc] init];
     self.fontSizeSlider.minimumValue = 10;
-    self.fontSizeSlider.maximumValue = 30;
-    self.fontSizeSlider.value = 20;
+    self.fontSizeSlider.maximumValue = 50;
+    self.fontSizeSlider.value = 30;
     self.fontSizeSlider.tintColor = [MPColorManager getNavigationBarColor];
     [self.fontSizeSlider addTarget:self action:@selector(onSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    self.fontSize = self.preferredFontSize * (self.fontSizeSlider.value/20);
     
     self.createButton = [[UIButton alloc] init];
     [self.createButton setTitle:@"Create" forState:UIControlStateNormal];

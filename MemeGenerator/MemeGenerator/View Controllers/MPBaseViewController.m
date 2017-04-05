@@ -75,7 +75,7 @@
     UIImage *menuImage = [UIImage imageNamed:@"ic_menu_white"];
     [backButton setImage:menuImage forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(toggleMenu) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationController.navigationBar.topItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+    self.navigationController.navigationBar.topItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
 }
 
 - (void)addBackButton
@@ -90,10 +90,10 @@
     AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     MPMainViewController *mainController = (MPMainViewController *)appDelegate.viewController;
     
-    if ([mainController isLeftViewShowing]) {
-        [mainController hideLeftViewAnimated:YES completionHandler:nil];
+    if ([mainController isRightViewShowing]) {
+        [mainController hideRightViewAnimated:YES completionHandler:nil];
     } else {
-        [mainController showLeftViewAnimated:YES completionHandler:nil];
+        [mainController showRightViewAnimated:YES completionHandler:nil];
     }
 }
 

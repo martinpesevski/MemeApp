@@ -60,13 +60,13 @@
     MPMyMemesViewController *myMemesController = [[MPMyMemesViewController alloc] init];
     MPBaseNavigationViewController *myMemesNavController = [[MPBaseNavigationViewController alloc] initWithRootViewController:myMemesController];
     
-    MPSearchMemesViewController *searchController = [[MPSearchMemesViewController alloc] init];
-    MPBaseNavigationViewController *searchNavController = [[MPBaseNavigationViewController alloc] initWithRootViewController:searchController];
+    MPSearchMemesViewController *searchNewestController = [[MPSearchMemesViewController alloc] init];
+    MPBaseNavigationViewController *searchNewestNavController = [[MPBaseNavigationViewController alloc] initWithRootViewController:searchNewestController];
     
-    UIViewController *matesController = [[UIViewController alloc] init];
-    MPBaseNavigationViewController *matesNavController = [[MPBaseNavigationViewController alloc] initWithRootViewController:matesController];
+    MPSearchMemesViewController *searchPopularController = [[MPSearchMemesViewController alloc] init];
+    MPBaseNavigationViewController *searchPopularNavController = [[MPBaseNavigationViewController alloc] initWithRootViewController:searchPopularController];
     
-    self.viewControllerAray = @[myMemesNavController, searchNavController, matesNavController];
+    self.viewControllerAray = @[myMemesNavController, searchNewestNavController, searchPopularNavController];
     self.controllerNamesArray = @[@"Your Memes", @"Newest", @"Popular"];
 }
 
