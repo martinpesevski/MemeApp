@@ -58,15 +58,15 @@
 - (void)setupViewControllersArray
 {
     MPMyMemesViewController *myMemesController = [[MPMyMemesViewController alloc] init];
-    MPBaseNavigationViewController *myMemesNavController = [[MPBaseNavigationViewController alloc] initWithRootViewController:myMemesController];
+//    MPBaseNavigationViewController *myMemesNavController = [[MPBaseNavigationViewController alloc] initWithRootViewController:myMemesController];
     
     MPSearchMemesViewController *searchNewestController = [[MPSearchMemesViewController alloc] init];
-    MPBaseNavigationViewController *searchNewestNavController = [[MPBaseNavigationViewController alloc] initWithRootViewController:searchNewestController];
+//    MPBaseNavigationViewController *searchNewestNavController = [[MPBaseNavigationViewController alloc] initWithRootViewController:searchNewestController];
     
     MPSearchMemesViewController *searchPopularController = [[MPSearchMemesViewController alloc] init];
-    MPBaseNavigationViewController *searchPopularNavController = [[MPBaseNavigationViewController alloc] initWithRootViewController:searchPopularController];
+//    MPBaseNavigationViewController *searchPopularNavController = [[MPBaseNavigationViewController alloc] initWithRootViewController:searchPopularController];
     
-    self.viewControllerAray = @[myMemesNavController, searchNewestNavController, searchPopularNavController];
+    self.viewControllerAray = @[myMemesController, searchNewestController, searchPopularController];
     self.controllerNamesArray = @[@"Your Memes", @"Newest", @"Popular"];
 }
 
@@ -110,7 +110,7 @@
 {
     if (indexPath.row < self.viewControllerAray.count) {
         MPMainViewController *mainController = (MPMainViewController *)((AppDelegate *)[UIApplication sharedApplication].delegate).viewController;
-        mainController.rootViewController = self.viewControllerAray[indexPath.row];
+        [(MPBaseNavigationViewController *)mainController.rootViewController pushViewController:self.viewControllerAray[indexPath.row] animated:YES];
         
         [self hideRightViewAnimated:nil];
     }

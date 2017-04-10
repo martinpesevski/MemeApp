@@ -36,6 +36,7 @@
     self.backgroundColor = [UIColor clearColor];
     
     self.cellImageView = [[UIImageView alloc] init];
+    self.cellImageView.contentMode = UIViewContentModeScaleAspectFit;
     
     self.cellLabel = [[UILabel alloc] init];
     self.cellLabel.font = [MPFontManager getLargeFont];

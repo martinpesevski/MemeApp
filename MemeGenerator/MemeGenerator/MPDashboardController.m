@@ -31,9 +31,9 @@
     self.title = @"How would you like to create your meme?";
     
     self.cellNamesArray = @[@"From a new photo", @"From an image or pic", @"From a known meme"];
-    self.cellImagesArray = @[[UIImage imageNamed:@"ic_camera"],
-                             [UIImage imageNamed:@"ic_folder"],
-                             [UIImage imageNamed:@"ic_folder_shared"]];
+    self.cellImagesArray = @[[UIImage imageNamed:@"camera-icon"],
+                             [UIImage imageNamed:@"folder-icon"],
+                             [UIImage imageNamed:@"meme-icon"]];
 
     [self setupViews];
     [self setConstraints];
