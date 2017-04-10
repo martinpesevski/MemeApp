@@ -15,6 +15,7 @@
 #import "MPMeme.h"
 #import "MPRequestProvider.h"
 #import "MBProgressHUD.h"
+#import "SDWebImageManager.h"
 
 @interface MPSearchMemesViewController () <UISearchBarDelegate>
 
@@ -97,6 +98,14 @@
     }];
 }
 
+- (void)loadImageFromUrl:(NSString *)imageUrl completion:(imageCompletion)completion
+{
+    SDWebImageManager *manager = [SDWebImageManager sharedManager];
+    [manager downloadImageWithURL:[NSURL URLWithString:imageUrl] options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+        completion(image);
+    }];
+}
+
 #pragma mark - uicollectionview methods
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -134,8 +143,10 @@
         meme = self.memesArray[indexPath.row];
     }
     
-//    MPMemeMakerViewController *memeMakerController = [[MPMemeMakerViewController alloc] initWithImage:meme.ima];
-//    [self.navigationController pushViewController:memeMakerController animated:YES];
+    [self loadImageFromUrl:meme.imageUrlString completion:^(UIImage *image) {
+        MPMemeMakerViewController *memeMakerController = [[MPMemeMakerViewController alloc] initWithImage:image];
+        [self.navigationController pushViewController:memeMakerController animated:YES];
+    }];
 }
 
 #pragma mark - search bar delegate methods

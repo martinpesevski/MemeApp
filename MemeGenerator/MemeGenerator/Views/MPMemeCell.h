@@ -11,5 +11,6 @@
 @interface MPMemeCell : UICollectionViewCell
 
 - (void)setupWithImageUrl:(NSURL *)imageUrl;
+- (void)setupWithImage:(UIImage *)image;
 
 @end

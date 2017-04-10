@@ -47,9 +47,8 @@
         NSString *imagePath = [NSString stringWithFormat:@"%@/%@/%@",documentsDirectory,@"memeGenerator", imageName];
         UIImage *memeImage = [UIImage imageWithContentsOfFile:imagePath];
         
-//        MPMeme *meme = [[MPMeme alloc] initWithImage:memeImage name:imageNameFormatted];
-//        
-//        [memesMutable addObject:meme];
+        MPMeme *meme = [[MPMeme alloc] initWithImage:memeImage name:imageNameFormatted];
+        [memesMutable addObject:meme];
     }
     self.memesArray = memesMutable;
 
@@ -70,7 +69,7 @@
     MPMeme *meme;
     
     meme = self.memesArray[indexPath.row];
-//    [memeCell setupWithImage:meme.image];
+    [memeCell setupWithImage:meme.image];
     
     return memeCell;
 }
@@ -79,8 +78,8 @@
 {
     MPMeme *meme = self.memesArray[indexPath.row];
     
-//    MPShareMemeViewController *shareMemeController = [[MPShareMemeViewController alloc] initWithImage:meme.image];
-//    [self.navigationController pushViewController:shareMemeController animated:YES];
+    MPShareMemeViewController *shareMemeController = [[MPShareMemeViewController alloc] initWithImage:meme.image];
+    [self.navigationController pushViewController:shareMemeController animated:YES];
 }
 
 @end

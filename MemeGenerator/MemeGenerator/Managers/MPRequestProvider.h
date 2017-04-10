@@ -6,9 +6,10 @@
 //  Copyright © 2017 Martin Peshevski. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 typedef void(^resultCompletion)(id result, NSError *error);
+typedef void(^imageCompletion)(UIImage *image);
 
 @interface MPRequestProvider : NSObject
 

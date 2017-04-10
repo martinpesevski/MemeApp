@@ -22,4 +22,14 @@
     return self;
 }
 
+- (instancetype)initWithImage:(UIImage *)image name:(NSString *)name
+{
+    self = [super init];
+    if (self) {
+        self.name = name;
+        self.image = image;
+    }
+    return self;
+}
+
 @end

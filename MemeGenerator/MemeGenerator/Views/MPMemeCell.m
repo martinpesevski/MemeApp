@@ -51,4 +51,9 @@
     [self.memeImageView sd_setImageWithURL:imageUrl];
 }
 
+- (void)setupWithImage:(UIImage *)image
+{
+    [self.memeImageView setImage:image];
+}
+
 @end
