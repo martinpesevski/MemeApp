@@ -10,12 +10,14 @@
 
 @implementation MPMeme
 
-- (instancetype)initWithImage:(UIImage *)image name:(NSString *)name
+- (instancetype)initWithDict:(NSDictionary *)dict
 {
     self = [super init];
     if (self) {
-        self.image = image;
-        self.name = name;
+        self.memeID = dict[@"id"];
+        self.imageUrlString = [NSString stringWithFormat:@"https://makeameme.org/media/templates/%@", dict[@"img"]];
+        self.imageThumbnailString = [NSString stringWithFormat:@"https://makeameme.org/media/templates/80/%@", dict[@"img"]];
+        self.name = dict[@"name"];
     }
     return self;
 }

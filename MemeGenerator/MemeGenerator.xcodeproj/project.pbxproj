@@ -15,6 +15,8 @@
 		C73EB5F91E8A82D500F3E6FC /* memes in Resources */ = {isa = PBXBuildFile; fileRef = C73EB5F81E8A82D500F3E6FC /* memes */; };
 		C73EB5FD1E8A875D00F3E6FC /* MPMeme.m in Sources */ = {isa = PBXBuildFile; fileRef = C73EB5FC1E8A875D00F3E6FC /* MPMeme.m */; };
 		C77E13E71E93C365007E33EC /* MPMyMemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C77E13E61E93C365007E33EC /* MPMyMemesViewController.m */; };
+		C7921B0D1E9B775E00D9AEB3 /* MPNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C7921B0C1E9B775E00D9AEB3 /* MPNetworkManager.m */; };
+		C7921B101E9B777300D9AEB3 /* MPRequestProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C7921B0F1E9B777300D9AEB3 /* MPRequestProvider.m */; };
 		C797F32D1E82F37400D58EA2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C797F32C1E82F37400D58EA2 /* main.m */; };
 		C797F3301E82F37400D58EA2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C797F32F1E82F37400D58EA2 /* AppDelegate.m */; };
 		C797F3331E82F37400D58EA2 /* MPDashboardController.m in Sources */ = {isa = PBXBuildFile; fileRef = C797F3321E82F37400D58EA2 /* MPDashboardController.m */; };
@@ -63,6 +65,10 @@
 		C73EB5FC1E8A875D00F3E6FC /* MPMeme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMeme.m; sourceTree = "<group>"; };
 		C77E13E51E93C365007E33EC /* MPMyMemesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMyMemesViewController.h; sourceTree = "<group>"; };
 		C77E13E61E93C365007E33EC /* MPMyMemesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMyMemesViewController.m; sourceTree = "<group>"; };
+		C7921B0B1E9B775E00D9AEB3 /* MPNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPNetworkManager.h; sourceTree = "<group>"; };
+		C7921B0C1E9B775E00D9AEB3 /* MPNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPNetworkManager.m; sourceTree = "<group>"; };
+		C7921B0E1E9B777300D9AEB3 /* MPRequestProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPRequestProvider.h; sourceTree = "<group>"; };
+		C7921B0F1E9B777300D9AEB3 /* MPRequestProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPRequestProvider.m; sourceTree = "<group>"; };
 		C797F3281E82F37400D58EA2 /* MemeGenerator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MemeGenerator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C797F32C1E82F37400D58EA2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C797F32E1E82F37400D58EA2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -218,6 +224,10 @@
 				C7BDB1441E82F59F000AA588 /* MPControllerManager.m */,
 				C7BDB1451E82F59F000AA588 /* MPFontManager.h */,
 				C7BDB1461E82F59F000AA588 /* MPFontManager.m */,
+				C7921B0B1E9B775E00D9AEB3 /* MPNetworkManager.h */,
+				C7921B0C1E9B775E00D9AEB3 /* MPNetworkManager.m */,
+				C7921B0E1E9B777300D9AEB3 /* MPRequestProvider.h */,
+				C7921B0F1E9B777300D9AEB3 /* MPRequestProvider.m */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -412,11 +422,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7BDB14A1E82F59F000AA588 /* MPControllerManager.m in Sources */,
+				C7921B0D1E9B775E00D9AEB3 /* MPNetworkManager.m in Sources */,
 				C7BDB1801E82F816000AA588 /* MPStarRatingView.m in Sources */,
 				C7BDB17D1E82F816000AA588 /* MPNavigationBarView.m in Sources */,
 				C7BDB14B1E82F59F000AA588 /* MPFontManager.m in Sources */,
 				C797F3331E82F37400D58EA2 /* MPDashboardController.m in Sources */,
 				C7BDB1481E82F59F000AA588 /* MPAuthenticationManager.m in Sources */,
+				C7921B101E9B777300D9AEB3 /* MPRequestProvider.m in Sources */,
 				C7C8CA6D1E93C08900F13C29 /* MPBaseMemeCollectionViewController.m in Sources */,
 				C7BDB1491E82F59F000AA588 /* MPColorManager.m in Sources */,
 				C797F3301E82F37400D58EA2 /* AppDelegate.m in Sources */,

@@ -10,6 +10,6 @@
 
 @interface MPMemeCell : UICollectionViewCell
 
-- (void)setupWithImage:(UIImage *)image;
+- (void)setupWithImageUrl:(NSURL *)imageUrl;
 
 @end

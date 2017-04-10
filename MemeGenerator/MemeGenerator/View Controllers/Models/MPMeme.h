@@ -10,9 +10,11 @@
 
 @interface MPMeme : NSObject
 
-@property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) NSString *imageUrlString;
+@property (nonatomic, strong) NSString *imageThumbnailString;
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSNumber *memeID;
 
-- (instancetype)initWithImage:(UIImage *)image name:(NSString *)name;
+- (instancetype)initWithDict:(NSDictionary *)dict;
 
 @end

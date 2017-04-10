@@ -8,6 +8,7 @@
 
 #import "MPMemeCell.h"
 #import "Masonry.h"
+#import "UIImageView+WebCache.h"
 
 @interface MPMemeCell ()
 
@@ -45,9 +46,9 @@
     }];
 }
 
-- (void)setupWithImage:(UIImage *)image
+- (void)setupWithImageUrl:(NSURL *)imageUrl
 {
-    self.memeImageView.image = image;
+    [self.memeImageView sd_setImageWithURL:imageUrl];
 }
 
 @end

@@ -13,6 +13,8 @@
 #import "MPMemeMakerViewController.h"
 #import "MPColorManager.h"
 #import "MPMeme.h"
+#import "MPRequestProvider.h"
+#import "MBProgressHUD.h"
 
 @interface MPSearchMemesViewController () <UISearchBarDelegate>
 
@@ -24,30 +26,37 @@
 
 @implementation MPSearchMemesViewController
 
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    [self loadMemes];
+}
+
 - (void)setupViews
 {
     [super setupViews];
     
     self.title = @"Select a meme";
     
-    NSString *dirPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"memes"];
-    NSError * error;
-    NSArray *memeImageNamesAray = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:dirPath error:&error];
-    
-    NSMutableArray *memesMutable = [[NSMutableArray alloc] init];
-    for (NSString *imageName in memeImageNamesAray) {
-        NSString *imageNamePathExtension = [NSString stringWithFormat:@".%@", [imageName pathExtension]];
-        NSString *imageNameWithoutExtension = [imageName stringByReplacingOccurrencesOfString:imageNamePathExtension withString:@""];
-        NSString *imageNameFormatted = [imageNameWithoutExtension stringByReplacingOccurrencesOfString:@"_" withString:@" "];
-        
-        NSString *imagePath = [[NSBundle mainBundle] pathForResource:imageName ofType:nil inDirectory:@"memes"];
-        UIImage *memeImage = [UIImage imageWithContentsOfFile:imagePath];
-        
-        MPMeme *meme = [[MPMeme alloc] initWithImage:memeImage name:imageNameFormatted];
-        
-        [memesMutable addObject:meme];
-    }
-    self.memesArray = memesMutable;
+//    NSString *dirPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"memes"];
+//    NSError * error;
+//    NSArray *memeImageNamesAray = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:dirPath error:&error];
+//    
+//    NSMutableArray *memesMutable = [[NSMutableArray alloc] init];
+//    for (NSString *imageName in memeImageNamesAray) {
+//        NSString *imageNamePathExtension = [NSString stringWithFormat:@".%@", [imageName pathExtension]];
+//        NSString *imageNameWithoutExtension = [imageName stringByReplacingOccurrencesOfString:imageNamePathExtension withString:@""];
+//        NSString *imageNameFormatted = [imageNameWithoutExtension stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+//        
+//        NSString *imagePath = [[NSBundle mainBundle] pathForResource:imageName ofType:nil inDirectory:@"memes"];
+//        UIImage *memeImage = [UIImage imageWithContentsOfFile:imagePath];
+//        
+//        MPMeme *meme = [[MPMeme alloc] initWithImage:memeImage name:imageNameFormatted];
+//        
+//        [memesMutable addObject:meme];
+//    }
+//    self.memesArray = memesMutable;
 
     self.searchBar = [[UISearchBar alloc] init];
     self.searchBar.barTintColor = [MPColorManager colorFromHexString:@"#838BFF"];
@@ -66,6 +75,25 @@
     [self.memesCollectionView mas_remakeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
         make.top.equalTo(self.searchBar.mas_bottom);
+    }];
+}
+
+#pragma mark - api calls
+
+- (void)loadMemes
+{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[MPRequestProvider sharedInstance] getMemesWithCompletion:^(id result, NSError *error) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        NSMutableArray *memesMutable = [[NSMutableArray alloc] init];
+        for (NSDictionary *dict in result) {
+            MPMeme *meme = [[MPMeme alloc] initWithDict:dict];
+            [memesMutable addObject:meme];
+        }
+        
+        self.memesArray = memesMutable;
+        
+        [self.memesCollectionView reloadData];
     }];
 }
 
@@ -91,7 +119,7 @@
     } else {
         meme = self.memesArray[indexPath.row];
     }
-    [memeCell setupWithImage:meme.image];
+    [memeCell setupWithImageUrl:[NSURL URLWithString: meme.imageUrlString]];
     
     return memeCell;
 }
@@ -106,8 +134,8 @@
         meme = self.memesArray[indexPath.row];
     }
     
-    MPMemeMakerViewController *memeMakerController = [[MPMemeMakerViewController alloc] initWithImage:meme.image];
-    [self.navigationController pushViewController:memeMakerController animated:YES];
+//    MPMemeMakerViewController *memeMakerController = [[MPMemeMakerViewController alloc] initWithImage:meme.ima];
+//    [self.navigationController pushViewController:memeMakerController animated:YES];
 }
 
 #pragma mark - search bar delegate methods

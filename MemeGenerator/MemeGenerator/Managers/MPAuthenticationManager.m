@@ -33,7 +33,7 @@
     self = [super init];
     if (self) {
         
-        NSURL *baseURL = [NSURL URLWithString:BASE_URL];
+//        NSURL *baseURL = [NSURL URLWithString:BASE_URL];
 
 //        self.OAuth2Manager = [[AFOAuth2Manager alloc] initWithBaseURL:baseURL
 //                                                             clientID:@"betapp"
