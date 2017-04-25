@@ -30,7 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"How would you like to create your meme?";
+    self.title = @"Meme Generator by makeameme.org";
     
     self.cellNamesArray = @[@"From a new photo", @"From an image or pic", @"From a known meme"];
     self.cellImagesArray = @[[UIImage imageNamed:@"camera-icon"],
