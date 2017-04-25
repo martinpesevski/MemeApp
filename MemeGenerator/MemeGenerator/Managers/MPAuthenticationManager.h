@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MPNetworkManager.h"
 
 typedef void(^successCompletion)(BOOL completed);
 
-@interface MPAuthenticationManager : NSObject
+@interface MPAuthenticationManager : AFHTTPSessionManager
 
 + (MPAuthenticationManager *)sharedManager;
 

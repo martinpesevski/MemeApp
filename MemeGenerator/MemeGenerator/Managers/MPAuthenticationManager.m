@@ -7,12 +7,11 @@
 //
 
 #import "MPAuthenticationManager.h"
+#import "NetworkConstants.h"
 #import "Constants.h"
-//#import <AFOAuth2Manager/AFOAuth2Manager.h>
+#import "AFOAuth2Manager.h"
 
 @interface MPAuthenticationManager ()
-
-//@property (nonatomic, strong) AFOAuth2Manager *OAuth2Manager;
 
 @end
 
@@ -23,45 +22,47 @@
     static MPAuthenticationManager *sharedMyManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedMyManager = [[MPAuthenticationManager alloc] init];
+        sharedMyManager = [[MPAuthenticationManager alloc] initWithBaseURL:[NSURL URLWithString:BASE_URL]];
     });
     return sharedMyManager;
 }
 
-- (instancetype)init
+- (instancetype)initWithBaseURL:(NSURL *)url
 {
-    self = [super init];
+    self = [super initWithBaseURL:url];
     if (self) {
+        self.requestSerializer = [[AFJSONRequestSerializer alloc] init];
+        [self.requestSerializer setValue:@"C3EE7018F61B2CD40F2" forHTTPHeaderField:@"X-Mam-Secret"];
         
-//        NSURL *baseURL = [NSURL URLWithString:BASE_URL];
-
-//        self.OAuth2Manager = [[AFOAuth2Manager alloc] initWithBaseURL:baseURL
-//                                                             clientID:@"betapp"
-//                                                               secret:@"betapp-secret"];
+        AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+        [responseSerializer setRemovesKeysWithNullValues:YES];
+        responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html", nil];
+        self.responseSerializer = responseSerializer;
+        
     }
     return self;
 }
 
 - (void)loginWithUsername:(NSString *)username password:(NSString *)password completion:(successCompletion)completion
 {
-    completion(YES);
-//    [self.OAuth2Manager authenticateUsingOAuthWithURLString:kTokenEndpoint
-//                                              username:username
-//                                              password:password
-//                                                 scope:nil
-//                                               success:^(AFOAuthCredential *credential) {
-//                                                   if (credential) {
-//                                                       [AFOAuthCredential storeCredential:credential withIdentifier:kTokenIdentifier];
-//                                                       completion(YES);
-//                                                   } else {
-//                                                       completion(NO);
-//                                                       NSLog(@"EMPTY CREDENTIAL");
-//                                                   }
-//                                               }
-//                                               failure:^(NSError *error) {
-//                                                   completion(NO);
-//                                                   NSLog(@"Error: %@", error);
-//                                               }];
+    NSDictionary *params = @{@"email": @"martin.the.don@hotmail.com",
+                             @"password": @"password"};
+    [self GET:kAuthenticationEndpoint
+   parameters:params
+     progress:nil
+      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+          if (!responseObject[@"authToken"]) {
+              NSLog(@"EMPTY CREDENTIAL");
+              completion(NO);
+              return;
+          }
+          
+          AFOAuthCredential *credential = [[AFOAuthCredential alloc] initWithOAuthToken:responseObject[@"authToken"] tokenType:@"bearer"];
+          [AFOAuthCredential storeCredential:credential withIdentifier:kTokenIdentifier];
+          completion(YES);
+      } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+          completion(NO);
+      }];
 }
 
 - (void)loginWithToken:(NSString *)token completion:(successCompletion)completion

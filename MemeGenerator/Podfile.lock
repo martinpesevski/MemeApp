@@ -14,6 +14,8 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - AFOAuth2Manager (3.0.0):
+    - AFNetworking/NSURLSession (~> 3.0)
   - IQKeyboardManager (4.0.8)
   - JVFloatLabeledTextField (1.1.1)
   - Masonry (1.0.2)
@@ -24,6 +26,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
+  - AFOAuth2Manager
   - IQKeyboardManager
   - JVFloatLabeledTextField
   - Masonry
@@ -32,12 +35,13 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  AFOAuth2Manager: 0566da1be64883e339813d411229fdc9a84dab7c
   IQKeyboardManager: 1a8189fa153bf09044355ee0ad36826f6767e7f7
   JVFloatLabeledTextField: 0e5524b097f102036214dd8279edc8ecf08b5e18
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
 
-PODFILE CHECKSUM: f2aa5e0289b777d315a7b5bbadd7ea8193113d6d
+PODFILE CHECKSUM: 0080a60c6a67553c49a8eaf59bf1c1f7c0314b2e
 
 COCOAPODS: 1.2.0

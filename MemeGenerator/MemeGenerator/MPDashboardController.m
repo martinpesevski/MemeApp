@@ -11,6 +11,8 @@
 #import "Masonry.h"
 #import "MPMemeMakerViewController.h"
 #import "MPSearchMemesViewController.h"
+#import "MPAuthenticationManager.h"
+#import "MPRequestProvider.h"
 
 #define kDashboardCellHeight 150
 
@@ -37,6 +39,7 @@
 
     [self setupViews];
     [self setConstraints];
+    [self login];
 }
 
 - (void)setupViews
@@ -58,6 +61,16 @@
         make.centerY.equalTo(self.view);
         make.left.right.equalTo(self.view);
         make.height.equalTo(@(self.cellNamesArray.count * kDashboardCellHeight));
+    }];
+}
+
+- (void)login
+{
+    [[MPAuthenticationManager sharedManager] loginWithUsername:@"" password:@"" completion:^(BOOL completed) {
+        NSLog(@"complete login");
+        [[MPRequestProvider sharedInstance] getUserMemesWithCompletion:^(id result, NSError *error) {
+            NSLog(@"finished getting user memes");
+        }];
     }];
 }
 

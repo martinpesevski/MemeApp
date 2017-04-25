@@ -15,5 +15,7 @@ typedef void(^imageCompletion)(UIImage *image);
 
 + (MPRequestProvider *)sharedInstance;
 - (void)getMemesWithCompletion:(resultCompletion)completion;
+- (void)checkAccountWithCompletion:(resultCompletion)completion;
+- (void)getUserMemesWithCompletion:(resultCompletion)completion;
 
 @end

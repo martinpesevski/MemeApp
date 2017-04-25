@@ -119,6 +119,7 @@
 		C7C8CA6B1E93C08900F13C29 /* MPBaseMemeCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPBaseMemeCollectionViewController.h; sourceTree = "<group>"; };
 		C7C8CA6C1E93C08900F13C29 /* MPBaseMemeCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPBaseMemeCollectionViewController.m; sourceTree = "<group>"; };
 		C7E966BD1E8ED4F20015CDD8 /* cambria-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "cambria-bold.ttf"; sourceTree = "<group>"; };
+		C7F4C3541EADE034004ADD30 /* NetworkConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkConstants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +204,7 @@
 				C7E966BD1E8ED4F20015CDD8 /* cambria-bold.ttf */,
 				C722EE281E891041007F2B39 /* impact.ttf */,
 				C7BDB1821E82F86F000AA588 /* Constants.h */,
+				C7F4C3541EADE034004ADD30 /* NetworkConstants.h */,
 				C797F32C1E82F37400D58EA2 /* main.m */,
 			);
 			name = "Supporting Files";

@@ -8,6 +8,7 @@
 
 #import "MPRequestProvider.h"
 #import "MPNetworkManager.h"
+#import "NetworkConstants.h"
 
 @implementation MPRequestProvider
 
@@ -23,7 +24,7 @@
 
 - (void)getMemesWithCompletion:(resultCompletion)completion
 {
-    [[MPNetworkManager sharedManager] GET:@"/memecharlist.json"
+    [[MPNetworkManager sharedManager] GET:kGetMemesEndpoint
                                 parameters:nil
                                   progress:nil
                                    success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
@@ -33,6 +34,40 @@
                                    failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
      {
          NSLog(@"\n============== ERROR getting templates ====\n%@",error.userInfo);
+         completion(nil, error);
+     }];
+}
+
+- (void)checkAccountWithCompletion:(resultCompletion)completion
+{
+    NSDictionary *paramsDictionary = @{@"email":@"martin.the.don@hotmail.com"};
+    
+    [[MPNetworkManager sharedManager] GET:kCheckAccountEndpoint
+                               parameters:paramsDictionary
+                                 progress:nil
+                                  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+     {
+         completion (responseObject, nil);
+     }
+                                  failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+     {
+         NSLog(@"\n============== ERROR checking account ====\n%@",error.userInfo);
+         completion(nil, error);
+     }];
+}
+
+- (void)getUserMemesWithCompletion:(resultCompletion)completion
+{
+    [[MPNetworkManager sharedManager] POST:kGetUserMemesEndpoint
+                                parameters:nil
+                                  progress:nil
+                                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+     {
+         completion (responseObject, nil);
+     }
+                                   failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+     {
+         NSLog(@"\n============== ERROR getting user memes ====\n%@",error.userInfo);
          completion(nil, error);
      }];
 }
