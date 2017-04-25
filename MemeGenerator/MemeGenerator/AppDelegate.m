@@ -12,6 +12,8 @@
 #import "MPMainViewController.h"
 #import "MPDashboardController.h"
 #import <IQKeyboardManager/IQKeyboardManager.h>
+#import "MPLoginViewController.h"
+#import "MPAuthenticationManager.h"
 
 @interface AppDelegate ()
 
@@ -24,7 +26,11 @@
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    [self setMainController];
+    if ([[MPAuthenticationManager sharedManager] isLoggedIn]) {
+        [self setMainController];
+    } else {
+        [self setSignIn];
+    }
     
     [self setNavigationBarAppearance];
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
@@ -54,6 +60,21 @@
     self.viewController = mainViewController;
     self.window.rootViewController = self.viewController;
     
+    [UIView transitionWithView:self.window
+                      duration:0.3
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:nil
+                    completion:nil];
+}
+
+- (void)setSignIn
+{
+    MPLoginViewController *loginController = [[MPLoginViewController alloc] init];
+    MPBaseNavigationViewController *loginNavController = [[MPBaseNavigationViewController alloc] initWithRootViewController:loginController];
+    
+    self.viewController = loginNavController;
+    self.window.rootViewController = self.viewController;
+
     [UIView transitionWithView:self.window
                       duration:0.3
                        options:UIViewAnimationOptionTransitionCrossDissolve

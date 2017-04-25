@@ -139,6 +139,9 @@
         case MPSideMenuCellTypePopular:
             return @"Popular";
             break;
+        case MPSideMenuCellTypeSignOut:
+            return @"Logout";
+            break;
         default:
             break;
     }

@@ -14,6 +14,7 @@
 @property (nonatomic, strong) UIViewController *viewController;
 
 - (void)setMainController;
+- (void)setSignIn;
 
 @end
 

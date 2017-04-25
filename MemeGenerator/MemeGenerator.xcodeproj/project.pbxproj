@@ -43,6 +43,8 @@
 		C7BDB1851E82FC92000AA588 /* MPDashboardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7BDB1841E82FC92000AA588 /* MPDashboardCell.m */; };
 		C7C8CA6D1E93C08900F13C29 /* MPBaseMemeCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C8CA6C1E93C08900F13C29 /* MPBaseMemeCollectionViewController.m */; };
 		C7E966BE1E8ED4F20015CDD8 /* cambria-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7E966BD1E8ED4F20015CDD8 /* cambria-bold.ttf */; };
+		C7F05CDA1EB0067D00996A6D /* MPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7F05CD91EB0067D00996A6D /* MPLoginViewController.m */; };
+		C7F05CDD1EB0069200996A6D /* MPBaseLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7F05CDC1EB0069200996A6D /* MPBaseLoginViewController.m */; };
 		E2F3C4BD536D7A24207242CD /* libPods-MemeGenerator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AC515D8F10CCCBB9015AC16 /* libPods-MemeGenerator.a */; };
 /* End PBXBuildFile section */
 
@@ -119,6 +121,10 @@
 		C7C8CA6B1E93C08900F13C29 /* MPBaseMemeCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPBaseMemeCollectionViewController.h; sourceTree = "<group>"; };
 		C7C8CA6C1E93C08900F13C29 /* MPBaseMemeCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPBaseMemeCollectionViewController.m; sourceTree = "<group>"; };
 		C7E966BD1E8ED4F20015CDD8 /* cambria-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "cambria-bold.ttf"; sourceTree = "<group>"; };
+		C7F05CD81EB0067D00996A6D /* MPLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPLoginViewController.h; sourceTree = "<group>"; };
+		C7F05CD91EB0067D00996A6D /* MPLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLoginViewController.m; sourceTree = "<group>"; };
+		C7F05CDB1EB0069200996A6D /* MPBaseLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPBaseLoginViewController.h; sourceTree = "<group>"; };
+		C7F05CDC1EB0069200996A6D /* MPBaseLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPBaseLoginViewController.m; sourceTree = "<group>"; };
 		C7F4C3541EADE034004ADD30 /* NetworkConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkConstants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -234,6 +240,10 @@
 		C7BDB14C1E82F5FA000AA588 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C7F05CD81EB0067D00996A6D /* MPLoginViewController.h */,
+				C7F05CD91EB0067D00996A6D /* MPLoginViewController.m */,
+				C7F05CDB1EB0069200996A6D /* MPBaseLoginViewController.h */,
+				C7F05CDC1EB0069200996A6D /* MPBaseLoginViewController.m */,
 				C7BDB14D1E82F5FA000AA588 /* MPBaseNavigationViewController.h */,
 				C7BDB14E1E82F5FA000AA588 /* MPBaseNavigationViewController.m */,
 				C7BDB14F1E82F5FA000AA588 /* MPBaseViewController.h */,
@@ -426,6 +436,7 @@
 				C7BDB14B1E82F59F000AA588 /* MPFontManager.m in Sources */,
 				C797F3331E82F37400D58EA2 /* MPDashboardController.m in Sources */,
 				C7BDB1481E82F59F000AA588 /* MPAuthenticationManager.m in Sources */,
+				C7F05CDA1EB0067D00996A6D /* MPLoginViewController.m in Sources */,
 				C7921B101E9B777300D9AEB3 /* MPRequestProvider.m in Sources */,
 				C7C8CA6D1E93C08900F13C29 /* MPBaseMemeCollectionViewController.m in Sources */,
 				C7BDB1491E82F59F000AA588 /* MPColorManager.m in Sources */,
@@ -445,6 +456,7 @@
 				C71635E91E830A390070F88A /* MPMemeCell.m in Sources */,
 				C7BDB16C1E82F762000AA588 /* LGSideMenuControllerGesturesHandler.m in Sources */,
 				C71635E31E83048A0070F88A /* MPMemeMakerViewController.m in Sources */,
+				C7F05CDD1EB0069200996A6D /* MPBaseLoginViewController.m in Sources */,
 				C7BDB16D1E82F762000AA588 /* LGSideMenuView.m in Sources */,
 				C7BDB1851E82FC92000AA588 /* MPDashboardCell.m in Sources */,
 				C7BDB1811E82F816000AA588 /* MPTextField.m in Sources */,

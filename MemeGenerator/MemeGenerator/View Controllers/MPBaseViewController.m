@@ -7,7 +7,7 @@
 //
 
 #import "MPBaseViewController.h"
-//#import "MPLoginViewController.h"
+#import "MPLoginViewController.h"
 #import "MPMainViewController.h"
 #import "AppDelegate.h"
 #import "MPColorManager.h"
@@ -48,11 +48,11 @@
 {
     [super viewWillAppear:animated];
     if (self == [self.navigationController.viewControllers firstObject] &&
-//        ![self isKindOfClass:[MPLoginViewController class]] &&
+        ![self isKindOfClass:[MPLoginViewController class]] &&
         ![self isModal])
     {
         [self addMenuButton];
-    } else {
+    } else if(![self isKindOfClass:[MPLoginViewController class]]){
         [self addBackButton];
     }
 }

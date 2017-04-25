@@ -12,6 +12,7 @@ typedef enum:NSInteger {
     MPSideMenuCellTypeYourMemes = 0,
     MPSideMenuCellTypeNewest = 1,
     MPSideMenuCellTypePopular = 2,
+    MPSideMenuCellTypeSignOut = 3
 } MPSideMenuCellType;
 
 @interface MPSideMenuCell : UITableViewCell

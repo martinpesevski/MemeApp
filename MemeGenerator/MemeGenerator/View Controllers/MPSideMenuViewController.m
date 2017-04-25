@@ -17,6 +17,7 @@
 #import "UIViewController+LGSideMenuController.h"
 #import "MPMainViewController.h"
 #import "AppDelegate.h"
+#import "MPAuthenticationManager.h"
 
 #define kReuseIdentifier @"sideMenuCell"
 
@@ -67,7 +68,7 @@
 //    MPBaseNavigationViewController *searchPopularNavController = [[MPBaseNavigationViewController alloc] initWithRootViewController:searchPopularController];
     
     self.viewControllerAray = @[myMemesController, searchNewestController, searchPopularController];
-    self.controllerNamesArray = @[@"Your Memes", @"Newest", @"Popular"];
+    self.controllerNamesArray = @[@"Your Memes", @"Newest", @"Popular", @"Logout"];
 }
 
 - (void)setupViews
@@ -108,11 +109,18 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row < self.viewControllerAray.count) {
+    if (indexPath.row < self.controllerNamesArray.count - 1) {
         MPMainViewController *mainController = (MPMainViewController *)((AppDelegate *)[UIApplication sharedApplication].delegate).viewController;
         [(MPBaseNavigationViewController *)mainController.rootViewController pushViewController:self.viewControllerAray[indexPath.row] animated:YES];
         
         [self hideRightViewAnimated:nil];
+    } else if (indexPath.row == self.controllerNamesArray.count-1) {
+        [MPAlertManager showAlertMessage:@"Are you sure you wish to logout?" withOKblock:^{
+            [[MPAuthenticationManager sharedManager] signOut];
+            AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+            
+            [appDelegate setSignIn];
+        }];
     }
 }
 

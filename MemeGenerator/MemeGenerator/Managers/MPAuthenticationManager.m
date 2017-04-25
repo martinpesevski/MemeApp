@@ -45,8 +45,8 @@
 
 - (void)loginWithUsername:(NSString *)username password:(NSString *)password completion:(successCompletion)completion
 {
-    NSDictionary *params = @{@"email": @"martin.the.don@hotmail.com",
-                             @"password": @"password"};
+    NSDictionary *params = @{@"email": username,
+                             @"password": password};
     [self GET:kAuthenticationEndpoint
    parameters:params
      progress:nil
@@ -110,15 +110,13 @@
 
 - (BOOL)isLoggedIn
 {
-//    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:kTokenIdentifier];
-//    return credential!=NULL;
-    
-    return NO;
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:kTokenIdentifier];
+    return credential!=NULL;
 }
 
 - (void)signOut
 {
-//    [AFOAuthCredential deleteCredentialWithIdentifier:kTokenIdentifier];
+    [AFOAuthCredential deleteCredentialWithIdentifier:kTokenIdentifier];
 }
 
 @end
