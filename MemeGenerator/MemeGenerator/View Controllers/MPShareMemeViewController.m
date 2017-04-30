@@ -10,6 +10,7 @@
 #import "Masonry.h"
 #import "MPColorManager.h"
 #import "Constants.h"
+#import "AppDelegate.h"
 
 #define kMemeImageHeightWidth 300
 
@@ -38,6 +39,7 @@
     
     [self setupViews];
     [self setConstraints];
+    [self tabbarSetup];
 }
 
 - (void)setupViews
@@ -83,6 +85,24 @@
         make.height.equalTo(@(kLoginButtonHeight));
         make.centerX.equalTo(self.view);
     }];
+}
+
+- (void)tabbarSetup
+{
+    NSArray *names = @[@"back", @"login"];
+    NSArray *images = @[[UIImage imageNamed:@"ic_left_white"],[UIImage new]];
+    
+    simpleBlock backBlock = ^{
+        [self onBack];
+    };
+    
+    simpleBlock loginBlock = ^{
+        [((AppDelegate *)[UIApplication sharedApplication].delegate) setMainController];
+    };
+    
+    NSArray *actionsArray = @[backBlock, loginBlock];
+    
+    [self setupTabbarWithNames:names images:images actions:actionsArray];
 }
 
 #pragma mark - button actions

@@ -16,6 +16,7 @@
 #import "MPRequestProvider.h"
 #import "MBProgressHUD.h"
 #import "SDWebImageManager.h"
+#import "AppDelegate.h"
 
 @interface MPSearchMemesViewController () <UISearchBarDelegate>
 
@@ -31,6 +32,7 @@
 {
     [super viewDidLoad];
     
+    [self tabbarSetup];
     [self loadMemes];
 }
 
@@ -77,6 +79,24 @@
         make.left.right.bottom.equalTo(self.view);
         make.top.equalTo(self.searchBar.mas_bottom);
     }];
+}
+
+- (void)tabbarSetup
+{
+    NSArray *names = @[@"back", @"login"];
+    NSArray *images = @[[UIImage imageNamed:@"ic_left_white"],[UIImage new]];
+    
+    simpleBlock backBlock = ^{
+        [self onBack];
+    };
+    
+    simpleBlock loginBlock = ^{
+        [((AppDelegate *)[UIApplication sharedApplication].delegate) setMainController];
+    };
+    
+    NSArray *actionsArray = @[backBlock, loginBlock];
+    
+    [self setupTabbarWithNames:names images:images actions:actionsArray];
 }
 
 #pragma mark - api calls

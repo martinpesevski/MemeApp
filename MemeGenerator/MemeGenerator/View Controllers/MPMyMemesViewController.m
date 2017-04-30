@@ -10,6 +10,7 @@
 #import "MPMeme.h"
 #import "MPMemeCell.h"
 #import "MPShareMemeViewController.h"
+#import "AppDelegate.h"
 
 @interface MPMyMemesViewController ()
 
@@ -22,12 +23,32 @@
     [super viewDidLoad];
     
     self.title = @"Your memes";
+    
+    [self tabbarSetup];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self loadImages];
+}
+
+- (void)tabbarSetup
+{
+    NSArray *names = @[@"back", @"login"];
+    NSArray *images = @[[UIImage imageNamed:@"ic_left_white"],[UIImage new]];
+    
+    simpleBlock backBlock = ^{
+        [self onBack];
+    };
+    
+    simpleBlock loginBlock = ^{
+        [((AppDelegate *)[UIApplication sharedApplication].delegate) setMainController];
+    };
+    
+    NSArray *actionsArray = @[backBlock, loginBlock];
+    
+    [self setupTabbarWithNames:names images:images actions:actionsArray];
 }
 
 - (void)loadImages {

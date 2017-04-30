@@ -13,6 +13,7 @@
 #import "MPSearchMemesViewController.h"
 #import "MPAuthenticationManager.h"
 #import "MPRequestProvider.h"
+#import "AppDelegate.h"
 
 #define kDashboardCellHeight 150
 
@@ -39,6 +40,7 @@
 
     [self setupViews];
     [self setConstraints];
+    [self tabbarSetup];
 }
 
 - (void)setupViews
@@ -61,6 +63,24 @@
         make.left.right.equalTo(self.view);
         make.height.equalTo(@(self.cellNamesArray.count * kDashboardCellHeight));
     }];
+}
+
+- (void)tabbarSetup
+{
+    NSArray *names = @[@"back", @"login"];
+    NSArray *images = @[[UIImage imageNamed:@"ic_left_white"],[UIImage new]];
+    
+    simpleBlock backBlock = ^{
+        [self onBack];
+    };
+    
+    simpleBlock loginBlock = ^{
+        [((AppDelegate *)[UIApplication sharedApplication].delegate) setSignIn];
+    };
+    
+    NSArray *actionsArray = @[backBlock, loginBlock];
+    
+    [self setupTabbarWithNames:names images:images actions:actionsArray];
 }
 
 #pragma mark - tableview methods

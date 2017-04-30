@@ -11,10 +11,16 @@
 #import "MPMainViewController.h"
 #import "AppDelegate.h"
 #import "MPColorManager.h"
+#import "Masonry.h"
+#import "Constants.h"
 
 @interface MPBaseViewController ()
 
 @property (nonatomic, strong) MPNavigationBarView *navigationView;
+
+@property (nonatomic, strong) NSArray *tabBarNamesArray;
+@property (nonatomic, strong) NSArray *tabBarImagesArray;
+@property (nonatomic, strong) NSArray *tabBarBlocksArray;
 
 @property (nonatomic, strong) NSString *infoTitle;
 @property (nonatomic, strong) NSString *infoText;
@@ -42,6 +48,8 @@
     tap.cancelsTouchesInView = NO;
 
     [self.view addGestureRecognizer:tap];
+    
+    [self setupTabbar];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -51,10 +59,46 @@
         ![self isKindOfClass:[MPLoginViewController class]] &&
         ![self isModal])
     {
-        [self addMenuButton];
+//        [self addMenuButton];
     } else if(![self isKindOfClass:[MPLoginViewController class]]){
-        [self addBackButton];
+//        [self addBackButton];
     }
+    [self.view bringSubviewToFront:self.tabBar];
+}
+
+- (void)setupTabbar
+{
+    self.tabBar = [[UITabBar alloc] init];
+    self.tabBar.barTintColor = [MPColorManager getNavigationBarColor];
+    self.tabBar.tintColor = [UIColor whiteColor];
+    [self.tabBar setTranslucent:NO];
+    self.tabBar.delegate = self;
+    
+    [self.view addSubview:self.tabBar];
+    
+    [self.tabBar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.left.right.equalTo(self.view);
+        make.height.equalTo(@(kTabbarHeight));
+    }];
+}
+
+- (void)setupTabbarWithNames:(NSArray *)names images:(NSArray *)images actions:(NSArray *)actions
+{
+    self.tabBarNamesArray = names;
+    self.tabBarImagesArray = images;
+    self.tabBarBlocksArray = actions;
+    
+    NSMutableArray *tabsArray = [[NSMutableArray alloc] init];
+    
+    for (int i=0; i<names.count; i++) {
+        NSString *name = names[i];
+        UIImage *image = images[i];
+        
+        UITabBarItem *item = [[UITabBarItem alloc] initWithTitle:name image:image tag:i];
+        [tabsArray addObject:item];
+    }
+    
+    [self.tabBar setItems:tabsArray];
 }
 
 - (void)addTitleViewWithTitle:(NSString *)title image:(UIImage *)image
@@ -124,5 +168,13 @@
     return NO;
 }
 
+#pragma mark - tabbar methods
+
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+    NSInteger index = [self.tabBarNamesArray indexOfObject:item.title];
+    simpleBlock simpleBlock = self.tabBarBlocksArray[index];
+    simpleBlock();
+}
 
 @end

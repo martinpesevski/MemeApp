@@ -12,6 +12,7 @@
 #import "MPColorManager.h"
 #import "MPShareMemeViewController.h"
 #import "MPAlertManager.h"
+#import "AppDelegate.h"
 
 #define kMemeImageHeightWidth 300
 
@@ -72,6 +73,7 @@ typedef enum MPTextLocation {
 
     [self setupViews];
     [self setConstraints];
+    [self tabbarSetup];
 }
 
 - (void)setupViews
@@ -244,6 +246,24 @@ typedef enum MPTextLocation {
         make.width.equalTo(@(kScreenWidth /3));
         make.bottom.equalTo(self.view).offset(-kLeftRightPadding);
     }];
+}
+
+- (void)tabbarSetup
+{
+    NSArray *names = @[@"back", @"login"];
+    NSArray *images = @[[UIImage imageNamed:@"ic_left_white"],[UIImage new]];
+    
+    simpleBlock backBlock = ^{
+        [self onBack];
+    };
+    
+    simpleBlock loginBlock = ^{
+        [((AppDelegate *)[UIApplication sharedApplication].delegate) setMainController];
+    };
+    
+    NSArray *actionsArray = @[backBlock, loginBlock];
+    
+    [self setupTabbarWithNames:names images:images actions:actionsArray];
 }
 
 #pragma mark - textfield methods

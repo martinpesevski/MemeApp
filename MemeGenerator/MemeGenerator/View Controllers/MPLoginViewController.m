@@ -45,6 +45,7 @@
 
     [self setupViews];
     [self setConstraints];
+    [self tabbarSetup];
 }
 
 - (void)dealloc
@@ -126,6 +127,24 @@
     [self.activityIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.loginButton);
     }];
+}
+
+- (void)tabbarSetup
+{
+    NSArray *names = @[@"back", @"logout"];
+    NSArray *images = @[[UIImage imageNamed:@"ic_left_white"],[UIImage new]];
+    
+    simpleBlock backBlock = ^{
+        [self onBack];
+    };
+    
+    simpleBlock loginBlock = ^{
+        [((AppDelegate *)[UIApplication sharedApplication].delegate) setMainController];
+    };
+    
+    NSArray *actionsArray = @[backBlock, loginBlock];
+    
+    [self setupTabbarWithNames:names images:images actions:actionsArray];
 }
 
 - (void)onLogin

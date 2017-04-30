@@ -9,10 +9,15 @@
 #import <UIKit/UIKit.h>
 #import "MPNavigationBarView.h"
 
-@interface MPBaseViewController : UIViewController
+typedef void(^simpleBlock)();
+
+@interface MPBaseViewController : UIViewController <UITabBarDelegate>
+
+@property (nonatomic, strong) UITabBar *tabBar;
 
 - (void)addTitleViewWithTitle:(NSString *)title image:(UIImage *)image;
 - (void)addTitleViewWithTitle:(NSString *)title image:(UIImage *)image description:(NSString *)description;
 - (void)onBack;
+- (void)setupTabbarWithNames:(NSArray *)names images:(NSArray *)images actions:(NSArray *)actions;
 
 @end

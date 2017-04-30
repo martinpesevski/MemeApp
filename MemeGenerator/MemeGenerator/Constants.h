@@ -23,6 +23,7 @@
 #define kTradeButtonHeight 50
 #define kFloatingTextFieldHeight 50
 #define kThumbnailHeightWidth 36
+#define kTabbarHeight 40
 
 #define kTokenIdentifier @"memeGeneratorAccessToken"
 #define kInfoTextIdentifier @"infoTextIdentifier"

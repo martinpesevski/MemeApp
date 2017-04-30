@@ -11,6 +11,8 @@
 		C71635E61E8309070070F88A /* MPSearchMemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C71635E51E8309070070F88A /* MPSearchMemesViewController.m */; };
 		C71635E91E830A390070F88A /* MPMemeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C71635E81E830A390070F88A /* MPMemeCell.m */; };
 		C722EE291E891041007F2B39 /* impact.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C722EE281E891041007F2B39 /* impact.ttf */; };
+		C737A4331EB4F84C009B83C6 /* MPTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = C737A4301EB4F84C009B83C6 /* MPTabBar.m */; };
+		C737A4341EB4F84C009B83C6 /* MPTab.m in Sources */ = {isa = PBXBuildFile; fileRef = C737A4321EB4F84C009B83C6 /* MPTab.m */; };
 		C73EAFB91E8A789800F3E6FC /* MPShareMemeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C73EAFB81E8A789800F3E6FC /* MPShareMemeViewController.m */; };
 		C73EB5FD1E8A875D00F3E6FC /* MPMeme.m in Sources */ = {isa = PBXBuildFile; fileRef = C73EB5FC1E8A875D00F3E6FC /* MPMeme.m */; };
 		C77E13E71E93C365007E33EC /* MPMyMemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C77E13E61E93C365007E33EC /* MPMyMemesViewController.m */; };
@@ -30,7 +32,6 @@
 		C7BDB15B1E82F5FA000AA588 /* MPBaseNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7BDB14E1E82F5FA000AA588 /* MPBaseNavigationViewController.m */; };
 		C7BDB15C1E82F5FA000AA588 /* MPBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7BDB1501E82F5FA000AA588 /* MPBaseViewController.m */; };
 		C7BDB15F1E82F5FA000AA588 /* MPMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7BDB1561E82F5FA000AA588 /* MPMainViewController.m */; };
-		C7BDB1601E82F5FA000AA588 /* MPSideMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7BDB1581E82F5FA000AA588 /* MPSideMenuViewController.m */; };
 		C7BDB16B1E82F762000AA588 /* LGSideMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7BDB1641E82F762000AA588 /* LGSideMenuController.m */; };
 		C7BDB16C1E82F762000AA588 /* LGSideMenuControllerGesturesHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C7BDB1661E82F762000AA588 /* LGSideMenuControllerGesturesHandler.m */; };
 		C7BDB16D1E82F762000AA588 /* LGSideMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7BDB1681E82F762000AA588 /* LGSideMenuView.m */; };
@@ -59,6 +60,10 @@
 		C71635E71E830A390070F88A /* MPMemeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMemeCell.h; sourceTree = "<group>"; };
 		C71635E81E830A390070F88A /* MPMemeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMemeCell.m; sourceTree = "<group>"; };
 		C722EE281E891041007F2B39 /* impact.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = impact.ttf; sourceTree = "<group>"; };
+		C737A42F1EB4F84C009B83C6 /* MPTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPTabBar.h; sourceTree = "<group>"; };
+		C737A4301EB4F84C009B83C6 /* MPTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPTabBar.m; sourceTree = "<group>"; };
+		C737A4311EB4F84C009B83C6 /* MPTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPTab.h; sourceTree = "<group>"; };
+		C737A4321EB4F84C009B83C6 /* MPTab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPTab.m; sourceTree = "<group>"; };
 		C73EAFB71E8A789800F3E6FC /* MPShareMemeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPShareMemeViewController.h; sourceTree = "<group>"; };
 		C73EAFB81E8A789800F3E6FC /* MPShareMemeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPShareMemeViewController.m; sourceTree = "<group>"; };
 		C73EB5FB1E8A875D00F3E6FC /* MPMeme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMeme.h; sourceTree = "<group>"; };
@@ -95,8 +100,6 @@
 		C7BDB1501E82F5FA000AA588 /* MPBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPBaseViewController.m; sourceTree = "<group>"; };
 		C7BDB1551E82F5FA000AA588 /* MPMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMainViewController.h; sourceTree = "<group>"; };
 		C7BDB1561E82F5FA000AA588 /* MPMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMainViewController.m; sourceTree = "<group>"; };
-		C7BDB1571E82F5FA000AA588 /* MPSideMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPSideMenuViewController.h; sourceTree = "<group>"; };
-		C7BDB1581E82F5FA000AA588 /* MPSideMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPSideMenuViewController.m; sourceTree = "<group>"; };
 		C7BDB1631E82F762000AA588 /* LGSideMenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGSideMenuController.h; sourceTree = "<group>"; };
 		C7BDB1641E82F762000AA588 /* LGSideMenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LGSideMenuController.m; sourceTree = "<group>"; };
 		C7BDB1651E82F762000AA588 /* LGSideMenuControllerGesturesHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LGSideMenuControllerGesturesHandler.h; sourceTree = "<group>"; };
@@ -155,6 +158,47 @@
 				792C6331CB5457F10B074701 /* Pods-MemeGenerator.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		C737A42C1EB4F6E3009B83C6 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				C7F05CD81EB0067D00996A6D /* MPLoginViewController.h */,
+				C7F05CD91EB0067D00996A6D /* MPLoginViewController.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		C737A42D1EB4F6F2009B83C6 /* Base Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C7C8CA6B1E93C08900F13C29 /* MPBaseMemeCollectionViewController.h */,
+				C7C8CA6C1E93C08900F13C29 /* MPBaseMemeCollectionViewController.m */,
+				C7F05CDB1EB0069200996A6D /* MPBaseLoginViewController.h */,
+				C7F05CDC1EB0069200996A6D /* MPBaseLoginViewController.m */,
+				C7BDB14D1E82F5FA000AA588 /* MPBaseNavigationViewController.h */,
+				C7BDB14E1E82F5FA000AA588 /* MPBaseNavigationViewController.m */,
+				C7BDB14F1E82F5FA000AA588 /* MPBaseViewController.h */,
+				C7BDB1501E82F5FA000AA588 /* MPBaseViewController.m */,
+			);
+			name = "Base Controllers";
+			sourceTree = "<group>";
+		};
+		C737A42E1EB4F70E009B83C6 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				C797F3311E82F37400D58EA2 /* MPDashboardController.h */,
+				C797F3321E82F37400D58EA2 /* MPDashboardController.m */,
+				C71635E41E8309070070F88A /* MPSearchMemesViewController.h */,
+				C71635E51E8309070070F88A /* MPSearchMemesViewController.m */,
+				C71635E11E83048A0070F88A /* MPMemeMakerViewController.h */,
+				C71635E21E83048A0070F88A /* MPMemeMakerViewController.m */,
+				C77E13E51E93C365007E33EC /* MPMyMemesViewController.h */,
+				C77E13E61E93C365007E33EC /* MPMyMemesViewController.m */,
+				C73EAFB71E8A789800F3E6FC /* MPShareMemeViewController.h */,
+				C73EAFB81E8A789800F3E6FC /* MPShareMemeViewController.m */,
+			);
+			name = Screens;
 			sourceTree = "<group>";
 		};
 		C73EB5FA1E8A874800F3E6FC /* Models */ = {
@@ -240,30 +284,11 @@
 		C7BDB14C1E82F5FA000AA588 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				C7F05CD81EB0067D00996A6D /* MPLoginViewController.h */,
-				C7F05CD91EB0067D00996A6D /* MPLoginViewController.m */,
-				C7F05CDB1EB0069200996A6D /* MPBaseLoginViewController.h */,
-				C7F05CDC1EB0069200996A6D /* MPBaseLoginViewController.m */,
-				C7BDB14D1E82F5FA000AA588 /* MPBaseNavigationViewController.h */,
-				C7BDB14E1E82F5FA000AA588 /* MPBaseNavigationViewController.m */,
-				C7BDB14F1E82F5FA000AA588 /* MPBaseViewController.h */,
-				C7BDB1501E82F5FA000AA588 /* MPBaseViewController.m */,
 				C7BDB1551E82F5FA000AA588 /* MPMainViewController.h */,
 				C7BDB1561E82F5FA000AA588 /* MPMainViewController.m */,
-				C7BDB1571E82F5FA000AA588 /* MPSideMenuViewController.h */,
-				C7BDB1581E82F5FA000AA588 /* MPSideMenuViewController.m */,
-				C797F3311E82F37400D58EA2 /* MPDashboardController.h */,
-				C797F3321E82F37400D58EA2 /* MPDashboardController.m */,
-				C71635E41E8309070070F88A /* MPSearchMemesViewController.h */,
-				C71635E51E8309070070F88A /* MPSearchMemesViewController.m */,
-				C7C8CA6B1E93C08900F13C29 /* MPBaseMemeCollectionViewController.h */,
-				C7C8CA6C1E93C08900F13C29 /* MPBaseMemeCollectionViewController.m */,
-				C71635E11E83048A0070F88A /* MPMemeMakerViewController.h */,
-				C71635E21E83048A0070F88A /* MPMemeMakerViewController.m */,
-				C77E13E51E93C365007E33EC /* MPMyMemesViewController.h */,
-				C77E13E61E93C365007E33EC /* MPMyMemesViewController.m */,
-				C73EAFB71E8A789800F3E6FC /* MPShareMemeViewController.h */,
-				C73EAFB81E8A789800F3E6FC /* MPShareMemeViewController.m */,
+				C737A42E1EB4F70E009B83C6 /* Screens */,
+				C737A42D1EB4F6F2009B83C6 /* Base Controllers */,
+				C737A42C1EB4F6E3009B83C6 /* Login */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -300,6 +325,10 @@
 				C7BDB1841E82FC92000AA588 /* MPDashboardCell.m */,
 				C71635E71E830A390070F88A /* MPMemeCell.h */,
 				C71635E81E830A390070F88A /* MPMemeCell.m */,
+				C737A42F1EB4F84C009B83C6 /* MPTabBar.h */,
+				C737A4301EB4F84C009B83C6 /* MPTabBar.m */,
+				C737A4311EB4F84C009B83C6 /* MPTab.h */,
+				C737A4321EB4F84C009B83C6 /* MPTab.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -441,14 +470,15 @@
 				C7C8CA6D1E93C08900F13C29 /* MPBaseMemeCollectionViewController.m in Sources */,
 				C7BDB1491E82F59F000AA588 /* MPColorManager.m in Sources */,
 				C797F3301E82F37400D58EA2 /* AppDelegate.m in Sources */,
+				C737A4341EB4F84C009B83C6 /* MPTab.m in Sources */,
 				C77E13E71E93C365007E33EC /* MPMyMemesViewController.m in Sources */,
 				C7BDB16B1E82F762000AA588 /* LGSideMenuController.m in Sources */,
 				C71635E61E8309070070F88A /* MPSearchMemesViewController.m in Sources */,
+				C737A4331EB4F84C009B83C6 /* MPTabBar.m in Sources */,
 				C797F32D1E82F37400D58EA2 /* main.m in Sources */,
 				C7BDB1471E82F59F000AA588 /* MPAlertManager.m in Sources */,
 				C7BDB17E1E82F816000AA588 /* MPSideMenuCell.m in Sources */,
 				C73EAFB91E8A789800F3E6FC /* MPShareMemeViewController.m in Sources */,
-				C7BDB1601E82F5FA000AA588 /* MPSideMenuViewController.m in Sources */,
 				C7BDB15F1E82F5FA000AA588 /* MPMainViewController.m in Sources */,
 				C7BDB16E1E82F762000AA588 /* UIViewController+LGSideMenuController.m in Sources */,
 				C7BDB15C1E82F5FA000AA588 /* MPBaseViewController.m in Sources */,
