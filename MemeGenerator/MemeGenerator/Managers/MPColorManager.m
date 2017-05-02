@@ -87,7 +87,7 @@
 
 + (UIColor *)getNavigationBarColor
 {
-    return [MPColorManager colorFromHexString:@"#A0D48"];
+    return [MPColorManager colorFromHexString:@"#1537C3"];
 }
 
 + (UIColor *)getTabBarColor

@@ -245,7 +245,7 @@ typedef enum MPTextLocation {
         make.centerX.equalTo(self.view);
         make.height.equalTo(@(kLoginButtonHeight));
         make.width.equalTo(@(kScreenWidth /3));
-        make.bottom.equalTo(self.view).offset(-kLeftRightPadding);
+        make.bottom.equalTo(self.tabBar.mas_top).offset(-kLeftRightPadding);
     }];
 }
 

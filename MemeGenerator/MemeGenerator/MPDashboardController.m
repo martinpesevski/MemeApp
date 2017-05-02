@@ -11,6 +11,7 @@
 #import "Masonry.h"
 #import "MPMemeMakerViewController.h"
 #import "MPSearchMemesViewController.h"
+#import "MPMyMemesViewController.h"
 #import "MPRequestProvider.h"
 #import "AppDelegate.h"
 #import "MPAlertManager.h"
@@ -70,7 +71,12 @@
 {
     BOOL isLoggedIn = [[MPAuthenticationManager sharedManager] isLoggedIn];
     NSArray *names = @[kMyMemesString, isLoggedIn?kLogoutString:kLoginRegisterString];
-    NSArray *images = @[[UIImage new]];
+    NSArray *images = @[[UIImage new], [UIImage new]];
+    
+    simpleBlock myMemesBlock = ^{
+        MPMyMemesViewController *myMemesController = [[MPMyMemesViewController alloc] init];
+        [self.navigationController pushViewController:myMemesController animated:YES];
+    };
     
     simpleBlock loginBlock = ^{
         if (isLoggedIn) {
@@ -82,7 +88,7 @@
         }
     };
     
-    NSArray *actionsArray = @[loginBlock];
+    NSArray *actionsArray = @[myMemesBlock, loginBlock];
     
     [self setupTabbarWithNames:names images:images actions:actionsArray];
 }

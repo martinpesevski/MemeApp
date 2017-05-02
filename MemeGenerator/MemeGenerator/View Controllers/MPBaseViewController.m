@@ -88,6 +88,9 @@
     [self.tabBar setTranslucent:NO];
     self.tabBar.delegate = self;
     
+    [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }
+                                             forState:UIControlStateNormal];
+    
     [self.view addSubview:self.tabBar];
     
     [self.tabBar mas_makeConstraints:^(MASConstraintMaker *make) {
