@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "MPNavigationBarView.h"
+#import "MPAuthenticationManager.h"
+#import "MPAlertManager.h"
 
 typedef void(^simpleBlock)();
 
@@ -19,5 +21,7 @@ typedef void(^simpleBlock)();
 - (void)addTitleViewWithTitle:(NSString *)title image:(UIImage *)image description:(NSString *)description;
 - (void)onBack;
 - (void)setupTabbarWithNames:(NSArray *)names images:(NSArray *)images actions:(NSArray *)actions;
+- (void)showLogin;
+- (void)tabbarSetup;
 
 @end

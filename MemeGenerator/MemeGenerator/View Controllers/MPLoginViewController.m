@@ -131,18 +131,14 @@
 
 - (void)tabbarSetup
 {
-    NSArray *names = @[@"back", @"logout"];
-    NSArray *images = @[[UIImage imageNamed:@"ic_left_white"],[UIImage new]];
+    NSArray *names = @[@"back"];
+    NSArray *images = @[[UIImage imageNamed:@"ic_left_white"]];
     
     simpleBlock backBlock = ^{
         [self onBack];
     };
     
-    simpleBlock loginBlock = ^{
-        [((AppDelegate *)[UIApplication sharedApplication].delegate) setMainController];
-    };
-    
-    NSArray *actionsArray = @[backBlock, loginBlock];
+    NSArray *actionsArray = @[backBlock];
     
     [self setupTabbarWithNames:names images:images actions:actionsArray];
 }

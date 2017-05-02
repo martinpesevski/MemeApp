@@ -14,6 +14,8 @@
 
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
+#define USER_LOGGED_OUT_NOTIFICATION @"USER_LOGGED_OUT_NOTIFICATION"
+
 #define kLeftRightPadding 10
 #define kTableViewPadding 20
 #define kMemePadding 30

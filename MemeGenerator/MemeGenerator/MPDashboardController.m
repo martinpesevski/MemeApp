@@ -11,9 +11,9 @@
 #import "Masonry.h"
 #import "MPMemeMakerViewController.h"
 #import "MPSearchMemesViewController.h"
-#import "MPAuthenticationManager.h"
 #import "MPRequestProvider.h"
 #import "AppDelegate.h"
+#import "MPAlertManager.h"
 
 #define kDashboardCellHeight 150
 
@@ -67,18 +67,21 @@
 
 - (void)tabbarSetup
 {
-    NSArray *names = @[@"back", @"login"];
-    NSArray *images = @[[UIImage imageNamed:@"ic_left_white"],[UIImage new]];
-    
-    simpleBlock backBlock = ^{
-        [self onBack];
-    };
+    BOOL isLoggedIn = [[MPAuthenticationManager sharedManager] isLoggedIn];
+    NSArray *names = @[isLoggedIn?@"logout":@"login"];
+    NSArray *images = @[[UIImage new]];
     
     simpleBlock loginBlock = ^{
-        [((AppDelegate *)[UIApplication sharedApplication].delegate) setSignIn];
+        if (isLoggedIn) {
+            [MPAlertManager showAlertMessage:@"Do you really wish to log out?"withOKblock:^{
+                [[MPAuthenticationManager sharedManager] signOut];
+            }];
+        } else {
+            [self showLogin];
+        }
     };
     
-    NSArray *actionsArray = @[backBlock, loginBlock];
+    NSArray *actionsArray = @[loginBlock];
     
     [self setupTabbarWithNames:names images:images actions:actionsArray];
 }

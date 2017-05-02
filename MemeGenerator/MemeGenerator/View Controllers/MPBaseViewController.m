@@ -34,6 +34,8 @@
     
     self.view.backgroundColor = [MPColorManager colorFromHexString:@"#838BFF"];
     
+    self.navigationItem.hidesBackButton = YES;
+    
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)]){
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
@@ -41,6 +43,8 @@
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tabbarSetup) name:USER_LOGGED_OUT_NOTIFICATION object:nil];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
                                    initWithTarget:self
@@ -50,6 +54,11 @@
     [self.view addGestureRecognizer:tap];
     
     [self setupTabbar];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -64,6 +73,11 @@
 //        [self addBackButton];
     }
     [self.view bringSubviewToFront:self.tabBar];
+}
+
+- (void)tabbarSetup
+{
+    //override in child view controllers
 }
 
 - (void)setupTabbar
@@ -153,6 +167,12 @@
 - (void)dismissKeyboard
 {
     [self.view endEditing:YES];
+}
+
+- (void)showLogin
+{
+    MPLoginViewController *loginController = [[MPLoginViewController alloc] init];
+    [self.navigationController pushViewController:loginController animated:YES];
 }
 
 #pragma mark - helper methods

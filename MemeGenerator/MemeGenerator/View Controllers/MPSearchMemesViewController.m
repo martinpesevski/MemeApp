@@ -83,7 +83,8 @@
 
 - (void)tabbarSetup
 {
-    NSArray *names = @[@"back", @"login"];
+    BOOL isLoggedIn = [[MPAuthenticationManager sharedManager] isLoggedIn];
+    NSArray *names = @[@"back", isLoggedIn?@"logout":@"login"];
     NSArray *images = @[[UIImage imageNamed:@"ic_left_white"],[UIImage new]];
     
     simpleBlock backBlock = ^{
@@ -91,7 +92,13 @@
     };
     
     simpleBlock loginBlock = ^{
-        [((AppDelegate *)[UIApplication sharedApplication].delegate) setMainController];
+        if (isLoggedIn) {
+            [MPAlertManager showAlertMessage:@"Do you really wish to log out?"withOKblock:^{
+                [[MPAuthenticationManager sharedManager] signOut];
+            }];
+        } else {
+            [self showLogin];
+        }
     };
     
     NSArray *actionsArray = @[backBlock, loginBlock];

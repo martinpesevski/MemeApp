@@ -117,6 +117,7 @@
 - (void)signOut
 {
     [AFOAuthCredential deleteCredentialWithIdentifier:kTokenIdentifier];
+    [[NSNotificationCenter defaultCenter] postNotificationName:USER_LOGGED_OUT_NOTIFICATION object:nil];
 }
 
 @end
