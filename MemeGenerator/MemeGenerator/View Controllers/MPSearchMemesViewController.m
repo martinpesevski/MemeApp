@@ -17,6 +17,7 @@
 #import "MBProgressHUD.h"
 #import "SDWebImageManager.h"
 #import "AppDelegate.h"
+#import "Strings.h"
 
 @interface MPSearchMemesViewController () <UISearchBarDelegate>
 
@@ -40,7 +41,7 @@
 {
     [super setupViews];
     
-    self.title = @"Select a meme";
+    self.title = kSelectAMemeTitleString;
     
 //    NSString *dirPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"memes"];
 //    NSError * error;
@@ -84,7 +85,7 @@
 - (void)tabbarSetup
 {
     BOOL isLoggedIn = [[MPAuthenticationManager sharedManager] isLoggedIn];
-    NSArray *names = @[@"back", isLoggedIn?@"logout":@"login"];
+    NSArray *names = @[kBackString, isLoggedIn?kLogoutString:kLoginRegisterString];
     NSArray *images = @[[UIImage imageNamed:@"ic_left_white"],[UIImage new]];
     
     simpleBlock backBlock = ^{
@@ -93,7 +94,7 @@
     
     simpleBlock loginBlock = ^{
         if (isLoggedIn) {
-            [MPAlertManager showAlertMessage:@"Do you really wish to log out?"withOKblock:^{
+            [MPAlertManager showAlertMessage:kLogoutConfirmString withOKblock:^{
                 [[MPAuthenticationManager sharedManager] signOut];
             }];
         } else {

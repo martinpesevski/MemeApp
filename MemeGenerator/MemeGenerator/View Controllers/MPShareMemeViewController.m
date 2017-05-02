@@ -11,6 +11,7 @@
 #import "MPColorManager.h"
 #import "Constants.h"
 #import "AppDelegate.h"
+#import "Strings.h"
 
 #define kMemeImageHeightWidth 300
 
@@ -44,7 +45,7 @@
 
 - (void)setupViews
 {
-    self.title = @"Share your meme";
+    self.title = kShareTitleString;
     
     self.memeImageView = [[UIImageView alloc] initWithImage:self.memeImage];
     self.memeImageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -54,12 +55,12 @@
     self.memeImageView.backgroundColor = [UIColor blackColor];
     
     self.favoriteButton = [[UIButton alloc] init];
-    [self.favoriteButton setTitle:@"Favorite" forState:UIControlStateNormal];
+    [self.favoriteButton setTitle:kFavouriteString forState:UIControlStateNormal];
     [self.favoriteButton setTitleColor:[MPColorManager getLabelColorWhite] forState:UIControlStateNormal];
     [self.favoriteButton addTarget:self action:@selector(onFavorite) forControlEvents:UIControlEventTouchUpInside];
     
     self.shareButton = [[UIButton alloc] init];
-    [self.shareButton setTitle:@"Share" forState:UIControlStateNormal];
+    [self.shareButton setTitle:kShareString forState:UIControlStateNormal];
     [self.shareButton setTitleColor:[MPColorManager getLabelColorWhite] forState:UIControlStateNormal];
     [self.shareButton addTarget:self action:@selector(onShare) forControlEvents:UIControlEventTouchUpInside];
     
@@ -90,7 +91,7 @@
 - (void)tabbarSetup
 {
     BOOL isLoggedIn = [[MPAuthenticationManager sharedManager] isLoggedIn];
-    NSArray *names = @[@"back", isLoggedIn?@"logout":@"login"];
+    NSArray *names = @[kBackString, isLoggedIn?kLogoutString:kLoginRegisterString];
     NSArray *images = @[[UIImage imageNamed:@"ic_left_white"],[UIImage new]];
     
     simpleBlock backBlock = ^{
@@ -99,7 +100,7 @@
     
     simpleBlock loginBlock = ^{
         if (isLoggedIn) {
-            [MPAlertManager showAlertMessage:@"Do you really wish to log out?"withOKblock:^{
+            [MPAlertManager showAlertMessage:kLogoutConfirmString withOKblock:^{
                 [[MPAuthenticationManager sharedManager] signOut];
             }];
         } else {

@@ -13,6 +13,7 @@
 #import "MPShareMemeViewController.h"
 #import "MPAlertManager.h"
 #import "AppDelegate.h"
+#import "Strings.h"
 
 #define kMemeImageHeightWidth 300
 
@@ -78,7 +79,7 @@ typedef enum MPTextLocation {
 
 - (void)setupViews
 {
-    self.title = @"Enter top and bottom text";
+    self.title = kMemeMakerTitleString;
     
     self.fontNamesArray = @[@"impact", @"Arial-BoldMT", @"cambria-bold"];
     self.selectedFontName = self.fontNamesArray[0];
@@ -96,24 +97,24 @@ typedef enum MPTextLocation {
     self.topTextField.delegate = self;
     self.topTextField.backgroundColor = [UIColor whiteColor];
     self.topTextField.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.topTextField.placeholder = @"Enter top text here";
+    self.topTextField.placeholder = kTopTitlePlaceholderString;
     self.topTextField.returnKeyType = UIReturnKeyNext;
 
     self.bottomTextField = [[UITextField alloc] init];
     self.bottomTextField.delegate = self;
     self.bottomTextField.backgroundColor = [UIColor whiteColor];
     self.bottomTextField.autocorrectionType = UITextAutocorrectionTypeNo;
-    self.bottomTextField.placeholder = @"Enter bottom text here";
+    self.bottomTextField.placeholder = kBottomTitlePlaceholderString;
     self.bottomTextField.returnKeyType = UIReturnKeyDone;
     
     self.selectFontButton = [[UIButton alloc] init];
-    [self.selectFontButton setTitle:@"Change font" forState:UIControlStateNormal];
+    [self.selectFontButton setTitle:kChangeFontString forState:UIControlStateNormal];
     [self.selectFontButton addTarget:self action:@selector(onChangeFont) forControlEvents:UIControlEventTouchUpInside];
     [self.selectFontButton setTitleColor:[MPColorManager getLabelColorWhite] forState:UIControlStateNormal];
     self.selectFontButton.backgroundColor = [MPColorManager getNavigationBarColor];
     
     self.textOutlineLabel = [[UILabel alloc] init];
-    self.textOutlineLabel.text = @"Text outline";
+    self.textOutlineLabel.text = kTextOutlineString;
     self.textOutlineLabel.textColor = [MPColorManager getLabelColorBlack];
     
     self.outlineSwitch = [[UISwitch alloc] init];
@@ -122,7 +123,7 @@ typedef enum MPTextLocation {
     self.outlineSwitch.onTintColor = [MPColorManager getNavigationBarColor];
     
     self.textShadowLabel = [[UILabel alloc] init];
-    self.textShadowLabel.text = @"Text shadow";
+    self.textShadowLabel.text = kTextShadowString;
     self.textShadowLabel.textColor = [MPColorManager getLabelColorBlack];
     
     self.allCapsSwitch = [[UISwitch alloc] init];
@@ -132,7 +133,7 @@ typedef enum MPTextLocation {
     self.allCapsSwitch.onTintColor = [MPColorManager getNavigationBarColor];
     
     self.allCapsLabel = [[UILabel alloc] init];
-    self.allCapsLabel.text = @"Capitalize letters";
+    self.allCapsLabel.text = kCapitalizeLettersString;
     self.allCapsLabel.textColor = [MPColorManager getLabelColorBlack];
     
     self.shadowSwitch = [[UISwitch alloc] init];
@@ -141,7 +142,7 @@ typedef enum MPTextLocation {
     self.shadowSwitch.onTintColor = [MPColorManager getNavigationBarColor];
     
     self.fontSizeLabel = [[UILabel alloc] init];
-    self.fontSizeLabel.text = @"Font size";
+    self.fontSizeLabel.text = kFontSizeString;
     self.fontSizeLabel.textColor = [MPColorManager getLabelColorBlack];
     
     self.fontSizeSlider = [[UISlider alloc] init];
@@ -154,7 +155,7 @@ typedef enum MPTextLocation {
     self.fontSize = self.preferredFontSize * (self.fontSizeSlider.value/20);
     
     self.createButton = [[UIButton alloc] init];
-    [self.createButton setTitle:@"Create" forState:UIControlStateNormal];
+    [self.createButton setTitle:kCreateString forState:UIControlStateNormal];
     [self.createButton addTarget:self action:@selector(onCreate) forControlEvents:UIControlEventTouchUpInside];
     [self.createButton setTitleColor:[MPColorManager getLabelColorWhite] forState:UIControlStateNormal];
     self.createButton.backgroundColor = [MPColorManager getNavigationBarColor];
@@ -251,7 +252,7 @@ typedef enum MPTextLocation {
 - (void)tabbarSetup
 {
     BOOL isLoggedIn = [[MPAuthenticationManager sharedManager] isLoggedIn];
-    NSArray *names = @[@"back", isLoggedIn?@"logout":@"login"];
+    NSArray *names = @[kBackString, isLoggedIn?kLogoutString:kLoginRegisterString];
     NSArray *images = @[[UIImage imageNamed:@"ic_left_white"],[UIImage new]];
     
     simpleBlock backBlock = ^{
@@ -260,7 +261,7 @@ typedef enum MPTextLocation {
     
     simpleBlock loginBlock = ^{
         if (isLoggedIn) {
-            [MPAlertManager showAlertMessage:@"Do you really wish to log out?"withOKblock:^{
+            [MPAlertManager showAlertMessage:kLogoutConfirmString withOKblock:^{
                 [[MPAuthenticationManager sharedManager] signOut];
             }];
         } else {
@@ -321,7 +322,7 @@ typedef enum MPTextLocation {
         [blocksArray addObject:block];
     }
     
-    [MPAlertManager showActionSheetWithTitles:self.fontNamesArray blocks:blocksArray sourceView:self.view title:@"select a font"];
+    [MPAlertManager showActionSheetWithTitles:self.fontNamesArray blocks:blocksArray sourceView:self.view title:kSelectAFontString];
 }
 
 #pragma mark - switch methods

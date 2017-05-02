@@ -14,6 +14,7 @@
 #import "MPRequestProvider.h"
 #import "AppDelegate.h"
 #import "MPAlertManager.h"
+#import "Strings.h"
 
 #define kDashboardCellHeight 150
 
@@ -31,9 +32,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"Meme Generator by makeameme.org";
+    self.title = kDashboardTitleString;
     
-    self.cellNamesArray = @[@"From a new photo", @"From an image or pic", @"From a known meme"];
+    self.cellNamesArray = @[kFromAPhotoString, kFromAPhotoString, kFromAKnownMemeString];
     self.cellImagesArray = @[[UIImage imageNamed:@"camera-icon"],
                              [UIImage imageNamed:@"folder-icon"],
                              [UIImage imageNamed:@"meme-icon"]];
@@ -68,12 +69,12 @@
 - (void)tabbarSetup
 {
     BOOL isLoggedIn = [[MPAuthenticationManager sharedManager] isLoggedIn];
-    NSArray *names = @[isLoggedIn?@"logout":@"login"];
+    NSArray *names = @[kMyMemesString, isLoggedIn?kLogoutString:kLoginRegisterString];
     NSArray *images = @[[UIImage new]];
     
     simpleBlock loginBlock = ^{
         if (isLoggedIn) {
-            [MPAlertManager showAlertMessage:@"Do you really wish to log out?"withOKblock:^{
+            [MPAlertManager showAlertMessage:kLogoutConfirmString withOKblock:^{
                 [[MPAuthenticationManager sharedManager] signOut];
             }];
         } else {

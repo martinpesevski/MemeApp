@@ -11,6 +11,7 @@
 #import "MPMemeCell.h"
 #import "MPShareMemeViewController.h"
 #import "AppDelegate.h"
+#import "Strings.h"
 
 @interface MPMyMemesViewController ()
 
@@ -22,7 +23,7 @@
 {
     [super viewDidLoad];
     
-    self.title = @"Your memes";
+    self.title = kMyMemesTitleString;
     
     [self tabbarSetup];
 }
@@ -36,7 +37,7 @@
 - (void)tabbarSetup
 {
     BOOL isLoggedIn = [[MPAuthenticationManager sharedManager] isLoggedIn];
-    NSArray *names = @[@"back", isLoggedIn?@"logout":@"login"];
+    NSArray *names = @[kBackString, isLoggedIn?kLogoutString:kLoginRegisterString];
     NSArray *images = @[[UIImage imageNamed:@"ic_left_white"],[UIImage new]];
     
     simpleBlock backBlock = ^{
@@ -45,7 +46,7 @@
     
     simpleBlock loginBlock = ^{
         if (isLoggedIn) {
-            [MPAlertManager showAlertMessage:@"Do you really wish to log out?"withOKblock:^{
+            [MPAlertManager showAlertMessage:kLogoutConfirmString withOKblock:^{
                 [[MPAuthenticationManager sharedManager] signOut];
             }];
         } else {
