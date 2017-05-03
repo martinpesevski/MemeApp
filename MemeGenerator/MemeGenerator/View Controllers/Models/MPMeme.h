@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum MPMemePrivacy {
+    MPMemePrivacyPublic,
+    MPMemePrivacyPrivate
+} MPMemePrivacy;
+
 @interface MPMeme : NSObject
 
 @property (nonatomic, strong) NSString *imageUrlString;
@@ -17,6 +22,7 @@
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) NSString *topText;
 @property (nonatomic, strong) NSString *bottomText;
+@property (nonatomic) MPMemePrivacy privacy;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
 - (instancetype)initWithImage:(UIImage *)image name:(NSString *)name;

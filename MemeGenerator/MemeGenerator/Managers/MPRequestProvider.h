@@ -19,5 +19,6 @@ typedef void(^imageCompletion)(UIImage *image);
 - (void)checkAccountWithCompletion:(resultCompletion)completion;
 - (void)getUserMemesWithCompletion:(resultCompletion)completion;
 - (void)postMeme:(MPMeme *)meme completion:(resultCompletion)completion;
+- (void)updatePrivacyForMeme:(MPMeme *)meme completion:(resultCompletion)completion;
 
 @end

@@ -18,6 +18,7 @@
         self.imageUrlString = [NSString stringWithFormat:@"https://makeameme.org/media/templates/%@", dict[@"img"]];
         self.imageThumbnailString = [NSString stringWithFormat:@"https://makeameme.org/media/templates/80/%@", dict[@"img"]];
         self.name = dict[@"name"];
+        self.privacy = MPMemePrivacyPrivate;
     }
     return self;
 }
@@ -28,6 +29,7 @@
     if (self) {
         self.name = name;
         self.image = image;
+        self.privacy = MPMemePrivacyPrivate;
     }
     return self;
 }
