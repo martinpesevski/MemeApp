@@ -13,15 +13,18 @@
 #import "AppDelegate.h"
 #import "Strings.h"
 #import "MPRequestProvider.h"
+#import "MPFontManager.h"
 
 #define kMemeImageHeightWidth 300
 
 @interface MPShareMemeViewController ()
 
+@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImage *memeImage;
 @property (nonatomic, strong) UIImageView *memeImageView;
 @property (nonatomic, strong) UIButton *favoriteButton;
 @property (nonatomic, strong) UIButton *shareButton;
+@property (nonatomic, strong) UIButton *registerPromptButton;
 
 @end
 
@@ -48,6 +51,8 @@
 {
     self.title = kShareTitleString;
     
+    self.scrollView = [[UIScrollView alloc] init];
+    
     self.memeImageView = [[UIImageView alloc] initWithImage:self.memeImage];
     self.memeImageView.contentMode = UIViewContentModeScaleAspectFit;
     self.memeImageView.clipsToBounds = YES;
@@ -65,20 +70,39 @@
     [self.shareButton setTitleColor:[MPColorManager getLabelColorWhite] forState:UIControlStateNormal];
     [self.shareButton addTarget:self action:@selector(onShare) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.view addSubview:self.memeImageView];
-    [self.view addSubview:self.favoriteButton];
-    [self.view addSubview:self.shareButton];
+    self.registerPromptButton = [[UIButton alloc] init];
+    [self.registerPromptButton setTitleColor:[MPColorManager getLabelColorWhite] forState:UIControlStateNormal];
+    self.registerPromptButton.titleLabel.font = [MPFontManager getTitleLabelFont];
+    [self.registerPromptButton setTitle:kRegisterForSharePromptString forState:UIControlStateNormal];
+    [self.registerPromptButton addTarget:self action:@selector(showLogin) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.scrollView addSubview:self.memeImageView];
+    [self.scrollView addSubview:self.registerPromptButton];
+    [self.scrollView addSubview:self.favoriteButton];
+    [self.scrollView addSubview:self.shareButton];
+    [self.view addSubview:self.scrollView];
 }
 
 - (void)setConstraints
 {
+    [self.scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.tabBar.mas_top);
+    }];
     [self.memeImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(self.view).offset(kLeftRightPadding);
+        make.top.equalTo(self.scrollView).offset(kLeftRightPadding);
         make.width.height.equalTo(@(kMemeImageHeightWidth));
     }];
-    [self.favoriteButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.registerPromptButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(kLeftRightPadding);
+        make.right.equalTo(self.view).offset(-kLeftRightPadding);
+        make.left.equalTo(self.scrollView).offset(kLeftRightPadding);
+        make.right.equalTo(self.scrollView).offset(-kLeftRightPadding);
         make.top.equalTo(self.memeImageView.mas_bottom).offset(20);
+    }];
+    [self.favoriteButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.registerPromptButton.mas_bottom).offset(20);
         make.height.equalTo(@(kLoginButtonHeight));
         make.centerX.equalTo(self.view);
     }];
@@ -86,6 +110,7 @@
         make.top.equalTo(self.favoriteButton.mas_bottom).offset(20);
         make.height.equalTo(@(kLoginButtonHeight));
         make.centerX.equalTo(self.view);
+        make.bottom.equalTo(self.scrollView);
     }];
 }
 

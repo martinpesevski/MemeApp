@@ -38,5 +38,6 @@
 #define kShareString @"Share"
 #define kFavouriteString @"Favorite"
 #define kSuccessPostingMemeString @"Successfully posted meme!"
+#define kRegisterForSharePromptString @"Register to share on makeameme.org"
 
 #endif /* Strings_h */

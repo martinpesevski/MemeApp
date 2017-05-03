@@ -12,47 +12,47 @@
 
 + (UIFont *)getTabBarFont
 {
-    return [UIFont systemFontOfSize:10];
+    return [UIFont fontWithName:@"HelveticaNeue" size:10];
 }
 
 + (UIFont *)getSmallFont
 {
-    return [UIFont systemFontOfSize:8];
+    return [UIFont fontWithName:@"HelveticaNeue" size:8];
 }
 
 + (UIFont *)getTitleLabelFont
 {
-    return [UIFont boldSystemFontOfSize:16];
+    return [UIFont fontWithName:@"HelveticaNeue" size:16];
 }
 
 + (UIFont *)getTitleLabelNormalFont
 {
-    return [UIFont systemFontOfSize:16];
+    return [UIFont fontWithName:@"HelveticaNeue" size:16];
 }
 
 + (UIFont *)getDescriptionLabelBoldFont
 {
-    return [UIFont boldSystemFontOfSize:12];
+    return [UIFont fontWithName:@"HelveticaNeue" size:12];
 }
 
 + (UIFont *)getDescriptionLabelNormalFont
 {
-    return [UIFont systemFontOfSize:12];
+    return [UIFont fontWithName:@"HelveticaNeue" size:12];
 }
 
 + (UIFont *)getDescriptionLabelLargeFont
 {
-    return [UIFont systemFontOfSize:13];
+    return [UIFont fontWithName:@"HelveticaNeue" size:13];
 }
 
 + (UIFont *)getDescriptionLabelLargeBoldFont
 {
-    return [UIFont boldSystemFontOfSize:13];
+    return [UIFont fontWithName:@"HelveticaNeue" size:13];
 }
 
 + (UIFont *)getLargeFont
 {
-    return [UIFont systemFontOfSize:25];
+    return [UIFont fontWithName:@"HelveticaNeue" size:25];
 }
 
 + (NSString *)formattedStringFromNumber:(NSNumber *)number
