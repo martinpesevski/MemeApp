@@ -72,4 +72,30 @@
      }];
 }
 
+- (void)postMeme:(MPMeme *)meme completion:(resultCompletion)completion
+{
+    NSData *imageData = UIImageJPEGRepresentation(meme.image, 1.0);
+    
+    NSDictionary *params = @{@"topText":@"martin top text",
+                             @"bottomText":@"martin bottom text",
+                             @"title":@"trump",
+                             @"imageData":[imageData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed],
+                             @"imageType":@"jpg",
+                             @"characterId":@0
+                             };
+    
+    [[MPNetworkManager sharedManager] POST:kPostMemeEndpoint
+                                parameters:params
+                                  progress:nil
+                                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+     {
+         completion (responseObject, nil);
+     }
+                                   failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+     {
+         NSLog(@"\n============== ERROR posting meme ====\n%@",error.userInfo);
+         completion(nil, error);
+     }];
+}
+
 @end

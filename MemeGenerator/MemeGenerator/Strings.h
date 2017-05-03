@@ -37,5 +37,6 @@
 
 #define kShareString @"Share"
 #define kFavouriteString @"Favorite"
+#define kSuccessPostingMemeString @"Successfully posted meme!"
 
 #endif /* Strings_h */

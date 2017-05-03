@@ -15,6 +15,8 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSNumber *memeID;
 @property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) NSString *topText;
+@property (nonatomic, strong) NSString *bottomText;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
 - (instancetype)initWithImage:(UIImage *)image name:(NSString *)name;

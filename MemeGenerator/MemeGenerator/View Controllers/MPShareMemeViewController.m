@@ -12,6 +12,7 @@
 #import "Constants.h"
 #import "AppDelegate.h"
 #import "Strings.h"
+#import "MPRequestProvider.h"
 
 #define kMemeImageHeightWidth 300
 
@@ -117,7 +118,20 @@
 
 - (void)onFavorite
 {
+    MPMeme *meme = [[MPMeme alloc] initWithImage:self.memeImage name:@"martin test"];
     
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[MPRequestProvider sharedInstance] postMeme:meme completion:^(id result, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        });
+        
+        if (result && !error) {
+            [MPAlertManager showAlertMessage:kSuccessPostingMemeString withOKblock:nil hasCancelButton:NO];
+        } else if (error) {
+            [MPAlertManager showAlertMessage:error.localizedDescription withOKblock:nil hasCancelButton:NO];
+        }
+    }];
 }
 
 - (void)onShare

@@ -15,5 +15,6 @@
 #define kAuthenticationEndpoint @"/mampi/v1/doauth"
 #define kCheckAccountEndpoint @"/mampi/v1/checkfor"
 #define kGetUserMemesEndpoint @"/mampi/v1/getmemes"
+#define kPostMemeEndpoint @"/mampi/v1/meme/add"
 
 #endif /* NetworkConstants_h */

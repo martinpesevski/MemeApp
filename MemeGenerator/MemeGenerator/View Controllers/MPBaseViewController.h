@@ -10,6 +10,7 @@
 #import "MPNavigationBarView.h"
 #import "MPAuthenticationManager.h"
 #import "MPAlertManager.h"
+#import "MBProgressHUD.h"
 
 typedef void(^simpleBlock)();
 
