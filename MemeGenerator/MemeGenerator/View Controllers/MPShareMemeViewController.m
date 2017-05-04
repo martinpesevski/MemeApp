@@ -26,6 +26,7 @@
 @property (nonatomic, strong) UIButton *favoriteButton;
 @property (nonatomic, strong) UIButton *shareButton;
 @property (nonatomic, strong) UIButton *registerPromptButton;
+@property (nonatomic, strong) UILabel *privacyLabel;
 @property (nonatomic, strong) UISwitch *memePrivacySwitch;
 
 @end
@@ -91,9 +92,15 @@
     [self.registerPromptButton setTitle:kRegisterForSharePromptString forState:UIControlStateNormal];
     [self.registerPromptButton addTarget:self action:@selector(showLogin) forControlEvents:UIControlEventTouchUpInside];
     
+    self.privacyLabel = [[UILabel alloc] init];
+    self.privacyLabel.text = @"Visible on makeameme.org?";
+    self.privacyLabel.font = [MPFontManager getTitleLabelFont];
+    self.privacyLabel.textColor = [MPColorManager getLabelColorWhite];
+    
     self.memePrivacySwitch = [[UISwitch alloc] init];
     [self.memePrivacySwitch setOn:self.meme.privacy == MPMemePrivacyPublic];
     [self.memePrivacySwitch addTarget:self action:@selector(onChangedMemePrivacy:) forControlEvents:UIControlEventValueChanged];
+    [self.memePrivacySwitch setOnTintColor:[MPColorManager getNavigationBarColor]];
     
     if ([[MPAuthenticationManager sharedManager] isLoggedIn]) {
         self.registerPromptButton.hidden = YES;
@@ -105,6 +112,7 @@
     
     [self.scrollView addSubview:self.memeImageView];
     [self.scrollView addSubview:self.registerPromptButton];
+    [self.scrollView addSubview:self.privacyLabel];
     [self.scrollView addSubview:self.memePrivacySwitch];
     [self.scrollView addSubview:self.favoriteButton];
     [self.scrollView addSubview:self.shareButton];
@@ -129,8 +137,12 @@
         make.right.equalTo(self.scrollView).offset(-kLeftRightPadding);
         make.top.equalTo(self.memeImageView.mas_bottom).offset(20);
     }];
+    [self.privacyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view.mas_left).offset(20);
+        make.centerY.equalTo(self.memePrivacySwitch);
+    }];
     [self.memePrivacySwitch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view);
+        make.right.equalTo(self.view).offset(-20);
         make.top.equalTo(self.memeImageView.mas_bottom).offset(20);
     }];
     [self.favoriteButton mas_makeConstraints:^(MASConstraintMaker *make) {

@@ -106,7 +106,12 @@
 }
 
 - (void)updatePrivacyForMeme:(MPMeme *)meme completion:(resultCompletion)completion
-{    
+{
+    if (!meme.memeID || !meme.privacy) {
+        completion(nil, nil);
+        return;
+    }
+    
     NSDictionary *params = @{@"memeId":meme.memeID,
                              @"privacy":[meme stringFromMemePrivacy:meme.privacy]
                              };
