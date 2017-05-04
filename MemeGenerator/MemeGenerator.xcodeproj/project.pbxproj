@@ -16,6 +16,7 @@
 		C73EAFB91E8A789800F3E6FC /* MPShareMemeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C73EAFB81E8A789800F3E6FC /* MPShareMemeViewController.m */; };
 		C73EB5FD1E8A875D00F3E6FC /* MPMeme.m in Sources */ = {isa = PBXBuildFile; fileRef = C73EB5FC1E8A875D00F3E6FC /* MPMeme.m */; };
 		C77E13E71E93C365007E33EC /* MPMyMemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C77E13E61E93C365007E33EC /* MPMyMemesViewController.m */; };
+		C78287781EBBD4AA00403DAD /* MPSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C78287771EBBD4AA00403DAD /* MPSignUpViewController.m */; };
 		C7921B0D1E9B775E00D9AEB3 /* MPNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C7921B0C1E9B775E00D9AEB3 /* MPNetworkManager.m */; };
 		C7921B101E9B777300D9AEB3 /* MPRequestProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C7921B0F1E9B777300D9AEB3 /* MPRequestProvider.m */; };
 		C797F32D1E82F37400D58EA2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C797F32C1E82F37400D58EA2 /* main.m */; };
@@ -70,6 +71,8 @@
 		C73EB5FC1E8A875D00F3E6FC /* MPMeme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMeme.m; sourceTree = "<group>"; };
 		C77E13E51E93C365007E33EC /* MPMyMemesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPMyMemesViewController.h; sourceTree = "<group>"; };
 		C77E13E61E93C365007E33EC /* MPMyMemesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMyMemesViewController.m; sourceTree = "<group>"; };
+		C78287761EBBD4AA00403DAD /* MPSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPSignUpViewController.h; sourceTree = "<group>"; };
+		C78287771EBBD4AA00403DAD /* MPSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPSignUpViewController.m; sourceTree = "<group>"; };
 		C7921B0B1E9B775E00D9AEB3 /* MPNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPNetworkManager.h; sourceTree = "<group>"; };
 		C7921B0C1E9B775E00D9AEB3 /* MPNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPNetworkManager.m; sourceTree = "<group>"; };
 		C7921B0E1E9B777300D9AEB3 /* MPRequestProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPRequestProvider.h; sourceTree = "<group>"; };
@@ -166,6 +169,8 @@
 			children = (
 				C7F05CD81EB0067D00996A6D /* MPLoginViewController.h */,
 				C7F05CD91EB0067D00996A6D /* MPLoginViewController.m */,
+				C78287761EBBD4AA00403DAD /* MPSignUpViewController.h */,
+				C78287771EBBD4AA00403DAD /* MPSignUpViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -477,6 +482,7 @@
 				C7BDB16B1E82F762000AA588 /* LGSideMenuController.m in Sources */,
 				C71635E61E8309070070F88A /* MPSearchMemesViewController.m in Sources */,
 				C737A4331EB4F84C009B83C6 /* MPTabBar.m in Sources */,
+				C78287781EBBD4AA00403DAD /* MPSignUpViewController.m in Sources */,
 				C797F32D1E82F37400D58EA2 /* main.m in Sources */,
 				C7BDB1471E82F59F000AA588 /* MPAlertManager.m in Sources */,
 				C7BDB17E1E82F816000AA588 /* MPSideMenuCell.m in Sources */,

@@ -17,6 +17,7 @@
 #import "MBProgressHUD.h"
 #import "MPAuthenticationManager.h"
 #import "AppDelegate.h"
+#import "MPSignUpViewController.h"
 
 @interface MPLoginViewController () <UITextFieldDelegate>
 
@@ -100,6 +101,8 @@
     self.registerAccountLabel.textAlignment = NSTextAlignmentCenter;
     
     self.registerPlaceholderView = [[UIView alloc] init];
+    self.registerPlaceholderView.userInteractionEnabled = YES;
+    [self.registerPlaceholderView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showRegisterScreen)]];
 
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     self.activityIndicator.hidden = YES;
@@ -218,6 +221,12 @@
 - (void)onForgotPassword{
 //    MPForgotPasswordViewController *forgotPasswordController = [[MPForgotPasswordViewController alloc] init];
 //    [self.navigationController pushViewController:forgotPasswordController animated:YES];
+}
+
+- (void)showRegisterScreen
+{
+    MPSignUpViewController *signupController = [[MPSignUpViewController alloc] init];
+    [self.navigationController pushViewController:signupController animated:YES];
 }
 
 - (void)completeLogin
