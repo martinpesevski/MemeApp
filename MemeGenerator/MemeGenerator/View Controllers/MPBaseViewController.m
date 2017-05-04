@@ -13,6 +13,7 @@
 #import "MPColorManager.h"
 #import "Masonry.h"
 #import "Constants.h"
+#import "MPFontManager.h"
 
 @interface MPBaseViewController ()
 
@@ -88,7 +89,8 @@
     [self.tabBar setTranslucent:NO];
     self.tabBar.delegate = self;
     
-    [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor] }
+    [[UITabBarItem appearance] setTitleTextAttributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor],
+                                                         NSFontAttributeName: [MPFontManager getDescriptionLabelLargeBoldFont]}
                                              forState:UIControlStateNormal];
     
     [self.view addSubview:self.tabBar];
@@ -112,6 +114,8 @@
         UIImage *image = images[i];
         
         UITabBarItem *item = [[UITabBarItem alloc] initWithTitle:name image:image tag:i];
+        [item setTitlePositionAdjustment:UIOffsetMake(0, -13)];
+        [item setImageInsets:UIEdgeInsetsMake(5, -30, -5, 30)];
         [tabsArray addObject:item];
     }
     

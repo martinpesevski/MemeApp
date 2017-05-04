@@ -22,7 +22,7 @@
 
 + (UIFont *)getTitleLabelFont
 {
-    return [UIFont fontWithName:@"HelveticaNeue" size:16];
+    return [UIFont fontWithName:@"HelveticaNeue-Bold" size:16];
 }
 
 + (UIFont *)getTitleLabelNormalFont
@@ -32,7 +32,7 @@
 
 + (UIFont *)getDescriptionLabelBoldFont
 {
-    return [UIFont fontWithName:@"HelveticaNeue" size:12];
+    return [UIFont fontWithName:@"HelveticaNeue-Bold" size:12];
 }
 
 + (UIFont *)getDescriptionLabelNormalFont
@@ -47,7 +47,7 @@
 
 + (UIFont *)getDescriptionLabelLargeBoldFont
 {
-    return [UIFont fontWithName:@"HelveticaNeue" size:13];
+    return [UIFont fontWithName:@"HelveticaNeue-Bold" size:13];
 }
 
 + (UIFont *)getLargeFont

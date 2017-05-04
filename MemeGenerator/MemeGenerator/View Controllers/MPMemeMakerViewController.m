@@ -278,6 +278,16 @@ typedef enum MPTextLocation {
     [self setupTabbarWithNames:names images:images actions:actionsArray];
 }
 
+- (BOOL)validation
+{
+    if (self.topTextField.text.length == 0 && self.bottomTextField.text.length == 0) {
+        [MPAlertManager showAlertMessage:@"Please enter top or bottom text" withOKblock:nil hasCancelButton:NO];
+        return NO;
+    }
+    
+    return YES;
+}
+
 #pragma mark - textfield methods
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
@@ -307,6 +317,9 @@ typedef enum MPTextLocation {
 
 - (void)onCreate
 {
+    if (![self validation]) {
+        return;
+    }
 //    UIImageWriteToSavedPhotosAlbum(self.modifiedImage, nil, nil, nil);
     [self saveImage];
     

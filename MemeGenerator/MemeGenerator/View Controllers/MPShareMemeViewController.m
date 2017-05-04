@@ -97,6 +97,10 @@
     
     if ([[MPAuthenticationManager sharedManager] isLoggedIn]) {
         self.registerPromptButton.hidden = YES;
+        self.memePrivacySwitch.hidden = NO;
+    } else {
+        self.memePrivacySwitch.hidden = YES;
+        self.registerPromptButton.hidden = NO;
     }
     
     [self.scrollView addSubview:self.memeImageView];
