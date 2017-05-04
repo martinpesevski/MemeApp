@@ -107,7 +107,7 @@
 {
     MPMeme *meme = self.memesArray[indexPath.row];
     
-    MPShareMemeViewController *shareMemeController = [[MPShareMemeViewController alloc] initWithImage:meme.image];
+    MPShareMemeViewController *shareMemeController = [[MPShareMemeViewController alloc] initWithMeme:meme];
     [self.navigationController pushViewController:shareMemeController animated:YES];
 }
 

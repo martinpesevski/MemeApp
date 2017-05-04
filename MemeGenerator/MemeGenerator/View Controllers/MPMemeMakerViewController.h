@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "MPBaseViewController.h"
+#import "MPMeme.h"
 
 @interface MPMemeMakerViewController : MPBaseViewController
 
-- (instancetype)initWithImage:(UIImage *)image;
+- (instancetype)initWithMeme:(MPMeme *)meme;
 
 
 @end

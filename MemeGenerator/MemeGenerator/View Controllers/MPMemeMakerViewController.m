@@ -28,6 +28,9 @@ typedef enum MPTextLocation {
 
 @property (nonatomic, strong) UIScrollView *mainScrollView;
 
+@property (nonatomic, strong) MPMeme *createdMeme;
+@property (nonatomic, strong) MPMeme *meme;
+
 @property (nonatomic, strong) UIImage *memeImage;
 @property (nonatomic, strong) UIImage *modifiedImage;
 
@@ -59,12 +62,13 @@ typedef enum MPTextLocation {
 
 @implementation MPMemeMakerViewController
 
-- (instancetype)initWithImage:(UIImage *)image
+- (instancetype)initWithMeme:(MPMeme *)meme
 {
     self = [super init];
     if (self) {
-        self.memeImage = image;
-        self.preferredFontSize = [self getFontSizeForImageSize:image.size];
+        self.memeImage = meme.image;
+        self.meme = meme;
+        self.preferredFontSize = [self getFontSizeForImageSize:meme.image.size];
     }
     return self;
 }
@@ -306,7 +310,7 @@ typedef enum MPTextLocation {
 //    UIImageWriteToSavedPhotosAlbum(self.modifiedImage, nil, nil, nil);
     [self saveImage];
     
-    MPShareMemeViewController *shareMemeController = [[MPShareMemeViewController alloc] initWithImage:self.modifiedImage];
+    MPShareMemeViewController *shareMemeController = [[MPShareMemeViewController alloc] initWithMeme:self.createdMeme];
     [self.navigationController pushViewController:shareMemeController animated:YES];
 }
 
@@ -435,6 +439,12 @@ typedef enum MPTextLocation {
     
     [[NSFileManager defaultManager] createFileAtPath:[NSString stringWithFormat:@"%@/%@", imagePath, imageName] contents:nil attributes:nil];
     [imageData writeToFile:[NSString stringWithFormat:@"%@/%@", imagePath, imageName] atomically:YES];
+    
+    self.createdMeme = self.meme;
+    self.createdMeme.image = self.modifiedImage;
+    self.createdMeme.name = imageName;
+    self.createdMeme.topText = self.topTextField.text;
+    self.createdMeme.bottomText = self.bottomTextField.text;
 }
 
 @end

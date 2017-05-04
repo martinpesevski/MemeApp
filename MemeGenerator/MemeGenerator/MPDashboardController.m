@@ -152,8 +152,10 @@
 {
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
     
+    MPMeme *meme = [[MPMeme alloc] initWithImage:image name:@"asdf"];
+    
     [picker dismissViewControllerAnimated:YES completion:^{
-        MPMemeMakerViewController *memeMakerController = [[MPMemeMakerViewController alloc] initWithImage:image];
+        MPMemeMakerViewController *memeMakerController = [[MPMemeMakerViewController alloc] initWithMeme:meme];
         [self.navigationController pushViewController:memeMakerController animated:YES];
     }];
 }

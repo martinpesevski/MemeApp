@@ -26,5 +26,7 @@ typedef enum MPMemePrivacy {
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
 - (instancetype)initWithImage:(UIImage *)image name:(NSString *)name;
+- (NSString *)stringFromMemePrivacy:(MPMemePrivacy)privacyType;
+- (MPMemePrivacy)privacyFromString:(NSString *)privacyString;
 
 @end

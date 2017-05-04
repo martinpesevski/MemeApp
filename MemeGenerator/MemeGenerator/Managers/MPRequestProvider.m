@@ -101,17 +101,16 @@
 - (void)updatePrivacyForMeme:(MPMeme *)meme completion:(resultCompletion)completion
 {    
     NSDictionary *params = @{@"memeId":meme.memeID,
-                             @"privacy":meme.privacy == MPMemePrivacyPrivate?@"private":@"public"
+                             @"privacy":[meme stringFromMemePrivacy:meme.privacy]
                              };
     
-    [[MPNetworkManager sharedManager] POST:kPostMemeEndpoint
-                                parameters:params
-                                  progress:nil
-                                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    [[MPNetworkManager sharedManager] PUT:kUpdateMemeEndpoint
+                               parameters:params
+                                  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
      {
          completion (responseObject, nil);
      }
-                                   failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+                                  failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
      {
          NSLog(@"\n============== ERROR updating meme privacy ====\n%@",error.userInfo);
          completion(nil, error);

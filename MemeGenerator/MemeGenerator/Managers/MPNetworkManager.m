@@ -102,5 +102,30 @@
     return task;
 }
 
+- (NSURLSessionDataTask *)PUT:(NSString *)URLString parameters:(id)parameters success:(void (^)(NSURLSessionDataTask * _Nonnull, id _Nullable))success failure:(void (^)(NSURLSessionDataTask * _Nullable, NSError * _Nonnull))failure
+{
+    void (^authFailBlock)(NSURLSessionDataTask * _Nullable, NSError * _Nonnull) = ^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+    {
+        NSHTTPURLResponse* httpResponse = (NSHTTPURLResponse *)task.response;
+        if([httpResponse statusCode] == 401){
+            NSLog(@"401 auth error!");
+        }else{
+            NSLog(@"no auth error");
+            failure(task, error);
+        }
+    };
+    
+    AFOAuthCredential *credential = [AFOAuthCredential retrieveCredentialWithIdentifier:kTokenIdentifier];
+    
+    if (credential) {
+        [[MPNetworkManager sharedManager].requestSerializer setValue:credential.accessToken forHTTPHeaderField:@"X-Mam-Authtoken"];
+    }
+    
+    
+    NSURLSessionDataTask *task = [super PUT:URLString parameters:parameters success:success failure:authFailBlock];
+    
+    return task;
+}
+
 
 @end

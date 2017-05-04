@@ -21,20 +21,23 @@
 
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImage *memeImage;
+@property (nonatomic, strong) MPMeme *meme;
 @property (nonatomic, strong) UIImageView *memeImageView;
 @property (nonatomic, strong) UIButton *favoriteButton;
 @property (nonatomic, strong) UIButton *shareButton;
 @property (nonatomic, strong) UIButton *registerPromptButton;
+@property (nonatomic, strong) UISwitch *memePrivacySwitch;
 
 @end
 
 @implementation MPShareMemeViewController
 
-- (instancetype)initWithImage:(UIImage *)image
+- (instancetype)initWithMeme:(MPMeme *)meme
 {
     self = [super init];
     if (self) {
-        self.memeImage = image;
+        self.meme = meme;
+        self.memeImage = meme.image;
     }
     return self;
 }
@@ -45,6 +48,14 @@
     [self setupViews];
     [self setConstraints];
     [self tabbarSetup];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLoggedOut) name:USER_LOGGED_OUT_NOTIFICATION object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLoggedIn) name:USER_LOGGED_IN_NOTIFICATION object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)setupViews
@@ -76,8 +87,17 @@
     [self.registerPromptButton setTitle:kRegisterForSharePromptString forState:UIControlStateNormal];
     [self.registerPromptButton addTarget:self action:@selector(showLogin) forControlEvents:UIControlEventTouchUpInside];
     
+    self.memePrivacySwitch = [[UISwitch alloc] init];
+    [self.memePrivacySwitch setOn:self.meme.privacy == MPMemePrivacyPublic];
+    [self.memePrivacySwitch addTarget:self action:@selector(onChangedMemePrivacy:) forControlEvents:UIControlEventValueChanged];
+    
+    if ([[MPAuthenticationManager sharedManager] isLoggedIn]) {
+        self.registerPromptButton.hidden = YES;
+    }
+    
     [self.scrollView addSubview:self.memeImageView];
     [self.scrollView addSubview:self.registerPromptButton];
+    [self.scrollView addSubview:self.memePrivacySwitch];
     [self.scrollView addSubview:self.favoriteButton];
     [self.scrollView addSubview:self.shareButton];
     [self.view addSubview:self.scrollView];
@@ -99,6 +119,10 @@
         make.right.equalTo(self.view).offset(-kLeftRightPadding);
         make.left.equalTo(self.scrollView).offset(kLeftRightPadding);
         make.right.equalTo(self.scrollView).offset(-kLeftRightPadding);
+        make.top.equalTo(self.memeImageView.mas_bottom).offset(20);
+    }];
+    [self.memePrivacySwitch mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
         make.top.equalTo(self.memeImageView.mas_bottom).offset(20);
     }];
     [self.favoriteButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -167,6 +191,27 @@
     //    [sharingItems addObject:url];
     UIActivityViewController *activityController = [[UIActivityViewController alloc] initWithActivityItems:sharingItems applicationActivities:nil];
     [self presentViewController:activityController animated:YES completion:nil];
+}
+
+- (void)onLoggedIn
+{
+    self.registerPromptButton.hidden = YES;
+    self.memePrivacySwitch.hidden = NO;
+}
+
+- (void)onLoggedOut
+{
+    self.registerPromptButton.hidden = NO;
+    self.memePrivacySwitch.hidden = YES;
+}
+
+- (void)onChangedMemePrivacy:(UISwitch *)sender
+{
+    self.meme.privacy = sender.isOn?MPMemePrivacyPublic:MPMemePrivacyPrivate;
+    
+    [[MPRequestProvider sharedInstance] updatePrivacyForMeme:self.meme completion:^(id result, NSError *error) {
+        
+    }];
 }
 
 @end

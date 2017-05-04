@@ -59,6 +59,7 @@
           
           AFOAuthCredential *credential = [[AFOAuthCredential alloc] initWithOAuthToken:responseObject[@"authToken"] tokenType:@"bearer"];
           [AFOAuthCredential storeCredential:credential withIdentifier:kTokenIdentifier];
+          [[NSNotificationCenter defaultCenter] postNotificationName:USER_LOGGED_IN_NOTIFICATION object:nil];
           completion(YES);
       } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
           completion(NO);

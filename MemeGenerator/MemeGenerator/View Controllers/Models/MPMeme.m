@@ -18,7 +18,9 @@
         self.imageUrlString = [NSString stringWithFormat:@"https://makeameme.org/media/templates/%@", dict[@"img"]];
         self.imageThumbnailString = [NSString stringWithFormat:@"https://makeameme.org/media/templates/80/%@", dict[@"img"]];
         self.name = dict[@"name"];
-        self.privacy = MPMemePrivacyPrivate;
+        self.privacy = [self privacyFromString:dict[@"visibility"]];
+        self.topText = dict[@"topText"];
+        self.bottomText = dict[@"bottomText"];
     }
     return self;
 }
@@ -33,5 +35,28 @@
     }
     return self;
 }
+
+- (MPMemePrivacy)privacyFromString:(NSString *)privacyString
+{
+    if ([privacyString isEqualToString:@"private"]) {
+        return MPMemePrivacyPrivate;
+    }
+    
+    return MPMemePrivacyPublic;
+}
+
+- (NSString *)stringFromMemePrivacy:(MPMemePrivacy)privacyType
+{
+    switch (privacyType) {
+        case MPMemePrivacyPrivate:
+            return @"private";
+            break;
+            
+        default:
+            return @"public";
+            break;
+    }
+}
+
 
 @end

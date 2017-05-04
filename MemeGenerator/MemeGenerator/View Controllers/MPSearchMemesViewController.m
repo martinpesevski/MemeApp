@@ -172,7 +172,8 @@
     }
     
     [self loadImageFromUrl:meme.imageUrlString completion:^(UIImage *image) {
-        MPMemeMakerViewController *memeMakerController = [[MPMemeMakerViewController alloc] initWithImage:image];
+        meme.image = image;
+        MPMemeMakerViewController *memeMakerController = [[MPMemeMakerViewController alloc] initWithMeme:meme];
         [self.navigationController pushViewController:memeMakerController animated:YES];
     }];
 }
