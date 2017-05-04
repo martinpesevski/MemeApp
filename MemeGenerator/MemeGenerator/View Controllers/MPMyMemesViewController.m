@@ -12,8 +12,11 @@
 #import "MPShareMemeViewController.h"
 #import "AppDelegate.h"
 #import "Strings.h"
+#import "MPRequestProvider.h"
 
 @interface MPMyMemesViewController ()
+
+@property (nonatomic, strong) NSArray *localMemesArray;
 
 @end
 
@@ -31,7 +34,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     [self loadImages];
+//    [self loadUserMemes];
 }
 
 - (void)tabbarSetup
@@ -57,6 +62,30 @@
     NSArray *actionsArray = @[backBlock, loginBlock];
     
     [self setupTabbarWithNames:names images:images actions:actionsArray];
+}
+
+- (void)loadUserMemes
+{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [[MPRequestProvider sharedInstance] getUserMemesWithCompletion:^(id result, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        });
+        if (result && !error) {
+
+            NSMutableArray *memesMutable = [[NSMutableArray alloc] init];
+            for (NSDictionary *dict in result) {
+                MPMeme *meme = [[MPMeme alloc] initWithDict:dict];
+                [memesMutable addObject:meme];
+            }
+            
+            self.memesArray = memesMutable;
+            
+            [self.memesCollectionView reloadData];
+        } else if (error) {
+            [MPAlertManager showAlertMessage:error.localizedDescription withOKblock:nil hasCancelButton:NO];
+        }
+    }];
 }
 
 - (void)loadImages {

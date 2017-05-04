@@ -49,6 +49,10 @@
     [self setConstraints];
     [self tabbarSetup];
     
+    if ([[MPAuthenticationManager sharedManager] isLoggedIn]) {
+        [self syncMeme];
+    }
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLoggedOut) name:USER_LOGGED_OUT_NOTIFICATION object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onLoggedIn) name:USER_LOGGED_IN_NOTIFICATION object:nil];
 }
@@ -167,15 +171,19 @@
 
 - (void)onFavorite
 {
-    MPMeme *meme = [[MPMeme alloc] initWithImage:self.memeImage name:@"martin test"];
     
+}
+
+- (void)syncMeme
+{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[MPRequestProvider sharedInstance] postMeme:meme completion:^(id result, NSError *error) {
+    [[MPRequestProvider sharedInstance] postMeme:self.meme completion:^(id result, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         });
         
         if (result && !error) {
+            self.meme.memeID = result[@"id"];
             [MPAlertManager showAlertMessage:kSuccessPostingMemeString withOKblock:nil hasCancelButton:NO];
         } else if (error) {
             [MPAlertManager showAlertMessage:error.localizedDescription withOKblock:nil hasCancelButton:NO];

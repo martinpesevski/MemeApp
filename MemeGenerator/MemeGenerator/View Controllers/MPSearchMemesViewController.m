@@ -113,7 +113,9 @@
 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[MPRequestProvider sharedInstance] getMemesWithCompletion:^(id result, NSError *error) {
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        });
         NSMutableArray *memesMutable = [[NSMutableArray alloc] init];
         for (NSDictionary *dict in result) {
             MPMeme *meme = [[MPMeme alloc] initWithDict:dict];

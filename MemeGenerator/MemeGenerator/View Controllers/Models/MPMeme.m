@@ -14,7 +14,7 @@
 {
     self = [super init];
     if (self) {
-        self.memeID = dict[@"id"];
+        self.stockMemeID = dict[@"id"];
         self.imageUrlString = [NSString stringWithFormat:@"https://makeameme.org/media/templates/%@", dict[@"img"]];
         self.imageThumbnailString = [NSString stringWithFormat:@"https://makeameme.org/media/templates/80/%@", dict[@"img"]];
         self.name = dict[@"name"];

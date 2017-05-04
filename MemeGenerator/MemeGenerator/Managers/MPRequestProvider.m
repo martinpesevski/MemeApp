@@ -74,11 +74,18 @@
 
 - (void)postMeme:(MPMeme *)meme completion:(resultCompletion)completion
 {
+    if (!(meme.topText || meme.bottomText) ||
+        !meme.name ||
+        !meme.image) {
+        completion(nil, nil);
+        return;
+    }
+    
     NSData *imageData = UIImageJPEGRepresentation(meme.image, 1.0);
     
-    NSDictionary *params = @{@"topText":@"martin top text",
-                             @"bottomText":@"martin bottom text",
-                             @"title":@"trump",
+    NSDictionary *params = @{@"topText":meme.topText,
+                             @"bottomText":meme.bottomText,
+                             @"title":meme.name,
                              @"imageData":[imageData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed],
                              @"imageType":@"jpg",
                              @"characterId":@0
