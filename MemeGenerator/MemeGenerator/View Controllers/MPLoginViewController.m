@@ -23,6 +23,10 @@
 @property (nonatomic, strong) MPTextField *usernameTextView;
 @property (nonatomic, strong) MPTextField *passwordTextView;
 
+@property (nonatomic, strong) UILabel *noAccountLabel;
+@property (nonatomic, strong) UILabel *registerAccountLabel;
+@property (nonatomic, strong) UIView *registerPlaceholderView;
+
 @property (nonatomic, strong) UIButton *loginButton;
 
 @property (nonatomic, strong) UIButton *forgotPasswordButton;
@@ -80,6 +84,22 @@
     [self.forgotPasswordButton setTitleColor:[MPColorManager getLabelColorWhite] forState:UIControlStateNormal];
     self.forgotPasswordButton.titleLabel.font = [MPFontManager getTitleLabelFont];
     [self.forgotPasswordButton addTarget:self action:@selector(onForgotPassword) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.noAccountLabel = [[UILabel alloc] init];
+    self.noAccountLabel.text = @"No account?";
+    self.noAccountLabel.font = [MPFontManager getTitleLabelNormalFont];
+    self.noAccountLabel.textColor = [MPColorManager getLabelColorWhite];
+    self.noAccountLabel.textAlignment = NSTextAlignmentCenter;
+    
+    self.registerAccountLabel = [[UILabel alloc] init];
+    self.registerAccountLabel.font = [MPFontManager getTitleLabelFont];
+    self.registerAccountLabel.textColor = [MPColorManager getLabelColorWhite];
+    NSDictionary *underlineAttribute = @{NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)};
+    self.registerAccountLabel.attributedText = [[NSAttributedString alloc] initWithString:@"Register free account"
+                                                             attributes:underlineAttribute];
+    self.registerAccountLabel.textAlignment = NSTextAlignmentCenter;
+    
+    self.registerPlaceholderView = [[UIView alloc] init];
 
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     self.activityIndicator.hidden = YES;
@@ -90,9 +110,11 @@
     [self.keyboardAvoidingContainerView addSubview:self.passwordTextView];
     [self.keyboardAvoidingContainerView addSubview:self.loginButton];
     [self.keyboardAvoidingContainerView addSubview:self.forgotPasswordButton];
-    
     [self.keyboardAvoidingContainerView addSubview:self.activityIndicator];
+    [self.registerPlaceholderView addSubview:self.noAccountLabel];
+    [self.registerPlaceholderView addSubview:self.registerAccountLabel];
     [self.view addSubview:self.keyboardAvoidingContainerView];
+    [self.view addSubview:self.registerPlaceholderView];
 }
 
 - (void)setConstraints
@@ -101,6 +123,10 @@
         make.top.equalTo(self.view);
         make.left.equalTo(self.view).offset(kLeftRightPadding);
         make.right.equalTo(self.view).offset(-kLeftRightPadding);
+    }];
+    [self.registerPlaceholderView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.bottom.equalTo(self.tabBar.mas_top).offset(-50);
     }];
     [self.usernameTextView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.keyboardAvoidingContainerView).offset(10);
@@ -123,6 +149,13 @@
         make.top.equalTo(self.passwordTextView.mas_bottom).offset(10);
         make.left.right.equalTo(self.keyboardAvoidingContainerView);
         make.height.equalTo(@(kButtonHeight));
+    }];
+    [self.noAccountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.equalTo(self.registerPlaceholderView);
+    }];
+    [self.registerAccountLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.registerPlaceholderView);
+        make.top.equalTo(self.noAccountLabel.mas_bottom).offset(20);
     }];
     [self.activityIndicator mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.loginButton);
