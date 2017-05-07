@@ -36,7 +36,7 @@
         
         AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
         [responseSerializer setRemovesKeysWithNullValues:YES];
-        responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html", nil];
+        responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
         self.responseSerializer = responseSerializer;
         
     }

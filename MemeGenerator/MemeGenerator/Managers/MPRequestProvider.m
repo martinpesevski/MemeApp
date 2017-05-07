@@ -58,14 +58,14 @@
 
 - (void)getUserMemesWithCompletion:(resultCompletion)completion
 {
-    [[MPNetworkManager sharedManager] POST:kGetUserMemesEndpoint
-                                parameters:nil
-                                  progress:nil
-                                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+    [[MPNetworkManager sharedManager] GET:kGetUserMemesEndpoint
+                               parameters:nil
+                                 progress:nil
+                                  success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
      {
          completion (responseObject, nil);
      }
-                                   failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+                                  failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
      {
          NSLog(@"\n============== ERROR getting user memes ====\n%@",error.userInfo);
          completion(nil, error);

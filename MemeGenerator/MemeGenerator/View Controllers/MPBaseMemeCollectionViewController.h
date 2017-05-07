@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "MPBaseViewController.h"
+#import "MPRequestProvider.h"
+#import "SDWebImageManager.h"
 
 @interface MPBaseMemeCollectionViewController : MPBaseViewController <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
@@ -17,5 +19,6 @@
 
 - (void)setupViews;
 - (void)setConstraints;
+- (void)loadImageFromUrl:(NSString *)imageUrl completion:(imageCompletion)completion;
 
 @end

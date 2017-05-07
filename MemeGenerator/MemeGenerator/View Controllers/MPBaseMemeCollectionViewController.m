@@ -44,6 +44,14 @@
     }];
 }
 
+- (void)loadImageFromUrl:(NSString *)imageUrl completion:(imageCompletion)completion
+{
+    SDWebImageManager *manager = [SDWebImageManager sharedManager];
+    [manager downloadImageWithURL:[NSURL URLWithString:imageUrl] options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
+        completion(image);
+    }];
+}
+
 #pragma mark - uicollectionview methods
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section

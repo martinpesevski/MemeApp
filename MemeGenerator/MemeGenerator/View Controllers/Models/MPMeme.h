@@ -17,6 +17,10 @@ typedef enum MPMemePrivacy {
 
 @property (nonatomic, strong) NSString *imageUrlString;
 @property (nonatomic, strong) NSString *imageThumbnailString;
+@property (nonatomic, strong) NSString *createdImageUrlString;
+@property (nonatomic, strong) NSString *createdImageSmallThumbnailString;
+@property (nonatomic, strong) NSString *createdImageMediumThumbnailString;
+@property (nonatomic, strong) NSString *createdImageLargeThumbnailString;
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSNumber *stockMemeID;
 @property (nonatomic, strong) NSNumber *memeID;

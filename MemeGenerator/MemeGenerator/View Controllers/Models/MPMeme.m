@@ -15,8 +15,12 @@
     self = [super init];
     if (self) {
         self.stockMemeID = dict[@"id"];
-        self.imageUrlString = [NSString stringWithFormat:@"https://makeameme.org/media/templates/%@", dict[@"img"]];
-        self.imageThumbnailString = [NSString stringWithFormat:@"https://makeameme.org/media/templates/80/%@", dict[@"img"]];
+        self.imageUrlString = [NSString stringWithFormat:@"https://makeameme.org/media/templates/%@", dict[@"image"]];
+        self.imageThumbnailString = [NSString stringWithFormat:@"https://makeameme.org/media/templates/80/%@", dict[@"image"]];
+        self.createdImageUrlString = [NSString stringWithFormat:@"https://media.makeameme.org/created/%@", dict[@"image"]];
+        self.createdImageSmallThumbnailString = [NSString stringWithFormat:@"https://media.makeameme.org/created/80/%@", dict[@"image"]];
+        self.createdImageMediumThumbnailString = [NSString stringWithFormat:@"https://media.makeameme.org/created/120/%@", dict[@"image"]];
+        self.createdImageLargeThumbnailString = [NSString stringWithFormat:@"https://media.makeameme.org/created/250/%@", dict[@"image"]];
         self.name = dict[@"name"];
         self.privacy = [self privacyFromString:dict[@"visibility"]];
         self.topText = dict[@"topText"];

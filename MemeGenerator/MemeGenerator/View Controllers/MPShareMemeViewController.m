@@ -105,9 +105,11 @@
     if ([[MPAuthenticationManager sharedManager] isLoggedIn]) {
         self.registerPromptButton.hidden = YES;
         self.memePrivacySwitch.hidden = NO;
+        self.privacyLabel.hidden = NO;
     } else {
         self.memePrivacySwitch.hidden = YES;
         self.registerPromptButton.hidden = NO;
+        self.privacyLabel.hidden = YES;
     }
     
     [self.scrollView addSubview:self.memeImageView];
@@ -221,12 +223,14 @@
 {
     self.registerPromptButton.hidden = YES;
     self.memePrivacySwitch.hidden = NO;
+    self.privacyLabel.hidden = NO;
 }
 
 - (void)onLoggedOut
 {
     self.registerPromptButton.hidden = NO;
     self.memePrivacySwitch.hidden = YES;
+    self.privacyLabel.hidden = YES;
 }
 
 - (void)onChangedMemePrivacy:(UISwitch *)sender

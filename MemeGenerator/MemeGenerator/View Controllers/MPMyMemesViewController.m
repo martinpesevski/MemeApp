@@ -35,8 +35,8 @@
 {
     [super viewWillAppear:animated];
     
-    [self loadImages];
-//    [self loadUserMemes];
+//    [self loadImages];
+    [self loadUserMemes];
 }
 
 - (void)tabbarSetup
@@ -74,8 +74,11 @@
         if (result && !error) {
 
             NSMutableArray *memesMutable = [[NSMutableArray alloc] init];
-            for (NSDictionary *dict in result) {
+            NSArray *keysArray = [[result allKeys] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+            for (int i=0; i<keysArray.count; i++) {
+                NSDictionary *dict = result[keysArray[i]];
                 MPMeme *meme = [[MPMeme alloc] initWithDict:dict];
+                meme.memeID = keysArray[i];
                 [memesMutable addObject:meme];
             }
             
@@ -127,7 +130,7 @@
     MPMeme *meme;
     
     meme = self.memesArray[indexPath.row];
-    [memeCell setupWithImage:meme.image];
+    [memeCell setupWithImageUrl:[NSURL URLWithString:meme.createdImageUrlString]];
     
     return memeCell;
 }

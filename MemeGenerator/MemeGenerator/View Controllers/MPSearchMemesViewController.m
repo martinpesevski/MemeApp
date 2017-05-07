@@ -13,9 +13,7 @@
 #import "MPMemeMakerViewController.h"
 #import "MPColorManager.h"
 #import "MPMeme.h"
-#import "MPRequestProvider.h"
 #import "MBProgressHUD.h"
-#import "SDWebImageManager.h"
 #import "AppDelegate.h"
 #import "Strings.h"
 
@@ -42,25 +40,6 @@
     [super setupViews];
     
     self.title = kSelectAMemeTitleString;
-    
-//    NSString *dirPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"memes"];
-//    NSError * error;
-//    NSArray *memeImageNamesAray = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:dirPath error:&error];
-//    
-//    NSMutableArray *memesMutable = [[NSMutableArray alloc] init];
-//    for (NSString *imageName in memeImageNamesAray) {
-//        NSString *imageNamePathExtension = [NSString stringWithFormat:@".%@", [imageName pathExtension]];
-//        NSString *imageNameWithoutExtension = [imageName stringByReplacingOccurrencesOfString:imageNamePathExtension withString:@""];
-//        NSString *imageNameFormatted = [imageNameWithoutExtension stringByReplacingOccurrencesOfString:@"_" withString:@" "];
-//        
-//        NSString *imagePath = [[NSBundle mainBundle] pathForResource:imageName ofType:nil inDirectory:@"memes"];
-//        UIImage *memeImage = [UIImage imageWithContentsOfFile:imagePath];
-//        
-//        MPMeme *meme = [[MPMeme alloc] initWithImage:memeImage name:imageNameFormatted];
-//        
-//        [memesMutable addObject:meme];
-//    }
-//    self.memesArray = memesMutable;
 
     self.searchBar = [[UISearchBar alloc] init];
     self.searchBar.barTintColor = [MPColorManager colorFromHexString:@"#838BFF"];
@@ -125,14 +104,6 @@
         self.memesArray = memesMutable;
         
         [self.memesCollectionView reloadData];
-    }];
-}
-
-- (void)loadImageFromUrl:(NSString *)imageUrl completion:(imageCompletion)completion
-{
-    SDWebImageManager *manager = [SDWebImageManager sharedManager];
-    [manager downloadImageWithURL:[NSURL URLWithString:imageUrl] options:0 progress:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
-        completion(image);
     }];
 }
 
