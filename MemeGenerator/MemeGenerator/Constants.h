@@ -42,5 +42,6 @@ typedef enum MPSportType {
 typedef void(^resultCompletion)(id result, NSError *error);
 typedef void(^imageCompletion)(UIImage *image);
 typedef void(^stringCompletion)(NSString *string);
+typedef void(^arrayCompletion)(NSArray *array);
 
 #endif /* Constants_h */

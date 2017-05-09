@@ -17,5 +17,6 @@
 - (void)saveImage:(UIImage *)image completion:(stringCompletion)completion;
 - (void)loadImageFromImageID:(NSString *)imageID completion:(imageCompletion)completion;
 - (void)saveMeme:(MPMeme *)meme;
+- (void)loadLocalMemesWithCompletion:(arrayCompletion)completion;
 
 @end

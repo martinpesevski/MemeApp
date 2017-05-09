@@ -13,6 +13,7 @@
 #import "AppDelegate.h"
 #import "Strings.h"
 #import "MPRequestProvider.h"
+#import "MPDatabaseManager.h"
 
 @interface MPMyMemesViewController ()
 
@@ -34,9 +35,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-//    [self loadImages];
-    [self loadUserMemes];
+    [self syncMemes];
 }
 
 - (void)tabbarSetup
@@ -64,7 +63,35 @@
     [self setupTabbarWithNames:names images:images actions:actionsArray];
 }
 
-- (void)loadUserMemes
+- (void)syncMemes
+{
+    [self loadImagesWithCompletion:^{
+        [self synchronize];
+    }];
+    [self loadUserMemesCompletion:^{
+    }];
+}
+
+- (void)synchronize
+{
+    __block int counter = 0;
+    __block int memesToUpload = 0;
+    for (MPMeme *meme in self.localMemesArray) {
+        if (!meme.memeID) {
+            memesToUpload ++;
+            [self uploadMeme:meme completion:^{
+                counter ++;
+                if (counter == memesToUpload) {
+                    [self loadUserMemesCompletion:^{
+                        
+                    }];
+                }
+            }];
+        }
+    }
+}
+
+- (void)loadUserMemesCompletion:(MPSimpleBlock)completion
 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [[MPRequestProvider sharedInstance] getUserMemesWithCompletion:^(id result, NSError *error) {
@@ -88,32 +115,32 @@
         } else if (error) {
             [MPAlertManager showAlertMessage:error.localizedDescription withOKblock:nil hasCancelButton:NO];
         }
+        
+        completion();
     }];
 }
 
-- (void)loadImages {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = paths.firstObject;
-    NSString *imagesPath = [NSString stringWithFormat:@"%@/%@",documentsDirectory,@"memeGenerator"];
-    
-    NSError * error;
-    NSArray *memeImageNamesAray = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:imagesPath error:&error];
-    
-    NSMutableArray *memesMutable = [[NSMutableArray alloc] init];
-    for (NSString *imageName in memeImageNamesAray) {
-        NSString *imageNamePathExtension = [NSString stringWithFormat:@".%@", [imageName pathExtension]];
-        NSString *imageNameWithoutExtension = [imageName stringByReplacingOccurrencesOfString:imageNamePathExtension withString:@""];
-        NSString *imageNameFormatted = [imageNameWithoutExtension stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+- (void)uploadMeme:(MPMeme *)meme completion:(MPSimpleBlock)completion
+{
+    [[MPRequestProvider sharedInstance] postMeme:meme completion:^(id result, NSError *error) {
+        if (result && !error) {
+            
+            meme.memeID = result[@"id"];
+            [[MPDatabaseManager sharedInstance] saveMeme:meme];
+        } else if (error) {
+            [MPAlertManager showAlertMessage:error.localizedDescription withOKblock:nil hasCancelButton:NO];
+        }
         
-        NSString *imagePath = [NSString stringWithFormat:@"%@/%@/%@",documentsDirectory,@"memeGenerator", imageName];
-        UIImage *memeImage = [UIImage imageWithContentsOfFile:imagePath];
-        
-        MPMeme *meme = [[MPMeme alloc] initWithImage:memeImage name:imageNameFormatted];
-        [memesMutable addObject:meme];
-    }
-    self.memesArray = memesMutable;
+        completion();
+    }];
+}
 
-    [self.memesCollectionView reloadData];
+- (void)loadImagesWithCompletion:(MPSimpleBlock)completion
+{
+    [[MPDatabaseManager sharedInstance] loadLocalMemesWithCompletion:^(NSArray *array) {
+        self.localMemesArray = array;
+        completion();
+    }];
 }
 
 #pragma mark - uicollectionview methods

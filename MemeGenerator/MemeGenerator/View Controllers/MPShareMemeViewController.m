@@ -14,6 +14,7 @@
 #import "Strings.h"
 #import "MPRequestProvider.h"
 #import "MPFontManager.h"
+#import "MPDatabaseManager.h"
 
 #define kMemeImageHeightWidth 300
 
@@ -202,6 +203,7 @@
         
         if (result && !error) {
             self.meme.memeID = result[@"id"];
+            [[MPDatabaseManager sharedInstance] saveMeme:self.meme];
             [MPAlertManager showAlertMessage:kSuccessPostingMemeString withOKblock:nil hasCancelButton:NO];
         } else if (error) {
             [MPAlertManager showAlertMessage:error.localizedDescription withOKblock:nil hasCancelButton:NO];

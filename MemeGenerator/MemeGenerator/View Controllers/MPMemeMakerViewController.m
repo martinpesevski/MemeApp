@@ -326,10 +326,9 @@ typedef enum MPTextLocation {
     [self saveImageWithCompletion:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            MPShareMemeViewController *shareMemeController = [[MPShareMemeViewController alloc] initWithMeme:self.createdMeme];
+            [self.navigationController pushViewController:shareMemeController animated:YES];
         });
-        
-        MPShareMemeViewController *shareMemeController = [[MPShareMemeViewController alloc] initWithMeme:self.createdMeme];
-        [self.navigationController pushViewController:shareMemeController animated:YES];
     }];
 }
 
@@ -443,7 +442,8 @@ typedef enum MPTextLocation {
 - (void)saveImageWithCompletion:(MPSimpleBlock)completion
 {
     [[MPDatabaseManager sharedInstance] saveImage:self.modifiedImage completion:^(NSString *imageID) {
-        NSString *imageName = [NSString stringWithFormat:@"meme%@", [NSDate date]];
+        NSString * timestamp = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970] * 1000];
+        NSString *imageName = [NSString stringWithFormat:@"meme%@", timestamp];
         
         self.createdMeme = self.meme;
         self.createdMeme.image = self.modifiedImage;
@@ -453,6 +453,8 @@ typedef enum MPTextLocation {
         self.createdMeme.localImageID = imageID;
         
         [[MPDatabaseManager sharedInstance] saveMeme:self.createdMeme];
+        
+        completion();
     }];
 }
 
