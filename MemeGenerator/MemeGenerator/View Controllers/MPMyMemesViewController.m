@@ -66,10 +66,14 @@
 - (void)syncMemes
 {
     [self loadImagesWithCompletion:^{
-        [self synchronize];
+        if ([[MPAuthenticationManager sharedManager] isLoggedIn]) {
+            [self synchronize];
+        }
     }];
-    [self loadUserMemesCompletion:^{
-    }];
+    if ([[MPAuthenticationManager sharedManager] isLoggedIn]) {
+        [self loadUserMemesCompletion:^{
+        }];
+    }
 }
 
 - (void)synchronize
@@ -139,6 +143,9 @@
 {
     [[MPDatabaseManager sharedInstance] loadLocalMemesWithCompletion:^(NSArray *array) {
         self.localMemesArray = array;
+        if (![[MPAuthenticationManager sharedManager] isLoggedIn]) {
+            [self.memesCollectionView reloadData];
+        }
         completion();
     }];
 }
@@ -147,7 +154,11 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return self.memesArray.count;
+    if ([[MPAuthenticationManager sharedManager] isLoggedIn]) {
+        return self.memesArray.count;
+    } else {
+        return self.localMemesArray.count;
+    }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -156,15 +167,26 @@
     
     MPMeme *meme;
     
-    meme = self.memesArray[indexPath.row];
-    [memeCell setupWithImageUrl:[NSURL URLWithString:meme.createdImageUrlString]];
+    if ([[MPAuthenticationManager sharedManager] isLoggedIn]) {
+        meme = self.memesArray[indexPath.row];
+        [memeCell setupWithImageUrl:[NSURL URLWithString:meme.createdImageUrlString]];
+    } else{
+        meme = self.localMemesArray[indexPath.row];
+        [memeCell setupWithImage:meme.image];
+    }
     
     return memeCell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    MPMeme *meme = self.memesArray[indexPath.row];
+    MPMeme *meme;
+    
+    if ([[MPAuthenticationManager sharedManager] isLoggedIn]) {
+        meme = self.memesArray[indexPath.row];
+    } else{
+        meme = self.localMemesArray[indexPath.row];
+    }
     
     MPShareMemeViewController *shareMemeController = [[MPShareMemeViewController alloc] initWithMeme:meme];
     [self.navigationController pushViewController:shareMemeController animated:YES];
