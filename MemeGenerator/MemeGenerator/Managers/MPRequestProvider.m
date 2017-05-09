@@ -9,7 +9,8 @@
 #import "MPRequestProvider.h"
 #import "MPNetworkManager.h"
 #import "NetworkConstants.h"
-
+#import "AFOAuth2Manager.h"
+#import "Constants.h"
 @implementation MPRequestProvider
 
 + (MPRequestProvider *)sharedInstance
@@ -20,6 +21,36 @@
             sharedProvider = [[MPRequestProvider alloc] init];
         });
         return sharedProvider;
+}
+
+- (void)registerWithEmail:(NSString *)email username:(NSString *)username password:(NSString *)password completion:(resultCompletion)completion
+{
+    NSDictionary *params = @{@"email":email,
+                             @"username":username,
+                             @"password":password,
+                             };
+    
+    [[MPNetworkManager sharedManager] POST:kRegisterEndpoint
+                                parameters:params
+                                  progress:nil
+                                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+     {
+         NSArray *errorsArray = responseObject[@"errors"];
+         if (errorsArray && errorsArray.count>0) {
+             NSError *error = [NSError errorWithDomain:errorsArray[0] code:100 userInfo:nil];
+             completion(nil, error);
+         } else {
+             AFOAuthCredential *credential = [[AFOAuthCredential alloc] initWithOAuthToken:responseObject[@"authToken"] tokenType:@"bearer"];
+             [AFOAuthCredential storeCredential:credential withIdentifier:kTokenIdentifier];
+             [[NSNotificationCenter defaultCenter] postNotificationName:USER_LOGGED_IN_NOTIFICATION object:nil];
+             completion (responseObject, nil);
+         }
+     }
+                                   failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+     {
+         NSLog(@"\n============== ERROR posting meme ====\n%@",error.userInfo);
+         completion(nil, error);
+     }];
 }
 
 - (void)getMemesWithCompletion:(resultCompletion)completion

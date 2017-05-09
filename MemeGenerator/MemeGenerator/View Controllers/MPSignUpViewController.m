@@ -14,6 +14,7 @@
 #import "Masonry.h"
 #import "Strings.h"
 #import "MPMyMemesViewController.h"
+#import "AppDelegate.h"
 
 @interface MPSignUpViewController () <UITextFieldDelegate>
 
@@ -215,49 +216,26 @@
         NSString *usernameString = [NSString stringWithFormat:@"%@", self.usernameField.text];
         NSString *passwordString = [NSString stringWithFormat:@"%@", self.passwordField.text];
         
-//        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//        [[MPRequestProvider sharedInstance] registerWithEmail:emailString
-//                                                        phone:@""
-//                                                     username:usernameString
-//                                                     password:passwordString
-//                                                   completion:^(id result, NSError *error)
-//         {
-//             if (result) {
-//                 [self login];
-//             } else if (error) {
-//                 dispatch_async(dispatch_get_main_queue(), ^{
-//                     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-//                 });
-//                 
-//                 NSString *errorMessage = error.code == 100?error.domain:error.localizedDescription;
-//                 
-//                 [MPAlertManager showAlertMessage:errorMessage withOKblock:nil hasCancelButton:NO];
-//                 NSLog(@"Couldn't register");
-//             }
-//         }];
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [[MPRequestProvider sharedInstance] registerWithEmail:emailString
+                                                     username:usernameString
+                                                     password:passwordString
+                                                   completion:^(id result, NSError *error)
+         {
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+             });
+             if (result) {
+                 AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+                 [appDelegate setMainController];
+             } else if (error) {
+                 NSString *errorMessage = error.code == 100?error.domain:error.localizedDescription;
+                 
+                 [MPAlertManager showAlertMessage:errorMessage withOKblock:nil hasCancelButton:NO];
+                 NSLog(@"Couldn't register");
+             }
+         }];
     }
 }
-- (void)login
-{
-    NSString *usernameString = [NSString stringWithFormat:@"%@", [self.emailField.text lowercaseString]];
-    NSString *passwordString = [NSString stringWithFormat:@"%@", self.passwordField.text];
-    
-//    [[MPAuthenticationManager sharedManager] loginWithUsername:usernameString
-//                                                      password:passwordString
-//                                                    completion:^(BOOL completed)
-//     {
-//         dispatch_async(dispatch_get_main_queue(), ^{
-//             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-//         });
-//         
-//         if (completed) {
-//             AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-//             [appDelegate setMainController];
-//             [[NSNotificationCenter defaultCenter] postNotificationName:SHOW_PROFILE_NOTIFICATION object:nil];
-//         } else {
-//             [MPAlertManager showAlertMessage:kSignInFailedString withOKblock:nil hasCancelButton:NO];
-//         }
-//     }];
 
-}
 @end

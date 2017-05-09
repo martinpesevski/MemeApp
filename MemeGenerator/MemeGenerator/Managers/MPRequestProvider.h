@@ -15,6 +15,7 @@ typedef void(^imageCompletion)(UIImage *image);
 @interface MPRequestProvider : NSObject
 
 + (MPRequestProvider *)sharedInstance;
+- (void)registerWithEmail:(NSString *)email username:(NSString *)username password:(NSString *)password completion:(resultCompletion)completion;
 - (void)getMemesWithCompletion:(resultCompletion)completion;
 - (void)checkAccountWithCompletion:(resultCompletion)completion;
 - (void)getUserMemesWithCompletion:(resultCompletion)completion;

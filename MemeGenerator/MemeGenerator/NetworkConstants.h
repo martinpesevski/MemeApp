@@ -13,6 +13,7 @@
 
 #define kGetMemesEndpoint @"/memecharlist.json"
 #define kAuthenticationEndpoint @"/mampi/v1/doauth"
+#define kRegisterEndpoint @"/mampi/v1/users/add"
 #define kCheckAccountEndpoint @"/mampi/v1/checkfor"
 #define kGetUserMemesEndpoint @"/mampi/v1/getmemes"
 #define kPostMemeEndpoint @"/mampi/v1/meme/add"
