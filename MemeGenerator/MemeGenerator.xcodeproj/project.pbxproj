@@ -17,6 +17,8 @@
 		C73EB5FD1E8A875D00F3E6FC /* MPMeme.m in Sources */ = {isa = PBXBuildFile; fileRef = C73EB5FC1E8A875D00F3E6FC /* MPMeme.m */; };
 		C77E13E71E93C365007E33EC /* MPMyMemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C77E13E61E93C365007E33EC /* MPMyMemesViewController.m */; };
 		C78287781EBBD4AA00403DAD /* MPSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C78287771EBBD4AA00403DAD /* MPSignUpViewController.m */; };
+		C782877A1EC18FFF00403DAD /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C78287791EC18FFF00403DAD /* Photos.framework */; };
+		C782877D1EC1981F00403DAD /* MPDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C782877C1EC1981F00403DAD /* MPDatabaseManager.m */; };
 		C7921B0D1E9B775E00D9AEB3 /* MPNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C7921B0C1E9B775E00D9AEB3 /* MPNetworkManager.m */; };
 		C7921B101E9B777300D9AEB3 /* MPRequestProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C7921B0F1E9B777300D9AEB3 /* MPRequestProvider.m */; };
 		C797F32D1E82F37400D58EA2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C797F32C1E82F37400D58EA2 /* main.m */; };
@@ -73,6 +75,9 @@
 		C77E13E61E93C365007E33EC /* MPMyMemesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPMyMemesViewController.m; sourceTree = "<group>"; };
 		C78287761EBBD4AA00403DAD /* MPSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPSignUpViewController.h; sourceTree = "<group>"; };
 		C78287771EBBD4AA00403DAD /* MPSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPSignUpViewController.m; sourceTree = "<group>"; };
+		C78287791EC18FFF00403DAD /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		C782877B1EC1981F00403DAD /* MPDatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPDatabaseManager.h; sourceTree = "<group>"; };
+		C782877C1EC1981F00403DAD /* MPDatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPDatabaseManager.m; sourceTree = "<group>"; };
 		C7921B0B1E9B775E00D9AEB3 /* MPNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPNetworkManager.h; sourceTree = "<group>"; };
 		C7921B0C1E9B775E00D9AEB3 /* MPNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPNetworkManager.m; sourceTree = "<group>"; };
 		C7921B0E1E9B777300D9AEB3 /* MPRequestProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPRequestProvider.h; sourceTree = "<group>"; };
@@ -140,6 +145,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C782877A1EC18FFF00403DAD /* Photos.framework in Frameworks */,
 				E2F3C4BD536D7A24207242CD /* libPods-MemeGenerator.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -150,6 +156,7 @@
 		5F31BC271C0E789C7C7EC539 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C78287791EC18FFF00403DAD /* Photos.framework */,
 				4AC515D8F10CCCBB9015AC16 /* libPods-MemeGenerator.a */,
 			);
 			name = Frameworks;
@@ -284,6 +291,8 @@
 				C7921B0C1E9B775E00D9AEB3 /* MPNetworkManager.m */,
 				C7921B0E1E9B777300D9AEB3 /* MPRequestProvider.h */,
 				C7921B0F1E9B777300D9AEB3 /* MPRequestProvider.m */,
+				C782877B1EC1981F00403DAD /* MPDatabaseManager.h */,
+				C782877C1EC1981F00403DAD /* MPDatabaseManager.m */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -468,6 +477,7 @@
 				C7BDB14A1E82F59F000AA588 /* MPControllerManager.m in Sources */,
 				C7921B0D1E9B775E00D9AEB3 /* MPNetworkManager.m in Sources */,
 				C7BDB1801E82F816000AA588 /* MPStarRatingView.m in Sources */,
+				C782877D1EC1981F00403DAD /* MPDatabaseManager.m in Sources */,
 				C7BDB17D1E82F816000AA588 /* MPNavigationBarView.m in Sources */,
 				C7BDB14B1E82F59F000AA588 /* MPFontManager.m in Sources */,
 				C797F3331E82F37400D58EA2 /* MPDashboardController.m in Sources */,

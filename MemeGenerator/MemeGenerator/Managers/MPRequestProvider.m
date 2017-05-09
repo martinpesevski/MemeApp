@@ -10,7 +10,7 @@
 #import "MPNetworkManager.h"
 #import "NetworkConstants.h"
 #import "AFOAuth2Manager.h"
-#import "Constants.h"
+
 @implementation MPRequestProvider
 
 + (MPRequestProvider *)sharedInstance

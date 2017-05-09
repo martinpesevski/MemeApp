@@ -14,6 +14,7 @@
 #import "MPAlertManager.h"
 #import "AppDelegate.h"
 #import "Strings.h"
+#import "MPDatabaseManager.h"
 
 #define kMemeImageHeightWidth 300
 
@@ -320,11 +321,16 @@ typedef enum MPTextLocation {
     if (![self validation]) {
         return;
     }
-//    UIImageWriteToSavedPhotosAlbum(self.modifiedImage, nil, nil, nil);
-    [self saveImage];
-    
-    MPShareMemeViewController *shareMemeController = [[MPShareMemeViewController alloc] initWithMeme:self.createdMeme];
-    [self.navigationController pushViewController:shareMemeController animated:YES];
+
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [self saveImageWithCompletion:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        });
+        
+        MPShareMemeViewController *shareMemeController = [[MPShareMemeViewController alloc] initWithMeme:self.createdMeme];
+        [self.navigationController pushViewController:shareMemeController animated:YES];
+    }];
 }
 
 - (void)onChangeFont
@@ -434,30 +440,20 @@ typedef enum MPTextLocation {
                     withAttributes:textAttributes];
 }
 
-- (void)saveImage
+- (void)saveImageWithCompletion:(MPSimpleBlock)completion
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = paths.firstObject;
-    NSData *imageData = UIImagePNGRepresentation(self.modifiedImage);
-    
-    NSString *imagePath = [NSString stringWithFormat:@"%@/%@",documentsDirectory,@"memeGenerator"];
-    
-    BOOL isDir;
-    NSFileManager *fileManager= [NSFileManager defaultManager];
-    if(![fileManager fileExistsAtPath:imagePath isDirectory:&isDir])
-        if(![fileManager createDirectoryAtPath:imagePath withIntermediateDirectories:YES attributes:nil error:NULL])
-            NSLog(@"Error: folder creation failed %@", documentsDirectory);
-    
-    NSString *imageName = [NSString stringWithFormat:@"meme%@", [NSDate date]];
-    
-    [[NSFileManager defaultManager] createFileAtPath:[NSString stringWithFormat:@"%@/%@", imagePath, imageName] contents:nil attributes:nil];
-    [imageData writeToFile:[NSString stringWithFormat:@"%@/%@", imagePath, imageName] atomically:YES];
-    
-    self.createdMeme = self.meme;
-    self.createdMeme.image = self.modifiedImage;
-    self.createdMeme.name = imageName;
-    self.createdMeme.topText = self.topTextField.text;
-    self.createdMeme.bottomText = self.bottomTextField.text;
+    [[MPDatabaseManager sharedInstance] saveImage:self.modifiedImage completion:^(NSString *imageID) {
+        NSString *imageName = [NSString stringWithFormat:@"meme%@", [NSDate date]];
+        
+        self.createdMeme = self.meme;
+        self.createdMeme.image = self.modifiedImage;
+        self.createdMeme.name = imageName;
+        self.createdMeme.topText = self.topTextField.text;
+        self.createdMeme.bottomText = self.bottomTextField.text;
+        self.createdMeme.localImageID = imageID;
+        
+        [[MPDatabaseManager sharedInstance] saveMeme:self.createdMeme];
+    }];
 }
 
 @end

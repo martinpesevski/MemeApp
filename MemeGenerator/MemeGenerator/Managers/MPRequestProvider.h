@@ -8,9 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MPMeme.h"
-
-typedef void(^resultCompletion)(id result, NSError *error);
-typedef void(^imageCompletion)(UIImage *image);
+#import "Constants.h"
 
 @interface MPRequestProvider : NSObject
 

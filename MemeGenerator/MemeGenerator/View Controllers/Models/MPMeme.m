@@ -62,5 +62,45 @@
     }
 }
 
+#pragma mark - NSCoding
+
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (self) {
+        self.name = [aDecoder decodeObjectForKey:@"name"];
+        self.stockMemeID = [aDecoder decodeObjectForKey:@"stockMemeID"];
+        self.imageUrlString = [aDecoder decodeObjectForKey:@"imageUrlString"];
+        self.imageThumbnailString = [aDecoder decodeObjectForKey:@"imageThumbnailString"];
+        self.createdImageUrlString = [aDecoder decodeObjectForKey:@"createdImageUrlString"];
+        self.createdImageSmallThumbnailString = [aDecoder decodeObjectForKey:@"createdImageSmallThumbnailString"];
+        self.createdImageMediumThumbnailString = [aDecoder decodeObjectForKey:@"createdImageMediumThumbnailString"];
+        self.createdImageLargeThumbnailString = [aDecoder decodeObjectForKey:@"createdImageLargeThumbnailString"];
+        self.privacy = (MPMemePrivacy)[aDecoder decodeIntegerForKey:@"privacy"];
+        self.topText = [aDecoder decodeObjectForKey:@"topText"];
+        self.bottomText = [aDecoder decodeObjectForKey:@"bottomText"];
+        self.localImageID = [aDecoder decodeObjectForKey:@"localImageID"];
+        self.memeID = [aDecoder decodeObjectForKey:@"memeID"];
+    }
+    
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.name forKey:@"name"];
+    [aCoder encodeObject:self.stockMemeID forKey:@"stockMemeID"];
+    [aCoder encodeObject:self.imageUrlString forKey:@"imageUrlString"];
+    [aCoder encodeObject:self.imageThumbnailString forKey:@"imageThumbnailString"];
+    [aCoder encodeObject:self.createdImageUrlString forKey:@"createdImageUrlString"];
+    [aCoder encodeObject:self.createdImageSmallThumbnailString forKey:@"createdImageSmallThumbnailString"];
+    [aCoder encodeObject:self.createdImageMediumThumbnailString forKey:@"createdImageMediumThumbnailString"];
+    [aCoder encodeObject:self.createdImageLargeThumbnailString forKey:@"createdImageLargeThumbnailString"];
+    [aCoder encodeInteger:self.privacy forKey:@"privacy"];
+    [aCoder encodeObject:self.topText forKey:@"topText"];
+    [aCoder encodeObject:self.bottomText forKey:@"bottomText"];
+    [aCoder encodeObject:self.localImageID forKey:@"localImageID"];
+    [aCoder encodeObject:self.memeID forKey:@"memeID"];
+}
 
 @end

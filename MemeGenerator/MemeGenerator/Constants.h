@@ -6,6 +6,8 @@
 //  Copyright © 2016 Martin Peshevski. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
+
 #ifndef Constants_h
 #define Constants_h
 
@@ -36,5 +38,9 @@ typedef enum MPSportType {
     MPSportTypeAFL,
     MPSportTypeCricket
 } MPSportType;
+
+typedef void(^resultCompletion)(id result, NSError *error);
+typedef void(^imageCompletion)(UIImage *image);
+typedef void(^stringCompletion)(NSString *string);
 
 #endif /* Constants_h */
