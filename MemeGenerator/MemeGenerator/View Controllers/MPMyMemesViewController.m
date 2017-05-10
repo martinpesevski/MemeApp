@@ -18,6 +18,7 @@
 @interface MPMyMemesViewController ()
 
 @property (nonatomic, strong) NSArray *localMemesArray;
+@property (nonatomic) BOOL isLoading;
 
 @end
 
@@ -28,14 +29,16 @@
     [super viewDidLoad];
     
     self.title = kMyMemesTitleString;
+    self.isLoading = NO;
     
     [self tabbarSetup];
+    [self syncMemesWithLoading:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self syncMemes];
+    [self syncMemesWithLoading:NO];
 }
 
 - (void)tabbarSetup
@@ -63,8 +66,12 @@
     [self setupTabbarWithNames:names images:images actions:actionsArray];
 }
 
-- (void)syncMemes
+- (void)syncMemesWithLoading:(BOOL)shouldShowLoading
 {
+    if (self.isLoading) {
+        return;
+    }
+    self.isLoading = YES;
     [self loadImagesWithCompletion:^{
         if ([[MPAuthenticationManager sharedManager] isLoggedIn]) {
             [self synchronize];
@@ -72,7 +79,7 @@
     }];
     if ([[MPAuthenticationManager sharedManager] isLoggedIn]) {
         [self loadUserMemesCompletion:^{
-        }];
+        } shouldShowLoading:shouldShowLoading];
     }
 }
 
@@ -88,20 +95,23 @@
                 if (counter == memesToUpload) {
                     [self loadUserMemesCompletion:^{
                         
-                    }];
+                    } shouldShowLoading:NO];
                 }
             }];
         }
     }
 }
 
-- (void)loadUserMemesCompletion:(MPSimpleBlock)completion
+- (void)loadUserMemesCompletion:(MPSimpleBlock)completion shouldShowLoading:(BOOL)shouldShowLoading
 {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    if (shouldShowLoading) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
     [[MPRequestProvider sharedInstance] getUserMemesWithCompletion:^(id result, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         });
+        self.isLoading = NO;
         if (result && !error) {
 
             NSMutableArray *memesMutable = [[NSMutableArray alloc] init];
@@ -117,7 +127,11 @@
             
             [self.memesCollectionView reloadData];
         } else if (error) {
-            [MPAlertManager showAlertMessage:error.localizedDescription withOKblock:nil hasCancelButton:NO];
+            if (error.code == 100) {
+                [MPAlertManager showAlertMessage:error.domain withOKblock:nil hasCancelButton:NO];
+            } else {
+                [MPAlertManager showAlertMessage:error.localizedDescription withOKblock:nil hasCancelButton:NO];
+            }
         }
         
         completion();
@@ -188,8 +202,22 @@
         meme = self.localMemesArray[indexPath.row];
     }
     
-    MPShareMemeViewController *shareMemeController = [[MPShareMemeViewController alloc] initWithMeme:meme];
-    [self.navigationController pushViewController:shareMemeController animated:YES];
+    if (meme.image){
+        MPShareMemeViewController *shareMemeController = [[MPShareMemeViewController alloc] initWithMeme:meme];
+        [self.navigationController pushViewController:shareMemeController animated:YES];
+    } else if (meme.localImageID) {
+        [[MPDatabaseManager sharedInstance] loadImageFromImageID:meme.localImageID completion:^(UIImage *image) {
+            meme.image = image;
+            MPShareMemeViewController *shareMemeController = [[MPShareMemeViewController alloc] initWithMeme:meme];
+            [self.navigationController pushViewController:shareMemeController animated:YES];
+        }];
+    } else if (meme.memeID) {
+        [self loadImageFromUrl:meme.createdImageUrlString completion:^(UIImage *image) {
+            meme.image = image;
+            MPShareMemeViewController *shareMemeController = [[MPShareMemeViewController alloc] initWithMeme:meme];
+            [self.navigationController pushViewController:shareMemeController animated:YES];
+        }];
+    }
 }
 
 @end

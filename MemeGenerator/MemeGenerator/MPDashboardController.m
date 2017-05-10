@@ -35,7 +35,7 @@
     
     self.title = kDashboardTitleString;
     
-    self.cellNamesArray = @[kFromAPhotoString, kFromAPhotoString, kFromAKnownMemeString];
+    self.cellNamesArray = @[kFromAPhotoString, kFromAnImageString, kFromAKnownMemeString];
     self.cellImagesArray = @[[UIImage imageNamed:@"camera-icon"],
                              [UIImage imageNamed:@"folder-icon"],
                              [UIImage imageNamed:@"meme-icon"]];

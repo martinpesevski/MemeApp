@@ -213,6 +213,10 @@
 
 - (void)onShare
 {
+    if (!self.memeImage) {
+        [MPAlertManager showAlertMessage:@"Empty meme image!" withOKblock:nil hasCancelButton:NO];
+        return;
+    }
     NSMutableArray *sharingItems = [NSMutableArray new];
 //    [sharingItems addObject:kShareMessageString];
     [sharingItems addObject:self.memeImage];

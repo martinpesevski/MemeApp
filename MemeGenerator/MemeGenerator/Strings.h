@@ -12,7 +12,7 @@
 #define kDashboardTitleString @"Meme Generator by makeameme.org"
 #define kSelectAMemeTitleString @"Select a meme"
 #define kMemeMakerTitleString @"Enter top and bottom text"
-#define kMyMemesTitleString @"Your memes"
+#define kMyMemesTitleString @"Your Memes"
 #define kShareTitleString @"Share your meme"
 
 #define kFromAPhotoString @"From a new photo"

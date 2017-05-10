@@ -39,7 +39,8 @@
 - (void)setConstraints
 {
     [self.memesCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.view);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.tabBar.mas_top);
         make.top.equalTo(self.view);
     }];
 }

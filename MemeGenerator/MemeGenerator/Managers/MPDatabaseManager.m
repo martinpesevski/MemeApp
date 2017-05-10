@@ -40,6 +40,10 @@
 
 - (void)loadImageFromImageID:(NSString *)imageID completion:(imageCompletion)completion
 {
+    if (!imageID) {
+        completion(nil);
+        return;
+    }
     PHFetchResult* assetResult = [PHAsset fetchAssetsWithLocalIdentifiers:@[imageID] options:nil];
     PHAsset *asset = [assetResult firstObject];
     [[PHImageManager defaultManager] requestImageDataForAsset:asset options:nil resultHandler:^(NSData *imageData, NSString *dataUTI, UIImageOrientation orientation, NSDictionary *info) {

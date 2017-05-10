@@ -94,7 +94,13 @@
                                  progress:nil
                                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
      {
-         completion (responseObject, nil);
+         NSString *errorString = responseObject[@"error"];
+         if (errorString) {
+             NSError *error = [NSError errorWithDomain:errorString code:100 userInfo:nil];
+             completion(nil, error);
+         } else {
+             completion (responseObject, nil);
+         }
      }
                                   failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
      {
