@@ -10,6 +10,7 @@
 #import "Masonry.h"
 #import "Constants.h"
 #import "MPFontManager.h"
+#import "MPColorManager.h"
 
 @interface MPDashboardCell ()
 
@@ -42,6 +43,7 @@
     self.cellLabel.font = [MPFontManager getLargeFont];
     self.cellLabel.numberOfLines = 0;
     self.cellLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.cellLabel.textColor = [MPColorManager getLabelColorWhite];
     
     [self addSubview:self.cellImageView];
     [self addSubview:self.cellLabel];

@@ -45,6 +45,10 @@ typedef enum MPTextLocation {
 @property (nonatomic, strong) UILabel *allCapsLabel;
 @property (nonatomic, strong) UILabel *fontSizeLabel;
 
+@property (nonatomic, strong) UIView *outlineShadowContainer;
+@property (nonatomic, strong) UIView *fontSizeContainer;
+@property (nonatomic, strong) UIView *capitalizeLettersContainer;
+
 @property (nonatomic, strong) UISlider *fontSizeSlider;
 
 @property (nonatomic) int preferredFontSize;
@@ -126,10 +130,13 @@ typedef enum MPTextLocation {
     [self.outlineSwitch addTarget:self action:@selector(onSwitch) forControlEvents:UIControlEventValueChanged];
     self.outlineSwitch.tintColor = [MPColorManager getNavigationBarColor];
     self.outlineSwitch.onTintColor = [MPColorManager getNavigationBarColor];
+    [self.outlineSwitch setOn:YES];
     
     self.textShadowLabel = [[UILabel alloc] init];
     self.textShadowLabel.text = kTextShadowString;
     self.textShadowLabel.textColor = [MPColorManager getLabelColorBlack];
+    
+    self.outlineShadowContainer = [[UIView alloc] init];
     
     self.allCapsSwitch = [[UISwitch alloc] init];
     [self.allCapsSwitch setOn:YES];
@@ -140,6 +147,8 @@ typedef enum MPTextLocation {
     self.allCapsLabel = [[UILabel alloc] init];
     self.allCapsLabel.text = kCapitalizeLettersString;
     self.allCapsLabel.textColor = [MPColorManager getLabelColorBlack];
+    
+    self.capitalizeLettersContainer = [[UIView alloc] init];
     
     self.shadowSwitch = [[UISwitch alloc] init];
     [self.shadowSwitch addTarget:self action:@selector(onSwitch) forControlEvents:UIControlEventValueChanged];
@@ -159,6 +168,8 @@ typedef enum MPTextLocation {
     
     self.fontSize = self.preferredFontSize * (self.fontSizeSlider.value/20);
     
+    self.fontSizeContainer = [[UIView alloc] init];
+    
     self.createButton = [[UIButton alloc] init];
     [self.createButton setTitle:kCreateString forState:UIControlStateNormal];
     [self.createButton addTarget:self action:@selector(onCreate) forControlEvents:UIControlEventTouchUpInside];
@@ -169,14 +180,17 @@ typedef enum MPTextLocation {
     [self.mainScrollView addSubview:self.topTextField];
     [self.mainScrollView addSubview:self.bottomTextField];
     [self.mainScrollView addSubview:self.selectFontButton];
-    [self.mainScrollView addSubview:self.textOutlineLabel];
-    [self.mainScrollView addSubview:self.outlineSwitch];
-    [self.mainScrollView addSubview:self.textShadowLabel];
-    [self.mainScrollView addSubview:self.shadowSwitch];
-    [self.mainScrollView addSubview:self.allCapsLabel];
-    [self.mainScrollView addSubview:self.allCapsSwitch];
-    [self.mainScrollView addSubview:self.fontSizeLabel];
-    [self.mainScrollView addSubview:self.fontSizeSlider];
+    [self.outlineShadowContainer addSubview:self.textOutlineLabel];
+    [self.outlineShadowContainer addSubview:self.outlineSwitch];
+    [self.outlineShadowContainer addSubview:self.textShadowLabel];
+    [self.outlineShadowContainer addSubview:self.shadowSwitch];
+    [self.mainScrollView addSubview:self.outlineShadowContainer];
+    [self.capitalizeLettersContainer addSubview:self.allCapsLabel];
+    [self.capitalizeLettersContainer addSubview:self.allCapsSwitch];
+    [self.mainScrollView addSubview:self.capitalizeLettersContainer];
+    [self.fontSizeContainer addSubview:self.fontSizeLabel];
+    [self.fontSizeContainer addSubview:self.fontSizeSlider];
+    [self.mainScrollView addSubview: self.fontSizeContainer];
     [self.view addSubview:self.mainScrollView];
     [self.view addSubview:self.createButton];
 }
@@ -206,45 +220,59 @@ typedef enum MPTextLocation {
         make.top.equalTo(self.topTextField.mas_bottom).offset(kLeftRightPadding);
         make.height.equalTo(@(kMemeTextfieldHeight));
     }];
+    [self.fontSizeContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.bottomTextField.mas_bottom).offset(20);
+        make.centerX.equalTo(self.view);
+    }];
     [self.fontSizeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.selectFontButton);
+        make.left.equalTo(self.fontSizeContainer);
         make.centerY.equalTo(self.fontSizeSlider);
     }];
     [self.fontSizeSlider mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.fontSizeLabel.mas_right).offset(10);
         make.width.equalTo(@100);
-        make.top.equalTo(self.bottomTextField.mas_bottom).offset(20);
+        make.right.top.bottom.equalTo(self.fontSizeContainer);
+    }];
+    [self.outlineShadowContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(self.fontSizeContainer.mas_bottom).offset(20);
+    }];
+    [self.textOutlineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.outlineShadowContainer);
+        make.centerY.equalTo(self.outlineSwitch);
+    }];
+    [self.outlineSwitch mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.outlineShadowContainer);
+        make.left.equalTo(self.textOutlineLabel.mas_right).offset(10);
+    }];
+    [self.textShadowLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.outlineSwitch.mas_right).offset(20);
+        make.centerY.equalTo(self.shadowSwitch);
+    }];
+    [self.shadowSwitch mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.outlineSwitch);
+        make.left.equalTo(self.textShadowLabel.mas_right).offset(10);
+        make.right.equalTo(self.outlineShadowContainer);
+        make.bottom.equalTo(self.outlineShadowContainer);
     }];
     [self.selectFontButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.fontSizeSlider.mas_bottom).offset(20);
+        make.top.equalTo(self.outlineShadowContainer.mas_bottom).offset(20);
         make.height.equalTo(@(kLoginButtonHeight));
         make.width.equalTo(@(kScreenWidth / 3));
         make.centerX.equalTo(self.view);
     }];
-    [self.textOutlineLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.selectFontButton);
-        make.centerY.equalTo(self.outlineSwitch);
-    }];
-    [self.outlineSwitch mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.capitalizeLettersContainer mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view);
         make.top.equalTo(self.selectFontButton.mas_bottom).offset(20);
-        make.left.equalTo(self.textOutlineLabel.mas_right).offset(10);
-    }];
-    [self.textShadowLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.selectFontButton);
-        make.centerY.equalTo(self.shadowSwitch);
-    }];
-    [self.shadowSwitch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.outlineSwitch.mas_bottom).offset(20);
-        make.left.equalTo(self.textShadowLabel.mas_right).offset(10);
+        make.bottom.equalTo(self.mainScrollView);
     }];
     [self.allCapsLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.selectFontButton);
+        make.left.equalTo(self.capitalizeLettersContainer);
         make.centerY.equalTo(self.allCapsSwitch);
     }];
     [self.allCapsSwitch mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.shadowSwitch.mas_bottom).offset(20);
+        make.top.right.bottom.equalTo(self.capitalizeLettersContainer);
         make.left.equalTo(self.allCapsLabel.mas_right).offset(10);
-        make.bottom.equalTo(self.mainScrollView);
     }];
     [self.createButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
