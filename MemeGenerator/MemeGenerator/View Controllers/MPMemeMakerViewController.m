@@ -451,18 +451,26 @@ typedef enum MPTextLocation {
     NSMutableDictionary *textAttributes = [[NSMutableDictionary alloc] init];
     [textAttributes setObject:font forKey:NSFontAttributeName];
     [textAttributes setObject:paragraphStyle forKey:NSParagraphStyleAttributeName];
-    [textAttributes setObject:[MPColorManager getLabelColorWhite] forKey:NSForegroundColorAttributeName];
     
+    CGContextRef c = UIGraphicsGetCurrentContext();
+
     if (self.outlineSwitch.isOn) {
+        CGContextSetLineWidth(c, 5);
+        CGContextSetLineJoin(c, kCGLineJoinRound);
+        
+        CGContextSetTextDrawingMode(c, kCGTextStroke);
         [textAttributes setObject:[UIColor blackColor] forKey:NSStrokeColorAttributeName];
-        [textAttributes setObject:@-3.0f forKey:NSStrokeWidthAttributeName];
-        [textAttributes setObject:modifiedFont forKey:NSFontAttributeName];
+        [text drawInRect:CGRectIntegral(rect)
+          withAttributes:textAttributes];
     }
     if (self.shadowSwitch.isOn) {
         CGContextRef context = UIGraphicsGetCurrentContext();
         CGContextSetShadow(context, CGSizeMake(10.0f, 10.0f), 10.0f);
     }
     
+    CGContextSetTextDrawingMode(c, kCGTextFill);
+    [textAttributes setObject:[MPColorManager getLabelColorWhite] forKey:NSForegroundColorAttributeName];
+
     [text drawInRect:CGRectIntegral(rect)
                     withAttributes:textAttributes];
 }
