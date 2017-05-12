@@ -144,7 +144,7 @@
 
 - (void)updatePrivacyForMeme:(MPMeme *)meme completion:(resultCompletion)completion
 {
-    if (!meme.memeID || !meme.privacy) {
+    if (!meme.memeID) {
         completion(nil, nil);
         return;
     }
