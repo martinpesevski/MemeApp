@@ -8,7 +8,6 @@
 
 #import "MPAuthenticationManager.h"
 #import "NetworkConstants.h"
-#import "Constants.h"
 #import "AFOAuth2Manager.h"
 
 @interface MPAuthenticationManager ()
@@ -36,7 +35,7 @@
         
         AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
         [responseSerializer setRemovesKeysWithNullValues:YES];
-        responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", nil];
+        responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", nil];
         self.responseSerializer = responseSerializer;
         
     }
@@ -63,6 +62,41 @@
           completion(YES);
       } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
           completion(NO);
+      }];
+}
+
+- (void)loginWithFbToken:(NSString *)token username:(NSString *)username completion:(resultCompletion)completion
+{
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary: @{@"fbtoken": token}];
+    
+    if (username) {
+        [params setObject:username forKey:@"username"];
+    }
+    
+    [self GET:kAuthenticationEndpoint
+   parameters:params
+     progress:nil
+      success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+          if (responseObject[@"error"]) {
+              if (responseObject[@"error"]) {
+                  NSError *error = [[NSError alloc] initWithDomain:responseObject[@"error"] code:100 userInfo:nil];
+                  completion(nil, error);
+                  return;
+              }
+          }
+          if (!responseObject[@"authToken"]) {
+              NSLog(@"EMPTY CREDENTIAL");
+              NSError *error = [[NSError alloc] initWithDomain:@"No auth token" code:100 userInfo:nil];
+              completion(nil, error);
+              return;
+          }
+          
+          AFOAuthCredential *credential = [[AFOAuthCredential alloc] initWithOAuthToken:responseObject[@"authToken"] tokenType:@"bearer"];
+          [AFOAuthCredential storeCredential:credential withIdentifier:kTokenIdentifier];
+          [[NSNotificationCenter defaultCenter] postNotificationName:USER_LOGGED_IN_NOTIFICATION object:nil];
+          completion(responseObject, nil);
+      } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+          completion(nil, error);
       }];
 }
 

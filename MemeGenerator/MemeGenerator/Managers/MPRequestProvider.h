@@ -15,7 +15,7 @@
 + (MPRequestProvider *)sharedInstance;
 - (void)registerWithEmail:(NSString *)email username:(NSString *)username password:(NSString *)password completion:(resultCompletion)completion;
 - (void)getMemesWithCompletion:(resultCompletion)completion;
-- (void)checkAccountWithCompletion:(resultCompletion)completion;
+- (void)checkUsernameAvailable:(NSString *)username completion:(successCompletion)completion;
 - (void)getUserMemesWithCompletion:(resultCompletion)completion;
 - (void)postMeme:(MPMeme *)meme completion:(resultCompletion)completion;
 - (void)updatePrivacyForMeme:(MPMeme *)meme completion:(resultCompletion)completion;

@@ -9,12 +9,12 @@
 #ifndef NetworkConstants_h
 #define NetworkConstants_h
 
-#define BASE_URL @"https://makeameme.org"
+#define BASE_URL @"http://makeameme.org"
 
 #define kGetMemesEndpoint @"/memecharlist.json"
 #define kAuthenticationEndpoint @"/mampi/v1/doauth"
 #define kRegisterEndpoint @"/mampi/v1/users/add"
-#define kCheckAccountEndpoint @"/mampi/v1/checkfor"
+#define kCheckAccountEndpoint @"/mampi/v1/users/check"
 #define kGetUserMemesEndpoint @"/mampi/v1/getmemes"
 #define kPostMemeEndpoint @"/mampi/v1/meme/add"
 #define kUpdateMemeEndpoint @"/mampi/v1/meme/update"

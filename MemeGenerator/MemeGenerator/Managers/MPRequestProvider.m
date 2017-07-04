@@ -69,21 +69,24 @@
      }];
 }
 
-- (void)checkAccountWithCompletion:(resultCompletion)completion
+- (void)checkUsernameAvailable:(NSString *)username completion:(successCompletion)completion
 {
-    NSDictionary *paramsDictionary = @{@"email":@"martin.the.don@hotmail.com"};
+    NSDictionary *paramsDictionary = @{@"username":username};
     
     [[MPNetworkManager sharedManager] GET:kCheckAccountEndpoint
                                parameters:paramsDictionary
                                  progress:nil
                                   success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
      {
-         completion (responseObject, nil);
+         if ([responseObject[@"username"] isEqualToString:@"available"]) {
+             completion(YES);
+         }
+         completion (NO);
      }
                                   failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
      {
          NSLog(@"\n============== ERROR checking account ====\n%@",error.userInfo);
-         completion(nil, error);
+         completion(NO);
      }];
 }
 

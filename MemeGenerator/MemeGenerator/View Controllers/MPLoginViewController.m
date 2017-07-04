@@ -18,6 +18,8 @@
 #import "MPAuthenticationManager.h"
 #import "AppDelegate.h"
 #import "MPSignUpViewController.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 @interface MPLoginViewController () <UITextFieldDelegate>
 
@@ -28,7 +30,10 @@
 @property (nonatomic, strong) UILabel *registerAccountLabel;
 @property (nonatomic, strong) UIView *registerPlaceholderView;
 
+@property (nonatomic, strong) UIImage *facebookButtonImage;
+
 @property (nonatomic, strong) UIButton *loginButton;
+@property (nonatomic, strong) UIButton *facebookLoginButton;
 
 @property (nonatomic, strong) UIButton *forgotPasswordButton;
 
@@ -80,6 +85,12 @@
     [self.loginButton setTitle:[@"Sign in" uppercaseString] forState:UIControlStateNormal];
     [self.loginButton addTarget:self action:@selector(onLogin) forControlEvents:UIControlEventTouchUpInside];
     
+    self.facebookButtonImage = [UIImage imageNamed:@"facebook-login-button"];
+    
+    self.facebookLoginButton = [[UIButton alloc] init];
+    [self.facebookLoginButton addTarget:self action:@selector(onFacebookLoginTap) forControlEvents:UIControlEventTouchUpInside];
+    [self.facebookLoginButton setBackgroundImage:self.facebookButtonImage forState:UIControlStateNormal];
+    
     self.forgotPasswordButton = [[UIButton alloc] init];
     [self.forgotPasswordButton setTitle:@"Forgot password?" forState:UIControlStateNormal];
     [self.forgotPasswordButton setTitleColor:[MPColorManager getLabelColorWhite] forState:UIControlStateNormal];
@@ -112,6 +123,7 @@
     [self.keyboardAvoidingContainerView addSubview:self.usernameTextView];
     [self.keyboardAvoidingContainerView addSubview:self.passwordTextView];
     [self.keyboardAvoidingContainerView addSubview:self.loginButton];
+    [self.keyboardAvoidingContainerView addSubview:self.facebookLoginButton];
     [self.keyboardAvoidingContainerView addSubview:self.forgotPasswordButton];
     [self.keyboardAvoidingContainerView addSubview:self.activityIndicator];
     [self.registerPlaceholderView addSubview:self.noAccountLabel];
@@ -146,6 +158,13 @@
         make.height.equalTo(@(kLoginButtonHeight));
         make.left.equalTo(self.keyboardAvoidingContainerView);
         make.right.equalTo(self.keyboardAvoidingContainerView);
+    }];
+    [self.facebookLoginButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.loginButton.mas_bottom).offset(20);
+        make.height.equalTo(@(kLoginButtonHeight));
+        float ratio = kLoginButtonHeight / self.facebookButtonImage.size.height;
+        make.width.equalTo(@(self.facebookButtonImage.size.width * ratio));
+        make.centerX.equalTo(self.keyboardAvoidingContainerView);
         make.bottom.equalTo(self.keyboardAvoidingContainerView);
     }];
     [self.forgotPasswordButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -256,6 +275,73 @@
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {   
     return YES;
+}
+
+#pragma mark - facebook login
+
+- (void)onFacebookLoginTap
+{
+    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+    [login
+     logInWithReadPermissions: @[@"public_profile", @"email", @"user_friends"]
+     fromViewController:self
+     handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+         if (error) {
+             NSLog(@"Facebook login: Process error");
+         } else if (result.isCancelled) {
+             NSLog(@"Facebook login Cancelled");
+         } else {
+             NSString *tokenString = result.token.tokenString;
+             
+             [self loginWithFacebookToken:tokenString username:nil];
+         }
+     }];
+}
+
+- (void)checkIfUsernameAvailableAndLoginWithToken:(NSString *)token username:(NSString *)username
+{
+    [self checkIfUsernameAvailable:username completion:^(BOOL completed) {
+        if (completed) {
+            [self loginWithFacebookToken:token username:username];
+        } else {
+            [self showUsernamePromptForToken:token];
+        }
+    }];
+}
+
+- (void)checkIfUsernameAvailable:(NSString *)username completion:(successCompletion)completion
+{
+    [[MPRequestProvider sharedInstance] checkUsernameAvailable:username completion:^(BOOL completed) {
+        if (completion) {
+            completion(completed);
+        }
+    }];
+}
+
+- (void)loginWithFacebookToken:(NSString *)token username:(NSString *)username
+{
+    [[MPAuthenticationManager sharedManager] loginWithFbToken:token username:username completion:^(id result, NSError *error) {
+        if (error) {
+            if (error.code == 100) {
+                if ([error.domain containsString:@"No username provided"]) {
+                    [self showUsernamePromptForToken:token];
+                } else {
+                    [MPAlertManager showAlertMessage:error.domain withOKblock:nil hasCancelButton:NO];
+                }
+            } else {
+                [MPAlertManager showAlertMessage:error.localizedDescription withOKblock:nil hasCancelButton:NO];
+            }
+        } else if (result) {
+            [self completeLogin];
+        }
+    }];
+}
+
+- (void)showUsernamePromptForToken:(NSString *)token
+{
+    [MPAlertManager showTextFieldAlertMessage:@"Which username would you like to use in the app?" withOKblock:^(NSString *username) {
+        [self checkIfUsernameAvailableAndLoginWithToken:token username:username];
+    } hasCancelButton:YES];
 }
 
 @end

@@ -43,5 +43,7 @@ typedef void(^resultCompletion)(id result, NSError *error);
 typedef void(^imageCompletion)(UIImage *image);
 typedef void(^stringCompletion)(NSString *string);
 typedef void(^arrayCompletion)(NSArray *array);
+typedef void(^successCompletion)(BOOL completed);
+
 
 #endif /* Constants_h */

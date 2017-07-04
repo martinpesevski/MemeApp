@@ -55,6 +55,44 @@
     [topController presentViewController:alert animated:YES completion:nil];
 }
 
++ (void)showTextFieldAlertMessage:(NSString *)message withOKblock:(MPStringBlock)callbackBlock hasCancelButton:(BOOL)hasCancelButton
+{
+    UIAlertController* alert = [UIAlertController
+                                alertControllerWithTitle:nil
+                                message:message
+                                preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"Please enter username";
+    }];
+    
+    if (hasCancelButton) {
+        UIAlertAction* cancelAction = [UIAlertAction
+                                       actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel
+                                       handler:nil];
+        [alert addAction:cancelAction];
+    }
+    
+    UIAlertAction* defaultAction = [UIAlertAction
+                                    actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                    handler:^(UIAlertAction * action) {
+                                        if (callbackBlock) {
+                                            UITextField *usernameField = alert.textFields.firstObject;
+                                            callbackBlock(usernameField.text);
+                                        }
+                                    }];
+    
+    [alert addAction:defaultAction];
+    
+    UIViewController *topController = [MPControllerManager getTopViewController];
+    if ([topController isKindOfClass:[UIAlertController class]]) {
+        //prevent from displaying multilple alerts at the same time
+        return;
+    }
+    
+    [topController presentViewController:alert animated:YES completion:nil];
+}
+
 + (void)showActionSheetWithTitles:(NSArray *)titles
                            blocks:(NSArray *)blocks
                        sourceView:(UIView *)sourceView

@@ -46,6 +46,10 @@
 		C7BDB1811E82F816000AA588 /* MPTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = C7BDB17B1E82F816000AA588 /* MPTextField.m */; };
 		C7BDB1851E82FC92000AA588 /* MPDashboardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7BDB1841E82FC92000AA588 /* MPDashboardCell.m */; };
 		C7C8CA6D1E93C08900F13C29 /* MPBaseMemeCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7C8CA6C1E93C08900F13C29 /* MPBaseMemeCollectionViewController.m */; };
+		C7DF85D91EE6863400CAED5D /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7DF85D81EE6863400CAED5D /* FBSDKLoginKit.framework */; };
+		C7DF85DB1EE6878B00CAED5D /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7DF85DA1EE6878B00CAED5D /* FBSDKCoreKit.framework */; };
+		C7DF85DD1EE6879400CAED5D /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7DF85DC1EE6879400CAED5D /* FBSDKShareKit.framework */; };
+		C7DF85DF1EE6886A00CAED5D /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7DF85DE1EE6886A00CAED5D /* Bolts.framework */; };
 		C7E966BE1E8ED4F20015CDD8 /* cambria-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C7E966BD1E8ED4F20015CDD8 /* cambria-bold.ttf */; };
 		C7F05CDA1EB0067D00996A6D /* MPLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7F05CD91EB0067D00996A6D /* MPLoginViewController.m */; };
 		C7F05CDD1EB0069200996A6D /* MPBaseLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7F05CDC1EB0069200996A6D /* MPBaseLoginViewController.m */; };
@@ -132,6 +136,10 @@
 		C7C8CA6B1E93C08900F13C29 /* MPBaseMemeCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPBaseMemeCollectionViewController.h; sourceTree = "<group>"; };
 		C7C8CA6C1E93C08900F13C29 /* MPBaseMemeCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPBaseMemeCollectionViewController.m; sourceTree = "<group>"; };
 		C7CA06DB1EB8BB2500B8F89D /* Strings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Strings.h; sourceTree = "<group>"; };
+		C7DF85D81EE6863400CAED5D /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		C7DF85DA1EE6878B00CAED5D /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		C7DF85DC1EE6879400CAED5D /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		C7DF85DE1EE6886A00CAED5D /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		C7E966BD1E8ED4F20015CDD8 /* cambria-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "cambria-bold.ttf"; sourceTree = "<group>"; };
 		C7F05CD81EB0067D00996A6D /* MPLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MPLoginViewController.h; sourceTree = "<group>"; };
 		C7F05CD91EB0067D00996A6D /* MPLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MPLoginViewController.m; sourceTree = "<group>"; };
@@ -146,7 +154,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C782877A1EC18FFF00403DAD /* Photos.framework in Frameworks */,
+				C7DF85DB1EE6878B00CAED5D /* FBSDKCoreKit.framework in Frameworks */,
+				C7DF85DD1EE6879400CAED5D /* FBSDKShareKit.framework in Frameworks */,
+				C7DF85DF1EE6886A00CAED5D /* Bolts.framework in Frameworks */,
 				E2F3C4BD536D7A24207242CD /* libPods-MemeGenerator.a in Frameworks */,
+				C7DF85D91EE6863400CAED5D /* FBSDKLoginKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +168,10 @@
 		5F31BC271C0E789C7C7EC539 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C7DF85DE1EE6886A00CAED5D /* Bolts.framework */,
+				C7DF85DC1EE6879400CAED5D /* FBSDKShareKit.framework */,
+				C7DF85DA1EE6878B00CAED5D /* FBSDKCoreKit.framework */,
+				C7DF85D81EE6863400CAED5D /* FBSDKLoginKit.framework */,
 				C78287791EC18FFF00403DAD /* Photos.framework */,
 				4AC515D8F10CCCBB9015AC16 /* libPods-MemeGenerator.a */,
 			);
@@ -632,6 +648,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = GJ2XP2D7YG;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"~/Documents/FacebookSDK",
+				);
 				INFOPLIST_FILE = MemeGenerator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spacecat.makeameme;
@@ -648,6 +669,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = GJ2XP2D7YG;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"~/Documents/FacebookSDK",
+				);
 				INFOPLIST_FILE = MemeGenerator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.spacecat.makeameme;

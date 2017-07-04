@@ -8,8 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MPNetworkManager.h"
-
-typedef void(^successCompletion)(BOOL completed);
+#import "Constants.h"
 
 @interface MPAuthenticationManager : AFHTTPSessionManager
 
@@ -18,6 +17,8 @@ typedef void(^successCompletion)(BOOL completed);
 - (void)loginWithUsername:(NSString *)username
                  password:(NSString *)password
                completion:(successCompletion)completion;
+
+- (void)loginWithFbToken:(NSString *)token username:(NSString *)username completion:(resultCompletion)completion;
 
 - (void)loginWithToken:(NSString *)token completion:(successCompletion)completion;
 

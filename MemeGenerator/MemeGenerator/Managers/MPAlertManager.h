@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 typedef void (^MPSimpleBlock)(void);
+typedef void (^MPStringBlock) (NSString *username);
 typedef void (^MPValueBlock)(int amount);
 typedef void (^MPArrayBlock)(NSArray *resultArray);
 
@@ -17,6 +18,8 @@ typedef void (^MPArrayBlock)(NSArray *resultArray);
 + (void)showAlertMessage:(NSString*)message;
 + (void)showAlertMessage:(NSString*)message withOKblock:(MPSimpleBlock)callbackBlock;
 + (void)showAlertMessage:(NSString *)message withOKblock:(MPSimpleBlock)callbackBlock hasCancelButton:(BOOL)hasCancelButton;
+
++ (void)showTextFieldAlertMessage:(NSString *)message withOKblock:(MPStringBlock)callbackBlock hasCancelButton:(BOOL)hasCancelButton;
 
 + (void)showActionSheetWithTitles:(NSArray *)titles
                            blocks:(NSArray *)blocks
