@@ -9,7 +9,7 @@
 #ifndef NetworkConstants_h
 #define NetworkConstants_h
 
-#define BASE_URL @"http://makeameme.org"
+#define BASE_URL @"https://gizmobe.com/mampi/v1"
 
 #define kGetMemesEndpoint @"/memecharlist.json"
 #define kAuthenticationEndpoint @"/mampi/v1/doauth"
